@@ -1,0 +1,33 @@
+config:
+  backup: true
+  banner: true
+  create: true
+  dotpath: dotfiles
+  keepdot: false
+  link_dotfile_default: nolink
+  link_on_import: nolink
+  longkey: false
+dotfiles:
+  f_zshrc:
+    src: zshrc
+    dst: ~/.zshrc
+  f_zshenv:
+    src: zshenv
+    dst: ~/.zshenv
+  f_zlogin:
+    src: zlogin
+    dst: ~/.zlogin
+  f_zprofile:
+    src: zprofile
+    dst: ~/.zprofile
+  d_zsh:
+    src: zsh
+    dst: ~/.zsh
+profiles:
+  ip-172-31-39-42:
+    dotfiles:
+    - f_zshrc
+    - f_zshenv
+    - f_zlogin
+    - f_zprofile
+    - d_zsh
