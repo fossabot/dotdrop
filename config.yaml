@@ -4,7 +4,7 @@ config:
   create: true
   dotpath: dotfiles
   keepdot: false
-  link_dotfile_default: nolink
+  link_dotfile_default: link
   link_on_import: nolink
   longkey: false
 dotfiles:
@@ -20,18 +20,14 @@ dotfiles:
   f_zprofile:
     src: zprofile
     dst: ~/.zprofile
-  d_zsh:
-    src: zsh
-    dst: ~/.zsh
   d_config_zsh:
     src: config/zsh
     dst: ~/.config/zsh
 profiles:
-  ip-172-31-39-42:
+  zsh:
     dotfiles:
     - f_zshrc
     - f_zshenv
     - f_zlogin
     - f_zprofile
-    - d_zsh
     - d_config_zsh

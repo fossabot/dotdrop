@@ -16,12 +16,11 @@ zsnippet() { zplugin snippet                        "${@}"; }
 # ──────────────────────────────────────────────────────────────────────────────
 
 # Load the pure theme, with zsh-async library that's bundled with it
-zplugin ice pick"async.zsh" src"pure.zsh" lucid
-zplugin light sindresorhus/pure
+turbo0 pick"async.zsh" src"pure.zsh"; zload sindresorhus/pure
 
 # base16-shell
-# zplugin ice wait"0" lucid
-# zplugin light chriskempson/base16-shell
+# https://github.com/chriskempson/base16-shell
+turbo0; zload chriskempson/base16-shell
 
 
 # ─── fzf ──────────────────────────────────────────────────────────────────────
