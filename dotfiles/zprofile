@@ -1,6 +1,24 @@
 # vim:syntax=zsh
 # vim:filetype=zsh
 
+if [[ "$SYSTEM" = "Darwin"  ]]; then
+  # system executables
+  #export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/libexec
+  # local system binaries
+  export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
+elif [[ "$SYSTEM" = "Linux"  ]]; then
+  if [ -d "/home/linuxbrew/.linuxbrew" ]; then
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+    export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+  fi
+fi
+
+# https://github.com/sindresorhus/pure#options
+export PURE_PROMPT_SYMBOL='❯'
+
+# https://github.com/rupa/z
+export _Z_DATA="$XDG_CACHE_HOME/zsh/z"
+
 #
 # Executes commands at login before zshrc.
 #

@@ -9,6 +9,13 @@ bindkey -e # emacs bindings, set to -v for vi bindings
 
 bindkey '\e[Z'     reverse-menu-complete # shift-tab
 
+# bindkey '^[[A' history-substring-search-up
+# bindkey '^[[B' history-substring-search-down
+
+
+# [Esc] [Esc] to prepend 'sudo ' to current command and move to EOL
+# bindkey -s '\e\e' '^Asudo ^E'
+
 # #-----------------------------------------------------
 # # Set VIM mode
 # # e.g. https://dougblack.io/words/zsh-vi-mode.html

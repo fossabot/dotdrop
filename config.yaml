@@ -23,6 +23,9 @@ dotfiles:
   d_zsh:
     src: zsh
     dst: ~/.zsh
+  d_config_zsh:
+    src: config/zsh
+    dst: ~/.config/zsh
 profiles:
   ip-172-31-39-42:
     dotfiles:
@@ -31,3 +34,4 @@ profiles:
     - f_zlogin
     - f_zprofile
     - d_zsh
+    - d_config_zsh

@@ -2,6 +2,10 @@
 # vim:syntax=zsh
 # vim:filetype=zsh
 
+# ─── xdg ──────────────────────────────────────────────────────────────────────
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:=$HOME/.cache}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+
 # https://blog.patshead.com/2011/04/improve-your-oh-my-zsh-startup-time-maybe.html
 skip_global_compinit=1
 
