@@ -53,42 +53,14 @@ fpath=($zsh_fpath $fpath)
 if [[ -d "$zsh_fpath" ]]; then
   for func in $zsh_fpath/*; do
     autoload -Uz ${func:t}
-    echo "${func:t}"
   done
 fi
 unset zsh_fpath
-
-# ──────────────────────────────────────────────────────────────────────────────
-
-
-#
-# https://gist.github.com/ctechols/ca1035271ad134841284
-# https://carlosbecker.com/posts/speeding-up-zsh
-# https://gist.github.com/ctechols/ca1035271ad134841284#gistcomment-2894219
-#
-
-
-# case $SYSTEM in
-#   Darwin)
-#     if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' $ZPLGM[ZCOMPDUMP_PATH]) ]; then
-#       compinit
-#     else
-#       compinit -C;
-#     fi
-#     ;;
-#   Linux)
-#     # not yet match GNU & BSD stat
-#   ;;
-# esac
-
-# see zplugin-init.zsh with Turbo Mode
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # https://direnv.net/
 # see zplugin-init.zsh
 # https://github.com/zdharma/zplugin/wiki/Direnv-explanation
 #eval "$(direnv hook zsh)"
-
 
 # Private script here
 # [ -f ~/.private.zsh ] && source ~/.private.zsh

@@ -100,9 +100,8 @@ export LESSCHARSET"=utf-8"
 # R = ANSI color support
 # S = chop long lines (rather than wrap them onto next line)
 # X = suppress alternate screen
-export LESS="-R"
-# export LESS=iFMRSX
-# export LESS='-i -F -M -R -S -X -g -w -z-4'
+export LESS='-i -F -M -R -S -g -w -z-4'
+# export LESS='-i -M -R -S -W -z-4'
 
 # ─── MAN PAGES ────────────────────────────────────────────────────────────────
 

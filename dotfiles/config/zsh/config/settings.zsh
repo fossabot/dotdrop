@@ -2,14 +2,18 @@
 # ─── SETTINGS ────────────────────────────────────────────────────────────────
 #
 
-setopt nobeep               # don't beep on error
-setopt autoparamslash       # tab completing directory appends a slash
+setopt auto_name_dirs       # Auto add variable-stored paths to ~ list.
 setopt autocd               # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
-setopt multios              # perform implicit tees or cats when multiple redirections are attempted
-setopt promptsubst          # enable parameter expansion, command substitution, and arithmetic expansion in the prompt
-setopt interactivecomments  # Allow comments even in interactive shells (especially for Muness)
-setopt pushdignoredups      # don't push multiple copies of the same directory onto the directory stack
+setopt autoparamslash       # tab completing directory appends a slash
 setopt autopushd            # make cd push the old directory onto the directory stack
+setopt cdable_vars          # Change directory to a path stored in a variable.
+setopt extended_glob        # Use extended globbing syntax.
+setopt interactivecomments  # Allow comments even in interactive shells (especially for Muness)
+setopt multios              # perform implicit tees or cats when multiple redirections are attempted
+setopt multios              # Write to multiple descriptors.
+setopt nobeep               # don't beep on error
+setopt promptsubst          # enable parameter expansion, command substitution, and arithmetic expansion in the prompt
+setopt pushdignoredups      # don't push multiple copies of the same directory onto the directory stack
 setopt pushdminus           # swapped the meaning of cd +1 and cd -1; we want them to mean the opposite of what they mean
 
 
@@ -117,7 +121,7 @@ export PURE_GIT_DOWN_ARROW='⬇'
 export PURE_GIT_UP_ARROW='⬆'
 zstyle :prompt:pure:git:branch color green
 zstyle :prompt:pure:git:arrow color yellow
-zstyle :prompt:pure:host color 
+zstyle :prompt:pure:host color
 zstyle :prompt:pure:path color blue
 zstyle :prompt:pure:prompt:error color red
 zstyle :prompt:pure:prompt:success color magenta

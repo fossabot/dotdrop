@@ -32,8 +32,50 @@ dotfiles:
   d_bin:
     src: bin
     dst: ~/.bin
+  f_profile:
+    src: bash/profile
+    dst: ~/.profile
+  f_inputrc:
+    src: bash/inputrc
+    dst: ~/.inputrc
+  f_bashrc:
+    src: bash/bashrc
+    dst: ~/.bashrc
+  f_bash_prompt:
+    src: bash/bash_prompt
+    dst: ~/.bash_prompt
+  f_bash_profile:
+    src: bash/bash_profile
+    dst: ~/.bash_profile
+  f_bash_completion:
+    src: bash/bash_completion
+    dst: ~/.bash_completion
+  f_bash_logout:
+    src: bash/bash_logout
+    dst: ~/.bash_logout
+  d_completions:
+    src: bash/completions
+    dst: ~/.bash/completions
+  f_aliases:
+    src: aliases
+    dst: ~/.aliases
+  f_exports:
+    src: exports
+    dst: ~/.exports
 profiles:
   base:
     dotfiles:
-      - ALL
+    - ALL
 
+  bash:
+    dotfiles:
+    - f_profile
+    - f_inputrc
+    - f_bashrc
+    - f_bash_prompt
+    - f_bash_profile
+    - f_bash_completion
+    - f_bash_logout
+    - d_completions
+    - f_aliases
+    - f_exports

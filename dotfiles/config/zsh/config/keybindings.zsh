@@ -31,7 +31,7 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^x^x' edit-command-line
 
-bindkey ' ' magic-space # do history expansion on space
+# bindkey ' ' magic-space # do history expansion on space
 
 # Replace standard history-incremental-search-{backward,forward} bindings.
 # These are the same but permit patterns (eg. a*b) to be used.
@@ -42,8 +42,29 @@ bindkey ' ' magic-space # do history expansion on space
 # bindkey '^[[B' history-substring-search-down
 
 
-# [Esc] [Esc] to prepend 'sudo ' to current command and move to EOL
-# bindkey -s '\e\e' '^Asudo ^E'
+#-----------------------------------------------------
+# Automatically expanding zsh global aliases
+# https://goo.gl/fJbtmJ
+#
+globalias() {
+  zle _expand_alias
+  zle expand-word
+  zle self-insert
+}
+zle -N globalias
+
+# space expands all aliases, including global
+bindkey -M emacs " " globalias
+bindkey -M viins " " globalias
+
+# control-space to make a normal space
+bindkey -M emacs "^ " magic-space
+bindkey -M viins "^ " magic-space
+
+# normal space during searches
+bindkey -M isearch " " magic-space
+
+
 
 # #-----------------------------------------------------
 # # Set VIM mode

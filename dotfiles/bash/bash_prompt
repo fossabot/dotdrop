@@ -1,0 +1,317 @@
+#!/usr/bin/env bash
+# based on https://github.com/twolfson/sexy-bash-prompt
+
+if tput setaf 1 &> /dev/null; then
+	tput sgr0 # reset colors
+	bold=$(tput bold)
+	reset=$(tput sgr0)
+	black=$(tput setaf 0)
+	blue=$(tput setaf 4)
+	cyan=$(tput setaf 6)
+	green=$(tput setaf 2)
+	orange=$(tput setaf 166)
+	purple=$(tput setaf 125)
+	red=$(tput setaf 9)
+	magenta=$(tput setaf 177)
+	white=$(tput setaf 7)
+	yellow=$(tput setaf 3)
+else
+	bold="\e[1"
+	reset="\e[0m"
+	black="\e[1;30m" # black='\[\e[0;90m\]' # grey='\[\e[0;30m\]'
+	blue="\e[1;34m"
+	cyan="\e[1;36m"
+	green="\e[1;32m"
+	orange="\e[1;33m"
+	purple="\e[1;35m"
+	red="\e[1;31m"
+	magenta="\e[1;35m"
+  white='\[\e[0;97m\]'
+	yellow="\e[1;33m"
+fi
+
+# If we are on a colored terminal
+# Reset the shell from our `if` check
+$reset &>/dev/null
+
+# colors
+prompt_user_color="$red"
+prompt_preposition_color="$white"
+prompt_device_color="$cyan"
+prompt_git_info_color="$green"
+prompt_git_status_color="$yellow"
+prompt_git_progress_color="$yellow"
+
+# symbols
+prompt_synced_symbol=""
+prompt_dirty_synced_symbol="✗"
+prompt_unpushed_symbol="△"
+prompt_dirty_unpushed_symbol="⬆"
+prompt_unpulled_symbol="▽"
+prompt_dirty_unpulled_symbol="⬇"
+prompt_unpushed_unpulled_symbol="⬡"
+prompt_dirty_unpushed_unpulled_symbol="⬢"
+
+# root user
+if [[ "$UID" == 0 ]]; then
+  prompt_symbol="#"
+  prompt_symbol_color="$red"
+  prompt_dir_color="$red"
+else
+#
+  prompt_symbol="❯"
+  prompt_symbol_color="$magenta"
+  prompt_dir_color="$blue"
+fi
+
+prompt_get_git_branch() {
+  # On branches, this will return the branch name
+  # On non-branches, (no branch)
+  ref="$(git symbolic-ref HEAD 2>/dev/null | sed -e 's/refs\/heads\///')"
+  if [[ "$ref" != "" ]]; then
+    echo "$ref"
+  else
+    echo "(no branch)"
+  fi
+}
+
+prompt_get_git_progress() {
+  # Detect in-progress actions (e.g. merge, rebase)
+  # https://github.com/git/git/blob/v1.9-rc2/wt-status.c#L1199-L1241
+  git_dir="$(git rev-parse --git-dir)"
+
+  # git merge
+  if [[ -f "$git_dir/MERGE_HEAD" ]]; then
+    echo " [merge]"
+  elif [[ -d "$git_dir/rebase-apply" ]]; then
+    # git am
+    if [[ -f "$git_dir/rebase-apply/applying" ]]; then
+      echo " [am]"
+    # git rebase
+    else
+      echo " [rebase]"
+    fi
+  elif [[ -d "$git_dir/rebase-merge" ]]; then
+    # git rebase --interactive/--merge
+    echo " [rebase]"
+  elif [[ -f "$git_dir/CHERRY_PICK_HEAD" ]]; then
+    # git cherry-pick
+    echo " [cherry-pick]"
+  fi
+  if [[ -f "$git_dir/BISECT_LOG" ]]; then
+    # git bisect
+    echo " [bisect]"
+  fi
+  if [[ -f "$git_dir/REVERT_HEAD" ]]; then
+    # git revert --no-commit
+    echo " [revert]"
+  fi
+}
+
+prompt_is_branch1_behind_branch2() {
+  # $ git log origin/master..master -1
+  # commit 4a633f715caf26f6e9495198f89bba20f3402a32
+  # Author: Todd Wolfson <todd@twolfson.com>
+  # Date:   Sun Jul 7 22:12:17 2013 -0700
+  #
+  #     Unsynced commit
+
+  # Find the first log (if any) that is in branch1 but not branch2
+  first_log="$(git log $1..$2 -1 2>/dev/null)"
+
+  # Exit with 0 if there is a first log, 1 if there is not
+  [[ -n "$first_log" ]]
+}
+
+prompt_branch_exists() {
+  # List remote branches           | # Find our branch and exit with 0 or 1 if found/not found
+  git branch --remote 2>/dev/null | grep --quiet "$1"
+}
+
+prompt_parse_git_ahead() {
+  # Grab the local and remote branch
+  branch="$(prompt_get_git_branch)"
+  remote="$(git config --get "branch.${branch}.remote" || echo -n "origin")"
+  remote_branch="$remote/$branch"
+
+  # $ git log origin/master..master
+  # commit 4a633f715caf26f6e9495198f89bba20f3402a32
+  # Author: Todd Wolfson <todd@twolfson.com>
+  # Date:   Sun Jul 7 22:12:17 2013 -0700
+  #
+  #     Unsynced commit
+
+  # If the remote branch is behind the local branch
+  # or it has not been merged into origin (remote branch doesn't exist)
+  if (prompt_is_branch1_behind_branch2 "$remote_branch" "$branch" ||
+    ! prompt_branch_exists "$remote_branch"); then
+    # echo our character
+    echo 1
+  fi
+}
+
+prompt_parse_git_behind() {
+  # Grab the branch
+  branch="$(prompt_get_git_branch)"
+  remote="$(git config --get "branch.${branch}.remote" || echo -n "origin")"
+  remote_branch="$remote/$branch"
+
+  # $ git log master..origin/master
+  # commit 4a633f715caf26f6e9495198f89bba20f3402a32
+  # Author: Todd Wolfson <todd@twolfson.com>
+  # Date:   Sun Jul 7 22:12:17 2013 -0700
+  #
+  #     Unsynced commit
+
+  # If the local branch is behind the remote branch
+  if prompt_is_branch1_behind_branch2 "$branch" "$remote_branch"; then
+    # echo our character
+    echo 1
+  fi
+}
+
+prompt_parse_git_dirty() {
+  # If the git status has *any* changes (e.g. dirty), echo our character
+  if [[ -n "$(git status --porcelain 2>/dev/null)" ]]; then
+    echo 1
+  fi
+}
+
+prompt_is_on_git() {
+  git rev-parse 2>/dev/null
+}
+
+prompt_get_git_status() {
+  # Grab the git dirty and git behind
+  dirty_branch="$(prompt_parse_git_dirty)"
+  branch_ahead="$(prompt_parse_git_ahead)"
+  branch_behind="$(prompt_parse_git_behind)"
+
+  # Iterate through all the cases and if it matches, then echo
+  if [[ "$dirty_branch" == 1 && "$branch_ahead" == 1 && "$branch_behind" == 1 ]]; then
+    echo "$prompt_dirty_unpushed_unpulled_symbol"
+  elif [[ "$branch_ahead" == 1 && "$branch_behind" == 1 ]]; then
+    echo "$prompt_unpushed_unpulled_symbol"
+  elif [[ "$dirty_branch" == 1 && "$branch_ahead" == 1 ]]; then
+    echo "$prompt_dirty_unpushed_symbol"
+  elif [[ "$branch_ahead" == 1 ]]; then
+    echo "$prompt_unpushed_symbol"
+  elif [[ "$dirty_branch" == 1 && "$branch_behind" == 1 ]]; then
+    echo "$prompt_dirty_unpulled_symbol"
+  elif [[ "$branch_behind" == 1 ]]; then
+    echo "$prompt_unpulled_symbol"
+  elif [[ "$dirty_branch" == 1 ]]; then
+    echo "$prompt_dirty_synced_symbol"
+  else # clean
+    echo "$prompt_synced_symbol"
+  fi
+}
+
+prompt_get_git_info() {
+  # Grab the branch
+  branch="$(prompt_get_git_branch)"
+
+  # If there are any branches
+  if [[ "$branch" != "" ]]; then
+    echo "$branch"
+  fi
+}
+
+PS1="\[$reset\]\
+\[$prompt_dir_color\]\w\[$reset\]\
+\$( prompt_is_on_git && \
+  echo -n \" \[$prompt_preposition_color\]on\[$reset\] \" && \
+  echo -n \"\[$prompt_git_info_color\]\$(prompt_get_git_info)\[$reset\]\" && \
+  echo -n \" \[$prompt_git_status_color\]\$(prompt_get_git_status)\" && \
+  echo -n \"\[$prompt_git_progress_color\]\$(prompt_get_git_progress)\" && \
+  echo -n \"\[$reset\]\")\n\
+\[$prompt_symbol_color\]$prompt_symbol \[$reset\]"
+
+
+
+# fgc() {
+#   local __end='\033[39m'
+#   local __color=$__end # end by default
+#   case "$1" in
+#     end|off|reset)         __color=$__end;;
+#     black|000000|000)    __color='\033[30m';;
+#     red|F00BAF)          __color='\033[31m';;
+#     green|00CD00)        __color='\033[32m';;
+#     yellow|CDCD00)       __color='\033[33m';;
+#     blue|0286fe)         __color='\033[34m';;
+#     magenta|e100cc)      __color='\033[35m';;
+#     cyan|00d3cf)         __color='\033[36m';;
+#     gray|e4e4e4)         __color='\033[90m';;
+#     darkgray|4c4c4c)     __color='\033[91m';;
+#     lightgray|e4e4e4)    __color='\033[37m';;
+#     lightgreen|00fe00)   __color='\033[92m';;
+#     lightyellow|f8fe00)  __color='\033[93m';;
+#     lightblue|3a80b5)    __color='\033[94m';;
+#     lightmagenta|fe00fe)   __color='\033[95m';;
+#     lightcyan|00fefe)    __color='\033[96m';;
+#     violet|6666a5)       __color='\033[38;5;61m';;
+#     white|ffffff|fff)    __color='\033[97m';;
+#   esac
+#   if test "$2"; then
+#     echo -en "$__color$2$__end"
+#   else
+#     echo -en "$__color"
+#   fi
+# }
+
+# bgc() {
+#   local __end='\033[49m'
+#   local __color=$__end # end by default
+#   case "$1" in
+#     end|off|reset)       __color=$__end;;
+#     black|000000|000)    __color='\033[40m';;
+#     red|F00BAF)          __color='\033[41m';;
+#     green|00CD00)        __color='\033[42m';;
+#     yellow|CDCD00)       __color='\033[43m';;
+#     blue|0286fe)         __color='\033[44m';;
+#     magenta|e100cc)      __color='\033[45m';;
+#     cyan|00d3cf)         __color='\033[46m';;
+#     gray|e4e4e4)         __color='\033[47m';;
+#     darkgray|4c4c4c)     __color='\033[100m';;
+#     lightred)            __color='\033[101m';;
+#     lightgreen|00fe00)   __color='\033[102m';;
+#     lightyellow|f8fe00)  __color='\033[103m';;
+#     lightblue|3a80b5)    __color='\033[104m';;
+#     lightmagenta|fe00fe) __color='\033[105m';;
+#     lightcyan|00fefe)    __color='\033[106m';;
+#     white|fffff|fff)     __color='\033[107m';;
+#   esac
+
+#   if test "$2"; then
+#     echo -en "$__color$2$__end"
+#   else
+#     echo -en "$__color"
+#   fi
+# }
+
+# a() {
+#   local __end='\033[0m'
+#   local __attr=$__end # end by default
+#   case "$1" in
+#     end|off|reset) __attr=$__end;;
+#     bold)          __attr='\033[1m';;
+#     dim)           __attr='\033[2m';;
+#     underline)     __attr='\033[4m';;
+#     blink)         __attr='\033[5m';;
+#     invert)        __attr='\033[7m';;
+#     hidden)        __attr='\033[8m';;
+#   esac
+#   if test "$2"; then
+#     echo -en "$__attr$2$__end"
+#   else
+#     echo -en "$__attr"
+#   fi
+# }
+
+# PS1="$(fgc blue)\w$(fgc end)\
+# $( prompt_is_on_git && echo "asd")\
+# $(fgc lightgray) on$(fgc end)\
+# $(fgc green) $(prompt_get_git_info)$(fgc end)\
+# $(fgc yellow) $(prompt_get_git_status)$(fgc end)\
+# $(fgc magenta) $(prompt_get_git_progress)$(fgc end)
+# $(fgc violet)$prompt_symbol$(fgc end) "

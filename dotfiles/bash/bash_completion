@@ -1,0 +1,39 @@
+#
+# ─── COMPLETION ──────────────────────────────────────────────────────────────
+#
+
+export BASH_COMPLETION_USER_DIR="$HOME/.bash"
+
+# suffixes to remove from tab-completion.
+export FIGNORE=".swp:swo:~"
+
+# treats a command name that doesn’t have any completions as a possible alias
+# and attempts alias expansion. If it has an alias, Bash attempts programmable
+# completion using the command word resulting from the expanded alias
+shopt -s progcomp_alias
+
+# don't try to complete empty lines
+shopt -s no_empty_cmd_completion
+
+# `echo` expands backslash-escape sequences by default
+shopt -s xpg_echo
+
+# Enable tab completion for `g` by marking it as an alias for `git`
+if type _git &> /dev/null; then
+  complete -o default -o nospace -F _git g
+fi
+
+# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh
+
+# Add tab completion for `defaults read|write NSGlobalDomain`
+# You could just use `-g` instead, but I like being explicit
+# complete -W "NSGlobalDomain" defaults
+
+# Add `killall` tab completion for common apps
+# complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall
+
+# fzf auto-completion
+[[ $- == *i* ]] && . "/usr/local/opt/fzf/shell/completion.bash" 2> /dev/null
+
+# ─────────────────────────────────────────────────────────────────────────────

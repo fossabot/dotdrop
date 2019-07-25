@@ -1,0 +1,143 @@
+# Readline-Init-File-Syntax
+# https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html
+
+# set editing-mode vi
+# set keymap vi
+set bell-style visible
+
+# first press of the TAB, will display a list of choices that match the
+# given prefix, whilst the next press of the completion key will start cycling
+# through the available choices.
+set menu-complete-display-prefix on
+
+# Make Tab autocomplete regardless of filename case
+set completion-ignore-case on
+
+# List all matches in case multiple possible completions are possible
+set show-all-if-ambiguous on
+
+# This alters the default behavior of the completion functions in
+# a fashion similar to show-all-if-ambiguous. If set to On, words
+# which have more than one possible completion without any
+# possible partial completion (the possible completions don't
+# share a common prefix) cause the matches to be listed
+# immediately instead of ringing the bell.
+set show-all-if-unmodified on
+
+# Immediately add a trailing slash when autocompleting symlinks to directories
+set mark-symlinked-directories on
+
+# Autocomplete hidden files unless the pattern explicitly begins with a dot
+set match-hidden-files on
+
+# Show all autocomplete results at once
+set page-completions on
+
+# If there are more than 200 possible completions for a word, ask to show them all
+set completion-query-items 0
+
+# Show extra file information when completing, like `ls -F` does
+set visible-stats on
+
+# If set to ‘on’, this alters the default completion behavior when inserting a
+# single match into the line. It’s only active when performing completion in the
+# middle of a word. If enabled, readline does not insert characters from the
+# completion that match characters after point in the word being completed, so
+# portions of the word following the cursor are not duplicated. For instance, if
+# this is enabled, attempting completion when the cursor is after the ‘e’
+# in ‘Makefile’ will result in ‘Makefile’ rather than ‘Makefilefile’, assuming
+# there is a single possible completion. The default value is ‘off’.
+set skip-completed-text on
+
+# When a completion matches multiple items highlight the common matching
+# prefix in color
+set colored-completion-prefix on
+
+# displays possible completions using different colors to indicate their file type
+set colored-stats on
+
+# performs filename matching and completion in a case-insensitive fashion
+set completion-map-case on
+
+# Allow UTF-8 input and output
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# disable control echo ^C after Ctrl+C is pressed
+set echo-control-characters off
+
+# Bash-specific mappings and settings
+$if Bash
+  Space: magic-space
+  "\C-w": backward-kill-word
+
+  # Make Tab cycle between possible completions
+  # Cycle forward: Tab
+  # Cycle backward: Shift-Tab
+
+  # (LIST) COMPLETE                       ALT+@
+  "\C-@": complete
+
+  # "\C-n": menu-complete
+  TAB: menu-complete
+  "\e[Z": menu-complete-backward
+
+  # Make C-q display the list of possible completions
+  # "\C-q": complete
+$endif
+
+# up/down - search forward through the history for the string
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# up-down arrow to search in history
+"\e[1;2A": history-substring-search-backward
+"\e[1;2B": history-substring-search-forward
+
+# ctrl-x ctrl-r re-read .inputrc
+"\C-x\C-r": re-read-init-file
+"\C-xr": re-read-init-file
+
+# Use alt+del to delete the preceding word
+"\e[3;3~": kill-word
+"^[[3~": delete-char
+
+# opt-/ add comment to beginning of line
+"\e/": insert-comment
+
+# opt-z Undo a directory change
+"\ez": 'cd -\015'
+
+# [Esc] [Esc] - insert sudo before the command
+"\e\e": '\C-asudo \C-e'
+"\es": "\C-asudo \C-e"
+
+# opt-l, opt-s - ls
+"\el":"\C-uls\C-m"
+# "\es":"\C-uls -ltr\C-m"
+
+# opt-q Variable ${}
+"\eq": "${}\C-b"
+"\ee": "echo ${}\C-b"
+
+# Quote/Bracket
+"\e\"": "\eb\"\ef\""
+"\e\'": "\eb\'\ef\'"
+"\e\`": "\eb\`\ef\`"
+"\e\]": "\eb\[\ef\]"
+"\e\}": "\eb\{\ef\}"
+"\e\)": "\eb\(\ef\)"
+
+# grep -r "" ./ # and avoid svn/git
+"\C-g\C-r": "\C-e\C-ufind . -path \"./.svn\" -prune -o -path \"./.git\" -prune -o -type f -print0|xargs -0 grep --color=auto -s \"\"\C-b"
+"\C-gr": "\C-e\C-ufind . -path \"./.svn\" -prune -o -path \"./.git\" -prune -o -type f -print0|xargs -0 grep --color=auto -s \"\"\C-b"
+# grep "" *
+"\C-g\C-g": "\C-e\C-ugrep -I *\C-b\C-b \"\"\C-b"
+"\C-gg": "\C-e\C-ugrep -I *\C-b\C-b \"\"\C-b"
+# find ./
+"\C-g\C-f": "\C-e\C-ufind . -path \"./.svn\" -prune -o -path \"./.git\" -prune -o -name \"**\" -print\eb\C-b\C-b\C-b\C-b"
+"\C-gf": "\C-e\C-ufind . -path \"./.svn\" -prune -o -path \"./.git\" -prune -o -name \"**\" -print\eb\C-b\C-b\C-b\C-b"
+# grep uniq
+"\C-g\C-u": "\C-e\C-ufind . -path \"./.svn\" -prune -o -path \"./.git\" -prune -o -type f -print0|xargs -0 grep -l \"\"\C-b"
+"\C-gu": "\C-e\C-ufind . -path \"./.svn\" -prune -o -path \"./.git\" -prune -o -type f -print0|xargs -0 grep -l \"\"\C-b"
