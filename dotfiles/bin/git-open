@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# open repo in browser
+
+if [ -d .git ]; then
+  git remote -v | awk '/origin.*push/ {print$2}' | xargs open
+else
+  echo "The directory isn't a git repository :("
+fi

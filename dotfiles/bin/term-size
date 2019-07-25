@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# get the terminal size in lines and columns
+
+printf '%s\n' "$LINES $COLUMNS"

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# remove dir
+
+if [[ -n "$@" ]]; then
+  if [[ -d "$@" ]] || [[ -f "$@" ]]; then
+    echo "🗑  Deleting: $@"
+    rm -rf "$@"
+    return
+  fi
+fi
+
+files=$(/bin/ls -A | fzf -m --query="$1" --cycle --preview='tree -C -L 1 -x --noreport --dirsfirst {}')
+
+if [[ $files ]]; then
+  for file in $(echo $files); do
+    echo "🗑  Deleting: $file"
+    rm -rf $file
+  done
+fi
+
+unset files

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# search env variables
+
+print -z "$(env | fzf -e -q "$1" --no-mouse)"

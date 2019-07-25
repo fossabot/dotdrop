@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# find for existing aliases
+
+print -z "$( alias | tr = "\t" | fzf --query="$1" | cut -f 1 ) "

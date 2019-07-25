@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# convert ICNS to PNG
+
+if [ $# -eq 0 ]; then
+  echo "Usage: icns-to-png /path/to/file.icns"
+  return
+else
+  for icon in "$@"; do
+    if [ "$(echo $icon | cut -f 2 -d '.')" != "icns" ]; then
+      echo "Error: File extension should be ICNS"
+      return
+    fi
+  done
+fi
+
+for icon in "$@"; do
+  sips -s format png "$icon" --out "${icon%.*}.png"
+done

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Quickly display a man page using fzf and fd. MANPATH has to be set to a single
+# directory (usually /usr/share/man). Accepts an optional argument for the manual
+# section (defaults to 1).
+
+man $(fd . /usr/local/share/man/man${1:-1} -t f -L -x echo {/.} | fzf -e -q "$1")
