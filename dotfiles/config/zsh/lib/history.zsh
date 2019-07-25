@@ -5,18 +5,19 @@
 #-----------------------------------------------------
 # ZSH HISTORY
 #
-export HISTFILE=${HOME}/.history
-export HISTSIZE=10000
+export HISTFILE="$HOME/.history"
+export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
-#
-setopt EXTENDED_HISTORY			    # write in the ":start:elapsed;command" format
-setopt HIST_EXPIRE_DUPS_FIRST   # allow dups, but expire old ones when exceeding HISTSIZE
-setopt HIST_FIND_NO_DUPS        # do not find duplicates in history
-setopt HIST_IGNORE_ALL_DUPS     # ignore duplicate commands
-setopt HIST_IGNORE_DUPS         # ignore duplicate commands
-setopt HIST_IGNORE_SPACE		    # ignore entries starting with a space
-setopt HIST_REDUCE_BLANKS       # leave blanks out
-setopt HIST_SAVE_NO_DUPS        # do not save duplicates
-setopt INC_APPEND_HISTORY       # write after each command
-setopt SHARE_HISTORY            # share history between sessions
-setopt HIST_VERIFY
+
+
+setopt extendedhistory      # write in the ":start:elapsed;command" format
+setopt histexpiredupsfirst   # allow dups, but expire old ones when exceeding HISTSIZE
+setopt histfindnodups        # do not find duplicates in history
+setopt histignorealldups    # filter duplicates from history
+setopt histignoredups       # ignore consecutive dups in history
+setopt histignorespace      # don't record commands starting with a space
+setopt histreduceblanks     # compact consecutive white space chars (cool)
+setopt histsavenodups        # do not save duplicates
+setopt incappendhistory     # incrementally add items to HISTFILE
+setopt sharehistory            # share history between sessions
+setopt histverify           # confirm history expansion (!$, !!, !foo)

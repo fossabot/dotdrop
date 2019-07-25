@@ -3,16 +3,10 @@
 # vim:filetype=zsh
 
 # ─── xdg ──────────────────────────────────────────────────────────────────────
-export XDG_CACHE_HOME="${XDG_CACHE_HOME:=$HOME/.cache}"
+# export ZDOTDIR="${HOME}/.zsh.d"
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-
-# https://blog.patshead.com/2011/04/improve-your-oh-my-zsh-startup-time-maybe.html
-skip_global_compinit=1
-
-# http://disq.us/p/f55b78
-setopt noglobalrcs
-
-export SYSTEM="$(uname -s)"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:=$HOME/.cache}"
+export XDG_DATA_HOME="${XDG_DATA_HOME_HOME:-$HOME/.local/share}"
 
 # https://github.com/sorin-ionescu/prezto/blob/master/runcoms/zshenv
 # Ensure that a non-login, non-interactive shell has a defined environment.
@@ -20,5 +14,8 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
-# Home-made scripts
-export PATH="$PATH:${HOME}/.bin"
+# if [ -d "$HOME/.zshenv.d" ]; then
+#   for EXTENSION_FILE in $(find $HOME/.zshenv.d/ -name '*.zsh'); do
+#     source "$EXTENSION_FILE"
+#   done
+# fi

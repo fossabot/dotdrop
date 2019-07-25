@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ $# -eq 0 ]; then
+  echo "Usage: mkd dir_name"
+  return
+fi
+
+# make a dir and change to that dir
+mkdir -p "$@" && cd $_

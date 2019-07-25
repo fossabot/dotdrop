@@ -1,11 +1,13 @@
 #!/usr/bin/env zsh
+
 # vim:syntax=zsh
 # vim:filetype=zsh
 
 # for profiling zsh
 # https://unix.stackexchange.com/a/329719/27109
 #
-#zmodload zsh/zprof
+# zmodload zsh/zprof
+# typeset -g ZPLG_MOD_DEBUG=1
 
 # ─── Customizing Paths ────────────────────────────────────────────────────────
 export ZSHCONFIG="${ZDOTDIR:-$XDG_CONFIG_HOME}/zsh"
@@ -20,12 +22,8 @@ ZPLGM[ZCOMPDUMP_PATH]="$XDG_CACHE_HOME/zsh/zcompdump"
 
 if [[ ! -d "$ZPLG_HOME" ]]; then
 	git clone https://github.com/psprint/zplugin "$ZPLG_HOME/bin"
-	# zcompile $ZPLG_HOME/bin/zplugin.zsh
+  # sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
 fi
-
-# if [ ! -d "${ZPLG_HOME}" ]; then
-#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
-# fi
 
 source "$ZPLG_HOME/bin/zplugin.zsh"
 autoload -Uz _zplugin
@@ -35,11 +33,21 @@ autoload -Uz _zplugin
 source "$ZSHCONFIG/zplugin-init.zsh"
 # ──────────────────────────────────────────────────────────────────────────────
 
+#
+# ─── LOAD ALL SCRIPTS ${ZSHCONFIG}/lib/*.zsh───────────────────────────────────
+#
+zsh_lib="${ZSHCONFIG}/lib"
+if [[ -d "$zsh_lib" ]]; then
+  for file in $zsh_lib/*.zsh; do
+    source "$file"
+  done
+fi
+unset zsh_lib
 
 #
 # ─── SETTING AUTOLOADED FUNCTIONS ────────────────────────────────────────────
 #
-zsh_fpath="${ZSHCONFIG}/autoloaded"
+zsh_fpath="${ZSHCONFIG}/functions"
 fpath=($zsh_fpath $fpath)
 if [[ -d "$zsh_fpath" ]]; then
   for func in $zsh_fpath/*; do
@@ -47,17 +55,6 @@ if [[ -d "$zsh_fpath" ]]; then
   done
 fi
 unset zsh_fpath
-
-#
-# ─── LOAD ALL SCRIPTS ${ZSHCONFIG}/lib/*.zsh───────────────────────────────────
-#
-zsh_lib=${ZSHCONFIG}/lib
-if [[ -d "$zsh_lib" ]]; then
-  for file in $zsh_lib/*.zsh; do
-    source $file
-  done
-fi
-unset zsh_lib
 
 # ──────────────────────────────────────────────────────────────────────────────
 
@@ -68,29 +65,7 @@ unset zsh_lib
 # https://gist.github.com/ctechols/ca1035271ad134841284#gistcomment-2894219
 #
 
-# _zpcompinit_custom() {
-#   setopt extendedglob local_options
-#   autoload -Uz compinit
-#   # local zcd="${ZDOTDIR:-$HOME}/.zcompdump"
-#   local zcd="${ZPLGM[ZCOMPDUMP_PATH]:-${ZDOTDIR:-$HOME}/.zcompdump}"
-#   local zcdc="$zcd.zwc"
-#   # Compile the completion dump to increase startup speed, if dump is newer or doesn't exist,
-#   # in the background as this is doesn't affect the current session
-#   if [[ -f "$zcd"(#qN.m+1) ]]; then
-#     compinit -i -d "$zcd"
-#     { rm -f "$zcdc" && zcompile "$zcd" } &!
-#   else
-#     compinit -C -d "$zcd"
-#     { [[ ! -f "$zcdc" || "$zcd" -nt "$zcdc" ]] && rm -f "$zcdc" && zcompile "$zcd" } &!
-#   fi
-# }
 
-
-if [[ -n "$ZPLGM[ZCOMPDUMP_PATH](#qN.mh+24)" ]]; then
-	compinit -d "$ZPLGM[ZCOMPDUMP_PATH]"
-else
-	compinit -C
-fi
 # case $SYSTEM in
 #   Darwin)
 #     if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' $ZPLGM[ZCOMPDUMP_PATH]) ]; then

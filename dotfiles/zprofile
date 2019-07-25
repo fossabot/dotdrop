@@ -1,46 +1,144 @@
 # vim:syntax=zsh
 # vim:filetype=zsh
 
-if [[ "$SYSTEM" = "Darwin"  ]]; then
-  # system executables
-  #export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/libexec
-  # local system binaries
-  export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
-elif [[ "$SYSTEM" = "Linux"  ]]; then
+#
+# ─── LANGUAGE ────────────────────────────────────────────────────────────────
+#
+
+if [[ -z "$LANG" ]]; then
+  export LANG="en_US.UTF-8"
+  export LANGUAGE="en_US.UTF-8"
+fi
+
+export LC_COLLATE="en_US.UTF-8"
+export LC_CTYPE"=en_US.UTF-8"
+export LC_MESSAGES"=en_US.UTF-8"
+export LC_MONETARY"=en_US.UTF-8"
+export LC_NUMERIC"=en_US.UTF-8"
+export LC_TIME"=en_US.UTF-8"
+export LC_ALL"=en_US.UTF-8"
+
+#
+# ─── PATH ────────────────────────────────────────────────────────────────────
+# (N-/): do not register if the directory does not exists
+# (Nn[-1]-/)
+#
+#  N   : NULL_GLOB option (ignore path if the path does not match the glob)
+#  n   : Sort the output
+#  [-1]: Select the last item in the array
+#  -   : follow the symbol links
+#  /   : ignore files
+#  t   : tail of the path
+# 
+
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath manpath mailpath path
+
+fpath=(
+  # ${ZDOTDIR:-${HOME}/.dotfiles/files/.zsh.d}/functions(N-/)
+  # ${ZDOTDIR:-${HOME}/.dotfiles/files/.zsh.d}/completions(N-/)
+  /usr/local/share/zsh/site-functions(N-/)
+  $fpath
+)
+
+# Set the list of directories that Zsh searches for programs.
+path=(
+  /usr/local/{bin,sbin}
+  /usr/libexec
+  $path
+)
+
+if [[ "$SYSTEM" = "Darwin" ]]; then
+  # coreutils
+  # path=(/usr/local/opt/coreutils/libexec/gnubin $path)
+
+  # manpath=(
+  #   /usr/local/opt/coreutils/libexec/gnuman
+  #   /usr/local/MacGPG2/share/man
+  #   $manpath
+  # )
+elif [[ "$SYSTEM" = "Linux" ]]; then
+  # linuxbrew
   if [ -d "/home/linuxbrew/.linuxbrew" ]; then
+    path=(/home/linuxbrew/.linuxbrew/bin $path)
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-    export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
   fi
 fi
 
-# https://github.com/sindresorhus/pure#options
-export PURE_PROMPT_SYMBOL='❯'
 
-# https://github.com/rupa/z
-export _Z_DATA="$XDG_CACHE_HOME/zsh/z"
+# manpath=(
+#   ${HOMEBREW_PREFIX}/opt/*/libexec/gnuman(N-/)
+#   $manpath
+# )
 
-#
-# Executes commands at login before zshrc.
-#
-if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
-  export LANGUAGE=en_US.UTF-8
-fi
+# infopath=(
+#  /usr/local/share/info
+#  $infopath
+# )
 
-export LC_COLLATE=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-export LC_MESSAGES=en_US.UTF-8
-export LC_MONETARY=en_US.UTF-8
-export LC_NUMERIC=en_US.UTF-8
-export LC_TIME=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export LESSCHARSET=utf-8
+# define search path for the cd command
+# don't export CDPATH (can cause problems with shell scripts etc)
+# cdpath=(
+#   "."
+#   # .:~:~/code
+#   $cdpath
+# )
 
-# eliminates duplicates in *paths
-typeset -gU cdpath fpath path
 
-# Zsh search path for executable
-path=(
-  /usr/local/{bin,sbin}
-  $path
-)
+# ─── less ────────────────────────────────────────────────────────────────────
+
+# filename (if known), line number if known, falling back to percent if known,
+# falling back to byte offset, falling back to dash
+export LESSPROMPT='?f%f .?ltLine %lt:?pt%pt\%:?btByte %bt:-...'
+export LESSCHARSET"=utf-8"
+
+# i = case-insensitive searches, unless uppercase characters in search string
+# F = exit immediately if output fits on one screen
+# M = verbose prompt
+# R = ANSI color support
+# S = chop long lines (rather than wrap them onto next line)
+# X = suppress alternate screen
+export LESS="-R"
+# export LESS=iFMRSX
+# export LESS='-i -F -M -R -S -X -g -w -z-4'
+
+# ─── MAN PAGES ────────────────────────────────────────────────────────────────
+
+# F = exit immediately if output fits on one screen
+# K = exit in response to Ctrl-C
+# M = verbose prompt
+# R = ANSI color support
+# X = suppress alternate screen (Don’t clear the screen after quitting)
+# export MANPAGER='less -FKMRX'
+
+export LESS_TERMCAP_mb=$(tput setaf 4) # blue
+export LESS_TERMCAP_md=$(tput bold; tput setaf 2) # green
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_so=$(tput bold; tput setaf 18; tput setab 3) # black on blue
+export LESS_TERMCAP_se=$(tput rmso; tput sgr0)  # reset previous line
+export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 4) # yellow bold underlined
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)
+export LESS_TERMCAP_ZN=$(tput ssubm)
+export LESS_TERMCAP_ZV=$(tput rsubm)
+export LESS_TERMCAP_ZO=$(tput ssupm)
+export LESS_TERMCAP_ZW=$(tput rsupm)
+
+# export LESS_TERMCAP_md=$(tput bold; tput setaf 4)  # start bold
+# export LESS_TERMCAP_me=$(tput sgr0)                # turn off bold, blink and underline
+# export LESS_TERMCAP_mb=$(tput blink)               # start blink
+# export LESS_TERMCAP_us=$(tput setaf 2)             # start underline
+# export LESS_TERMCAP_ue=$(tput sgr0)                # stop underline
+# export LESS_TERMCAP_so=$(tput smso)                # start standout (reverse video)
+# export LESS_TERMCAP_se=$(tput rmso)                # stop standout
+
+# ─── colors ───────────────────────────────────────────────────────────────────
+export SYSTEM="$(uname -s)"
+export CLICOLOR=1
+# if [ `command -v gdircolors` ]; then
+#   eval $(gdircolors -b ~/.dir_colors)
+# fi
+
+# export LSCOLORS="Gxfxcxdxbxegedabagacad"
+# export LS_COLORS='no=00:fi=00:di=01;34:ln=00;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=41;33;01:ex=00;32:*.cmd=00;32:*.exe=01;32:*.com=01;32:*.bat=01;32:*.btm=01;32:*.dll=01;32:*.tar=00;31:*.tbz=00;31:*.tgz=00;31:*.rpm=00;31:*.deb=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.zip=00;31:*.zoo=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.tb2=00;31:*.tz2=00;31:*.tbz2=00;31:*.avi=01;35:*.bmp=01;35:*.fli=01;35:*.gif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mng=01;35:*.mov=01;35:*.mpg=01;35:*.pcx=01;35:*.pbm=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.tga=01;35:*.tif=01;35:*.xbm=01;35:*.xpm=01;35:*.dl=01;35:*.gl=01;35:*.wmv=01;35:*.aiff=00;32:*.au=00;32:*.mid=00;32:*.mp3=00;32:*.ogg=00;32:*.voc=00;32:*.wav=00;32:'
