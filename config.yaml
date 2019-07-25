@@ -8,26 +8,32 @@ config:
   link_on_import: nolink
   longkey: false
 dotfiles:
-  f_zshrc:
-    src: zshrc
-    dst: ~/.zshrc
   f_zshenv:
     src: zshenv
     dst: ~/.zshenv
-  f_zlogin:
-    src: zlogin
-    dst: ~/.zlogin
   f_zprofile:
-    src: zprofile
-    dst: ~/.zprofile
-  d_config_zsh:
-    src: config/zsh
-    dst: ~/.config/zsh
+    src: config/zsh/zprofile
+    dst: ~/.config/zsh/.zprofile
+  f_zshrc:
+    src: config/zsh/zshrc
+    dst: ~/.config/zsh/.zshrc
+  f_zlogin:
+    src: config/zsh/zlogin
+    dst: ~/.config/zsh/.zlogin
+  f_zplugin:
+    src: config/zsh/zplugin-init.zsh
+    dst: ~/.config/zsh/zplugin-init.zsh
+  d_config_zsh_config:
+    src: config/zsh/config
+    dst: ~/.config/zsh/config
+  d_config_fsh:
+    src: config/fsh
+    dst: ~/.config/fsh
+  d_bin:
+    src: bin
+    dst: ~/.bin
 profiles:
-  zsh:
+  base:
     dotfiles:
-    - f_zshrc
-    - f_zshenv
-    - f_zlogin
-    - f_zprofile
-    - d_config_zsh
+      - ALL
+

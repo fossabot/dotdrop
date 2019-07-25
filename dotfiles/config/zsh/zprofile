@@ -29,17 +29,19 @@ export LC_ALL"=en_US.UTF-8"
 #  -   : follow the symbol links
 #  /   : ignore files
 #  t   : tail of the path
-# 
+#
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath manpath mailpath path
 
 fpath=(
-  # ${ZDOTDIR:-${HOME}/.dotfiles/files/.zsh.d}/functions(N-/)
+  # "${ZDOTDIR:-${ZSHCONFIG}}/functions(N-/)"
   # ${ZDOTDIR:-${HOME}/.dotfiles/files/.zsh.d}/completions(N-/)
   /usr/local/share/zsh/site-functions(N-/)
   $fpath
 )
+
+autoload -Uz "${ZDOTDIR:-${ZSHCONFIG}}/functions/**/*(N:t)"
 
 # Set the list of directories that Zsh searches for programs.
 path=(
