@@ -65,6 +65,10 @@ dotfiles:
   f_less:
     src: config/less
     dst: ~/.config/less
+  d_gnupg:
+    src: gnupg
+    dst: ~/.gnupg
+    link: link_children
 profiles:
   base:
     dotfiles:
