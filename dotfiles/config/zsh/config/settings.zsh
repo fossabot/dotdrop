@@ -8,7 +8,6 @@ setopt cdable_vars          # Change directory to a path stored in a variable.
 setopt extended_glob        # Use extended globbing syntax.
 setopt interactivecomments  # Allow comments even in interactive shells (especially for Muness)
 setopt multios              # perform implicit tees or cats when multiple redirections are attempted
-setopt multios              # Write to multiple descriptors.
 setopt nobeep               # don't beep on error
 setopt promptsubst          # enable parameter expansion, command substitution, and arithmetic expansion in the prompt
 setopt pushdignoredups      # don't push multiple copies of the same directory onto the directory stack
@@ -20,7 +19,7 @@ setopt pushdminus           # swapped the meaning of cd +1 and cd -1; we want th
 autoload -U colors && colors
 # }}}
 
-
+export WORDCHARS="${WORDCHARS//[\/]}"
 
 #
 # Hooks

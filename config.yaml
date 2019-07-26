@@ -5,7 +5,7 @@ config:
   dotpath: dotfiles
   keepdot: false
   link_dotfile_default: link
-  link_on_import: nolink
+  link_on_import: link
   longkey: false
 dotfiles:
   f_zshenv:
@@ -69,6 +69,9 @@ dotfiles:
     src: gnupg
     dst: ~/.gnupg
     link: link_children
+  f_gitconfig:
+    src: gitconfig
+    dst: ~/.gitconfig
 profiles:
   base:
     dotfiles:
