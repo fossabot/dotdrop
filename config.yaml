@@ -21,8 +21,8 @@ dotfiles:
     src: config/zsh/zlogin
     dst: ~/.config/zsh/.zlogin
   f_zplugin:
-    src: config/zsh/zplugin-init.zsh
-    dst: ~/.config/zsh/zplugin-init.zsh
+    src: config/zsh/zplugin.zsh
+    dst: ~/.config/zsh/zplugin.zsh
   d_config_zsh_config:
     src: config/zsh/config
     dst: ~/.config/zsh/config

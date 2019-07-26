@@ -2,169 +2,51 @@
 # vim:syntax=sh
 # vim:filetype=sh
 
-
-# ─── spaceship ────────────────────────────────────────────────────────────────
-# https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
-#region
-SPACESHIP_PROMPT_ORDER=(
-  time          # Time stamps section
-  user          # Username section
-  dir           # Current directory section
-  host          # Hostname section
-  git           # Git section (git_branch + git_status)
-  # package       # Package version
-  # node          # Node.js section
-  # ruby          # Ruby section
-  # golang        # Go section
-  # php           # PHP section
-  # rust          # Rust section
-  # docker        # Docker section
-  # aws           # Amazon Web Services section
-  # venv          # virtualenv section
-  # pyenv         # Pyenv section
-  # kubecontext   # Kubectl context section
-  exec_time     # Execution time
-  line_sep      # Line break
-  # battery       # Battery level and status
-  # vi_mode       # Vi-mode indicator
-  jobs          # Background jobs indicator
-  exit_code     # Exit code section
-  char          # Prompt character
-)
-
-# SPACESHIP_RPROMPT_ORDER=(git)
-
-SPACESHIP_PROMPT_ADD_NEWLINE=true 	       # Adds a newline character before each prompt line
-SPACESHIP_PROMPT_SEPARATE_LINE=true 	     # Make the prompt span across two lines
-SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=false 	 # Shows a prefix of the first section in prompt
-SPACESHIP_PROMPT_PREFIXES_SHOW=true 	     # Show prefixes before prompt sections or not
-SPACESHIP_PROMPT_SUFFIXES_SHOW=true 	     # Show suffixes before prompt sections or not
-# SPACESHIP_PROMPT_DEFAULT_PREFIX=via 	     # Default prefix for prompt sections
-# SPACESHIP_PROMPT_DEFAULT_SUFFIX=''         # Default suffix for prompt section
-
-# SPACESHIP_CHAR_PREFIX='' 	  	                              # Prefix before prompt character
-SPACESHIP_CHAR_SUFFIX=' ' 	  	                              # Suffix after prompt character
-SPACESHIP_CHAR_SYMBOL='❯' 	                                # Prompt character to be shown before any command
-# SPACESHIP_CHAR_SYMBOL_ROOT="$SPACESHIP_CHAR_SYMBOL" 	      # Prompt character to be shown before any command for the root user
-# SPACESHIP_CHAR_SYMBOL_SECONDARY="$SPACESHIP_CHAR_SYMBOL" 	  # Secondary prompt character to be shown for incomplete commands
-SPACESHIP_CHAR_COLOR_SUCCESS="magenta" 	                    # Color of prompt character if last command completes successfully
-SPACESHIP_CHAR_COLOR_FAILURE="red" 	                      # Color of prompt character if last command returns non-zero exit-code
-SPACESHIP_CHAR_COLOR_SECONDARY="yellow" 	                # Color of secondary prompt character
-
-SPACESHIP_GIT_STATUS_PREFIX=' '
-SPACESHIP_GIT_STATUS_SUFFIX=' '
-SPACESHIP_GIT_STATUS_UNTRACKED='❔'
-SPACESHIP_GIT_STATUS_ADDED='➕'
-SPACESHIP_GIT_STATUS_MODIFIED='❕'
-SPACESHIP_GIT_STATUS_DELETED='✗'
-SPACESHIP_GIT_BRANCH_COLOR="green"
-SPACESHIP_GIT_STATUS_AHEAD="⬆"
-SPACESHIP_GIT_STATUS_BEHIND="⬇"
-
-SPACESHIP_DIR_TRUNC=4
-SPACESHIP_DIR_TRUNC_REPO=false
-SPACESHIP_DIR_COLOR="blue"
-
-SPACESHIP_EXIT_CODE_SHOW=true
-#endregion
-
-# # ─── helpers ──────────────────────────────────────────────────────────────────
-
-# turbo()    { zplugin ice                            "${@}"; }
-# turbo0()   { zplugin ice wait"0a" lucid             "${@}"; }
-# turbo1()   { zplugin ice wait"0b" lucid             "${@}"; }
-# turbo2()   { zplugin ice wait"0c" lucid             "${@}"; }
-# zload()    { zplugin load                           "${@}"; }
-# zlight()   { zplugin light                          "${@}"; }
-# zcommand() { zplugin ice wait"0b" lucid as"command" "${@}"; }
-# zsnippet() { zplugin snippet                        "${@}"; }
-
-
-# zt() { [ -z $2 ] && zplugin ice || zplugin ice wait"${1}" lucid "${@:2}"; } # Turbo
-zt() {
-  if [ "$#" -ne 0 ] && [[ "${1[1]}" == [0-9] ]]; then
-    zplugin ice wait"${1}" lucid "${@:2}"
-  else
-    zplugin ice "${@}"
-  fi
-}
-ztt() {
-  if [ "$#" -ne 0 ] && [[ "${1[1]}" == [0-9] ]]; then
-    echo zplugin ice wait"${1}" lucid "${@:2}"
-  else
-    echo zplugin ice "${@}"
-  fi
-}
-
-z() { [ -z $2 ] && zplugin light "${@}" || zplugin "${@}"; }               # zplugin
-
-# ─── prompt ───────────────────────────────────────────────────────────────────
-# pure
-zt pick"async.zsh" src"pure.zsh"; z sindresorhus/pure
-
-# ──────────────────────────────────────────────────────────────────────────────
-
-# additional completion definitions
-# https://github.com/zsh-users/zsh-completions
-# zt blockf atpull'zplugin creinstall -q .'; z zsh-users/zsh-completions
-zt blockf; z zsh-users/zsh-completions
-
-# autosuggestions
-# https://github.com/zsh-users/zsh-autosuggestions
-zt 0b compile'{src/*.zsh,src/strategies/*}' atload'_zsh_autosuggest_start'
-z zsh-users/zsh-autosuggestions
-export ZSH_AUTOSUGGEST_USE_ASYNC=1
-export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-
-# fast-syntax-highlighting
-# https://github.com/zdharma/fast-syntax-highlighting
-zt 0c atinit'ZPLGM[COMPINIT_OPTS]=-C; _zpcompinit_fast; zpcdreplay'
-z zdharma/fast-syntax-highlighting
-
-# multi-word, syntax highlighted history searching
-# https://github.com/zdharma/history-search-multi-word
-# zstyle ":history-search-multi-word" page-size "11"
-# zt 1a;
-# z load zdharma/history-search-multi-word
-
-# zsh-history-substring-search
-# https://github.com/zsh-users/zsh-history-substring-search
-# zt 1a;
-z load zsh-users/zsh-history-substring-search
-
 #
-# ─── FZF ─────────────────────────────────────────────────────────────────────
+# ─── PROMPT ───────────────────────────────────────────────────────────────────
 #
 
-# Install a fuzzy finder (fzf/fzy) and necessary completions and keybindings.
-# https://github.com/junegunn/fzf-bin
-zt from"gh-r" as"command"; z load junegunn/fzf-bin
-# https://github.com/junegunn/fzf
-zt as"command" pick"bin/fzf-tmux"; z load junegunn/fzf
+# ─── pure ─────────────────────────────────────────────────────────────────────
+zplugin ice pick"async.zsh" src"pure.zsh" lucid
+zplugin light sindresorhus/pure
+
+#
+# ─── FZF ──────────────────────────────────────────────────────────────────────
+#
+
+# Install `fzf` binary and tmux helper script
+zplugin ice from"gh-r" as'command'
+zplugin light junegunn/fzf-bin
+
+zplugin ice as'command' pick"bin/fzf-tmux"
+zplugin light junegunn/fzf
+
 # Create and bind multiple widgets using fzf
-# zt 0b as"command" pick"bin/fzf-tmux" multisrc"shell/{completion,key-bindings}.zsh"
-# z load junegunn/fzf
-# zt multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" \
-#   atclone"cp man/man1/fzf* $ZPFX/share/man/man1/" pick"/dev/null"
-# z load junegunn/fzf
+zplugin ice wait'0a' id-as"junegunn/fzf_completions" pick"/dev/null" multisrc"shell/{completion,key-bindings}.zsh" lucid
+zplugin light junegunn/fzf
 
 # fzf-marks, at slot 0, for quick Ctrl-G accessibility
 # https://github.com/urbainvaes/fzf-marks
-# zt has'fzf' trackbinds bindmap'^g -> ^f'; z load urbainvaes/fzf-marks
+# zt has'fzf' bindmap'^g -> ^f'; zplugin load urbainvaes/fzf-marks
 
 # ─── fuzzy movement and directory choosing ────────────────────────────────────
 # autojump command
 # https://github.com/rupa/z
-zt 0c; z load rupa/z
+zplugin ice wait'0c' lucid
+zplugin light rupa/z
 
 # Pick from most frecent folders with `Ctrl+g`
 # https://github.com/andrewferrier/fzf-z
-zt 0b; z load andrewferrier/fzf-z
+zplugin ice wait'0b' lucid
+zplugin light andrewferrier/fzf-z
 
 # lets z+[Tab] and zz+[Tab]
 # https://github.com/changyuheng/fz
-zt 0b; z load changyuheng/fz
+zplugin ice wait'0b' lucid
+zplugin light changyuheng/fz
 
+# Like `z` command, but opens a file in vim based on frecency
+# zt 0b as'command' pick"v"; zplugin load rupa/v
 
 #
 # ─── GIT ─────────────────────────────────────────────────────────────────────
@@ -172,7 +54,8 @@ zt 0b; z load changyuheng/fz
 
 # fuzzy git
 # https://github.com/wfxr/forgit
-zt has'git'; z wfxr/forgit
+zplugin ice has'fzf'
+zplugin light wfxr/forgit
 
 # gitignore plugin – commands gii and gi
 # zt 1b has'git' pick'init.zsh' atload'alias gi="git-ignore"' blockf
@@ -180,7 +63,7 @@ zt has'git'; z wfxr/forgit
 
 # git-quick-stats
 # zt 1b as"command" pick"$ZPFX/bin/git-quick-stats" atload"export _MENU_THEME=legacy" make"PREFIX=$ZPFX install"
-# z load arzzen/git-quick-stats
+# zplugin load arzzen/git-quick-stats
 
 #
 # ─── PLUGINS ─────────────────────────────────────────────────────────────────
@@ -188,15 +71,24 @@ zt has'git'; z wfxr/forgit
 
 # zsh-autopair
 # https://github.com/hlissner/zsh-autopair
-zt 1c; z hlissner/zsh-autopair
+zplugin ice wait'1b' lucid
+zplugin light hlissner/zsh-autopair
 
 # toggles "sudo" before the command by pressing [ESC][ESC]
 # https://github.com/hcgraf/zsh-sudo
-zt 1c; z hcgraf/zsh-sudo
+zplugin ice wait'1b' lucid
+zplugin light hcgraf/zsh-sudo
 
 # jump back to a specific directory
 # https://github.com/Tarrasch/zsh-bd
-zt 1c; z Tarrasch/zsh-bd
+zplugin ice wait'1b' lucid
+zplugin light Tarrasch/zsh-bd
+
+# automatically generates completion functions from getopt-style help texts
+# https://github.com/RobSis/zsh-completion-generator
+# zstyle :plugin:zsh-completion-generator programs ''
+# export GENCOMPL_FPATH="$ZPLGM[COMPLETIONS_DIR]"
+# zt 2a; z RobSis/zsh-completion-generator
 
 # : zt 0a blockf
 # : z marzocchi/zsh-notify
@@ -207,83 +99,90 @@ zt 1c; z Tarrasch/zsh-bd
 
 # base16-shell
 # https://github.com/chriskempson/base16-shell
-z load chriskempson/base16-shell
+zplugin load chriskempson/base16-shell
 
 # a collection of LS_COLORS definitions
 # https://github.com/trapd00r/LS_COLORS
 # on macOS, you might need to install coreutils from homebrew and use the
 # g-prefix – gsed, gdircolors
-zt pick"c.zsh" atclone"local PFX=${${(M)OSTYPE:#*darwin*}:+g}
+zplugin ice pick"c.zsh" atclone"local PFX=${${(M)OSTYPE:#*darwin*}:+g}
             git reset --hard;
             \${PFX}sed -i '/DIR/c\DIR                   38;5;105;1' LS_COLORS; \
             \${PFX}sed -i '/LINK/c\LINK                 38;5;115' LS_COLORS; \
-            \${PFX}dircolors -b LS_COLORS > c.zsh" atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'\
-            atpull'%atclone' nocompile'!'
-z trapd00r/LS_COLORS
+            \${PFX}dircolors -b LS_COLORS > c.zsh" atpull'%atclone' nocompile'!'
+zplugin light trapd00r/LS_COLORS
 
 # a progress spinner
 # https://github.com/psprint/revolver
-zt as"command" pick"revolver"; z psprint/revolver
+# zt 2c as"command" pick"revolver" atclone'cp revolver.zsh-completion $ZPLGM[COMPLETIONS_DIR]/_revolver' atpull'%atclone'
+: zplugin ice as"command" pick"revolver"
+: zplugin light psprint/revolver
 
 # highlight strings in the output
 # https://github.com/paoloantinori/hhighlighter
-zt pick"h.sh" atclone"sed -i.bk 's/h()/hl()/g' h.sh" atpull"%atclone" nocompile'!'
-z paoloantinori/hhighlighter
+: zplugin ice pick"h.sh" atclone"sed -i.bk 's/h()/hl()/g' h.sh" atpull"%atclone" nocompile'!'
+: zplugin light paoloantinori/hhighlighter
 
 # ansi escape codes
 # https://github.com/fidian/ansi
-zt as"command" pick"ansi"; z fidian/ansi
+: zplugin ice as"command" pick"ansi"
+: zplugin light fidian/ansi
+
+# zt 2b atclone"gencomp k; ZPLGM[COMPINIT_OPTS]='-i' zpcompinit" atpull'%atclone'
+# zplugin load supercrabtree/k
 
 # vramsteg
 # zt 2 has'cmake' as"command" pick"src/vramsteg" atclone'cmake .' atpull'%atclone' make
-# z load psprint/vramsteg-zsh
+# zplugin load psprint/vramsteg-zsh
 
-# ─── unset helpers ────────────────────────────────────────────────────────────
-unset -f z zt
 
+#
+# ─── IMPORTANT ───────────────────────────────────────────────────────────────
+#
+
+# additional completion definitions
+# https://github.com/zsh-users/zsh-completions
+# zt 0a blockf atpull'zplugin creinstall -q .'; z zsh-users/zsh-completions
+zplugin ice blockf
+zplugin light zsh-users/zsh-completions
+
+# fast-syntax-highlighting
+# https://github.com/zdharma/fast-syntax-highlighting
+# (compinit without `-i` spawns warning on `sudo -s`)
+zplugin ice wait'0a' atinit"ZPLGM[COMPINIT_OPTS]='-i' _zpcompinit_fast; zpcdreplay" lucid
+zplugin light zdharma/fast-syntax-highlighting
+
+# autosuggestions
+# https://github.com/zsh-users/zsh-autosuggestions
+# Note: should go _after_ syntax highlighting plugin
+zplugin ice wait'0a' atload'_zsh_autosuggest_start' compile'{src/*.zsh,src/strategies/*}' lucid
+zplugin light zsh-users/zsh-autosuggestions
+
+# zsh-history-substring-search
+# https://github.com/zsh-users/zsh-history-substring-search
+zplugin light zsh-users/zsh-history-substring-search
+
+# multi-word, syntax highlighted history searching
+# https://github.com/zdharma/history-search-multi-word
+zstyle ":history-search-multi-word" page-size "50"
+zplugin ice wait'1a' trackbinds bindmap'^R -> ^S' lucid
+zplugin load zdharma/history-search-multi-word
 
 # ──────────────────────────────────────────────────────────────────────────────
 
-#region
-# Assign each zsh session an unique ID, available in
-# ZUID_ID and also a codename (ZUID_CODENAME)
-# zplugin load zdharma/zsh-unique-id
-
-# # zsh-startify, a vim-startify -like plugin
-# zt "0b" atload"zsh-startify"; z load zdharma/zsh-startify
-
-# zplugin ice wait"0c" lucid pick"c.zsh" atclone"local PFX=${${(M)OSTYPE:#*darwin*}:+g}
-#             git reset --hard; \${PFX}sed -i \
-#             '/DIR/c\DIR                   38;1;63;1' bliss.dircolors; \
-#             \${PFX}dircolors -b bliss.dircolors > c.zsh" atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”' atpull'%atclone' nocompile'!'
-# zplugin light joshjon/bliss-dircolors
-
-# Zconvey shell integration plugin
-# zt 0a silent; z load zdharma/zconvey
-
-# Another load of the same plugin, to add zc-bg-notify to PATH
-# zt 0a silent as"command" id-as"zconvey-cmd" pick"cmds/zc-bg-notify"; z load zdharma/zconvey
-
-# zsh-editing-workbench & zsh-navigation-tools
-# zplugin ice wait"1" lucid
-# zplugin load psprint/zsh-editing-workbench
-# zplugin ice wait"1" lucid
-# zplugin load psprint/zsh-navigation-tools   # for n-history
-
-# ZUI and Crasis
-# zt 1a; z load zdharma/zui
-# zplugin ice wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]' lucid
-# z load zdharma/zplugin-crasis
-
-# # a powerful testing framework
-# # https://github.com/psprint/zunit
-# zt 2 as"command" pick"zunit" atclone"./build.zsh" atpull"%atclone"; z load psprint/zunit
-
-# exa, a modern version of ‘ls’
-# https://github.com/ogham/exa
-# zt 2a from"gh-r" as'command' mv"exa* -> exa"; z load ogham/exa
-# zt 2b as"completion" mv"exa* -> _exa"
-# z snippet https://github.com/ogham/exa/blob/master/contrib/completions.zsh
+# Semigraphical .zshrc editor for Zplugin commands
+# https://github.com/zdharma/zplugin-crasis
+zplugin ice wait"1" lucid
+zplugin load zdharma/zui
+zplugin ice wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]' lucid
+zplugin load zdharma/zplugin-crasis
 
 
-#endregion
+# ─── dotdrop ──────────────────────────────────────────────────────────────────
+# dotfiles manager
+# https://github.com/deadc0de6/dotdrop
+# zplugin ice as"command" mv"dotdrop.sh -> dotdrop" pick"dotdrop.sh" atclone"pip3 install -r requirements.txt --user"
+# zplugin load deadc0de6/dotdrop
+
+zplugin ice as"completion" mv"_dotdrop-completion.zsh -> _dotdrop" lucid
+zplugin snippet https://github.com/deadc0de6/dotdrop/raw/master/completion/_dotdrop-completion.zsh

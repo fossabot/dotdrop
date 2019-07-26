@@ -1,5 +1,7 @@
 [ -f "$HOME/.aliases" ] && . "$HOME/.aliases"
 
+alias dotdrop="~/code/dotdrop/dotdrop.sh --cfg=~/code/dotdrop/config.yaml"
+
 # print $fpath in a human-readable way
 alias fpath='print -l $fpath'
 

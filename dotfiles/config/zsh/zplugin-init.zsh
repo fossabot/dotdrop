@@ -42,15 +42,15 @@ z junegunn/fzf
 # ─── fuzzy movement and directory choosing ────────────────────────────────────
 # autojump command
 # https://github.com/rupa/z
-zt 0c; z load rupa/z
+zt 0c; z rupa/z
 
 # Pick from most frecent folders with `Ctrl+g`
 # https://github.com/andrewferrier/fzf-z
-zt 0b; z load andrewferrier/fzf-z
+zt 0b; z andrewferrier/fzf-z
 
 # lets z+[Tab] and zz+[Tab]
 # https://github.com/changyuheng/fz
-zt 0b; z load changyuheng/fz
+zt 0b; z changyuheng/fz
 
 # Like `z` command, but opens a file in vim based on frecency
 # zt 0b as'command' pick"v"; z load rupa/v
@@ -158,8 +158,6 @@ z zdharma/fast-syntax-highlighting
 # Note: should go _after_ syntax highlighting plugin
 zt 0a compile'{src/*.zsh,src/strategies/*}' atload'_zsh_autosuggest_start'
 z zsh-users/zsh-autosuggestions
-export ZSH_AUTOSUGGEST_USE_ASYNC=1
-export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 # zsh-history-substring-search
 # https://github.com/zsh-users/zsh-history-substring-search
@@ -169,6 +167,13 @@ z zsh-users/zsh-history-substring-search
 # https://github.com/zdharma/history-search-multi-word
 zstyle ":history-search-multi-word" page-size "50"
 zt 1a trackbinds bindmap'^R -> ^S'; z load zdharma/history-search-multi-word
+
+# ──────────────────────────────────────────────────────────────────────────────
+
+# Semigraphical .zshrc editor for Zplugin commands
+# https://github.com/zdharma/zplugin-crasis
+z zdharma/zui
+z zdharma/zplugin-crasis
 
 # ─── unset helpers ────────────────────────────────────────────────────────────
 unset -f zt

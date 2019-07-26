@@ -30,7 +30,8 @@ autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 
 # and load the plugins
-source "$ZSHCONFIG/zplugin-init.zsh"
+# source "$ZSHCONFIG/zplugin-init.zsh"
+source "$ZSHCONFIG/zplugin.zsh"
 # ──────────────────────────────────────────────────────────────────────────────
 
 #

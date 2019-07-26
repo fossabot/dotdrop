@@ -112,8 +112,7 @@ export PAGER='less'
 # w - temporarily highlights the first "new" line after a forward movement
 # z - changes the default scrolling size
 # X - suppress alternate screen
-export LESS='-i -F -M -R -S -g -w -z-4'
-# export LESS='-i -M -R -S -W -z-4'
+export LESS='-i -F -M -R -S -g -w'
 
 # filename (if known), line number if known, falling back to percent if known,
 # falling back to byte offset, falling back to dash

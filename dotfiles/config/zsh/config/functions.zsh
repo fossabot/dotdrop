@@ -38,6 +38,14 @@ fzf-locate-widget() {
 # zle     -N    fzf-locate-widget
 # bindkey '\ei' fzf-locate-widget
 
+
+fzf-history-widget-accept() {
+  fzf-history-widget
+  zle accept-line
+}
+zle     -N     fzf-history-widget-accept
+bindkey '^[d' fzf-history-widget-accept
+
 # ──────────────────────────────────────────────────────────────────────────────
 
 

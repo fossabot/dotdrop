@@ -19,7 +19,9 @@ FZF_DEFAULT_THEME='
  --color=marker:#90a959,spinner:#aa759f,header:#87afaf
 '
 
+export FZF_PREVIEW_FILES="bat --line-range :100 --wrap never --color always {} || highlight -O ansi -l {} || cat {}"
 export FZF_PREVIEW_DIRS="tree -C -L 1 -x --noreport --dirsfirst {}"
+export FZF_PREVIEW_ANY="($FZF_PREVIEW_FILES || $FZF_PREVIEW_DIRS) 2> /dev/null | head -500"
 
 export FZF_DEFAULT_COMMAND="${__FZF[DEFAULT]}"
 export FZF_CTRL_T_COMMAND="${__FZF[DEFAULT]} --type f -d 3"
@@ -31,7 +33,7 @@ export FZF_DEFAULT_OPTS="
 "
 export FZF_CTRL_T_OPTS="
   --preview-window right:50%
-  --preview '(bat --line-range :100 --wrap never --color always {} || highlight -O ansi -l {} || cat {} || $FZF_PREVIEW_DIRS) 2> /dev/null | head -500'
+  --preview '$FZF_PREVIEW_ANY'
   --bind 'enter:execute($EDITOR {})+abort,alt-v:execute(code-insiders -r {})+abort,ctrl-y:execute-silent(pbcopy < {})+abort,alt-y:execute-silent(echo {} | pbcopy)+abort,?:toggle-preview'
   --header '↵ - open, ⌥V - open in VS Code, ^Y - copy, ⌥Y - copy name, ? - toggle preview'
 "
@@ -44,30 +46,7 @@ export FZF_ALT_C_OPTS="
   --preview '$FZF_PREVIEW_DIRS 2> /dev/null | head -200'
 "
 
-fzf-history-widget-accept() {
-  fzf-history-widget
-  zle accept-line
-}
-zle     -N     fzf-history-widget-accept
-bindkey '^[d' fzf-history-widget-accept
-
 # export FZF_COMPLETION_TRIGGER=","
-
-# export FZF_DEFAULT_COMMAND="fd --type f -H"
-# export FZF_DEFAULT_COMMAND="fd -H -L -E .git -E **/node_modules"
-# export FZF_DEFAULT_OPTS="
-#   --reverse
-#   --no-height
-#   --cycle
-#   $FZF_DEFAULT_THEME
-# "
-
-# export FZF_CTRL_T_COMMAND="fd . -t f -H -I -E .git -E node_modules"
-# export FZF_CTRL_T_OPTS="+m --preview='bat --style=numbers {}'"
-
-# export FZF_ALT_C_COMMAND="fd --no-ignore-vcs -t d -E node_modules"
-# export FZF_ALT_C_OPTS="+s --preview='tree -C -L 1 -x --noreport --dirsfirst {}'"
-
 # export FZF_PREVIEW_LINES=""
 # export FZF_PREVIEW_COLUMNS=""
 
@@ -107,5 +86,12 @@ zstyle :prompt:pure:prompt:error color red
 zstyle :prompt:pure:prompt:success color magenta
 zstyle :prompt:pure:user color 242
 zstyle :prompt:pure:user:root color red
+
+# }}}
+
+# ─── plugins ────────────────────────────────────────────────────────────── {{{
+
+export ZSH_AUTOSUGGEST_USE_ASYNC=1
+export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 # }}}

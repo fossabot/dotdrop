@@ -70,9 +70,13 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # bat
-alias b="bat"
-alias bn="bat -n"
-alias bl="bat -l"
+if [ `command -v bat` ]; then
+  alias b="bat"
+  alias bn="bat -n"
+  alias bl="bat -l"
+  alias cat="bat"
+fi
+
 
 # ─── COMMAND SHORTCUTS ────────────────────────────────────────────────────────
 alias r='exec $SHELL -l' # Reload the shell (i.e. invoke as a login shell)
@@ -88,11 +92,11 @@ alias wi="which -a"
 alias info='info --vi-keys'
 alias mime="file --mime-type -b"
 
-alias path='echo -e ${PATH//:/\\n}' # Print each PATH entry on a separate line
+# alias path='echo -e ${PATH//:/\\n}' # Print each PATH entry on a separate line
 alias trim="tr -d '\n' | pbcopy" # Trim new lines and copy to clipboard
 alias cpwd='pwd | xargs echo -n | pbcopy' # copy pwd to the clipboard
 
-if command -v trash &> /dev/null; then
+if [ `command -v trash` ]; then
   alias rm='trash'
 fi
 
@@ -133,9 +137,9 @@ ql() {
 
 # ─── EDITORS ──────────────────────────────────────────────────────────────────
 
-if [ `command -v nvim` ]; then
-  alias vim=nvim
-fi
+# if [ `command -v nvim` ]; then
+#   alias vim=nvim
+# fi
 
 # alias c='code-insiders -r'
 c() {
