@@ -137,7 +137,11 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 #
 
 # key bindings
-[ -f "/usr/local/opt/fzf/shell/key-bindings.bash" ] && . "/usr/local/opt/fzf/shell/key-bindings.bash"
+# [ -f "/usr/local/opt/fzf/shell/key-bindings.bash" ] && . "/usr/local/opt/fzf/shell/key-bindings.bash"
+if [ -f "/Users/art/.cache/zsh/zplugin/plugins/junegunn---fzf_completions/shell/key-bindings.bash" ]; then
+  source "/Users/art/.cache/zsh/zplugin/plugins/junegunn---fzf_completions/shell/key-bindings.bash"
+fi
+
 
 
 # remove go package

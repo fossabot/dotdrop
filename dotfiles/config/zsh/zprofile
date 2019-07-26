@@ -87,6 +87,20 @@ fi
 # )
 
 
+#
+# ─── EDITORS ─────────────────────────────────────────────────────────────────
+#
+
+# Vim
+# if (( $+commands[nvim] )); then
+#   export EDITOR=nvim
+# else
+#   export EDITOR="vim"
+# fi
+export EDITOR="micro"
+export VISUAL=$EDITOR
+export PAGER='less'
+
 # ─── less ────────────────────────────────────────────────────────────────────
 
 # filename (if known), line number if known, falling back to percent if known,
@@ -110,7 +124,7 @@ export LESS='-i -F -M -R -S -g -w -z-4'
 # M = verbose prompt
 # R = ANSI color support
 # X = suppress alternate screen (Don’t clear the screen after quitting)
-# export MANPAGER='less -FKMRX'
+export MANPAGER="$PAGER"
 
 export LESS_TERMCAP_mb=$(tput setaf 4) # blue
 export LESS_TERMCAP_md=$(tput bold; tput setaf 2) # green

@@ -1,6 +1,6 @@
 # ─── helpers ──────────────────────────────────────────────────────────────────
 
-zt() { 
+zt() {
   if [ "$#" -ne 0 ] && [[ "${1[1]}" == [0-9] ]]; then
     zplugin ice wait"${1}" lucid "${@:2}"
   else
@@ -96,7 +96,7 @@ zt 1b; z Tarrasch/zsh-bd
 
 # base16-shell
 # https://github.com/chriskempson/base16-shell
-z chriskempson/base16-shell
+z load chriskempson/base16-shell
 
 # a collection of LS_COLORS definitions
 # https://github.com/trapd00r/LS_COLORS
@@ -150,7 +150,7 @@ z zdharma/fast-syntax-highlighting
 # autosuggestions
 # https://github.com/zsh-users/zsh-autosuggestions
 # Note: should go _after_ syntax highlighting plugin
-zt 0a compile'{src/*.zsh,src/strategies/*}' atload'_zsh_autosuggest_start' 
+zt 0a compile'{src/*.zsh,src/strategies/*}' atload'_zsh_autosuggest_start'
 z zsh-users/zsh-autosuggestions
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
@@ -162,7 +162,7 @@ z zsh-users/zsh-history-substring-search
 # multi-word, syntax highlighted history searching
 # https://github.com/zdharma/history-search-multi-word
 zstyle ":history-search-multi-word" page-size "50"
-zt 1a; z load zdharma/history-search-multi-word
+zt 1a trackbinds bindmap'^R -> ^S'; z load zdharma/history-search-multi-word
 
 # ─── unset helpers ────────────────────────────────────────────────────────────
 unset -f zt

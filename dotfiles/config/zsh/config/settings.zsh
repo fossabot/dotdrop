@@ -79,32 +79,65 @@ export FZF_DEFAULT_THEME='
  --color=marker:#90a959,spinner:#aa759f,header:#87afaf'
 
 # options
-# export FZFZ_PREVIEW_COMMAND='tree -C -L 1 -x --noreport --dirsfirst {}'
-# export FZF_DEFAULT_OPTS="--no-height --layout=reverse --preview='$FZFZ_PREVIEW_COMMAND | head -\$LINES'"
-# export FZF_DEFAULT_COMMAND='fd -t f	-H -L -E .git -E **/node_modules'
 
 # export FZF_DEFAULT_COMMAND="fd --type f -H"
 # export FZF_DEFAULT_COMMAND="fd -H -L -E .git -E **/node_modules"
-export FZF_DEFAULT_OPTS="
-  --layout=reverse
-  --no-height
-  --cycle
-  $FZF_DEFAULT_THEME
-"
-# export FZF_DEFAULT_OPTS="--layout=reverse --cycle $FZF_DEFAULT_THEME"
+# export FZF_DEFAULT_OPTS="
+#   --reverse
+#   --no-height
+#   --cycle
+#   $FZF_DEFAULT_THEME
+# "
 
-export FZF_CTRL_T_COMMAND="fd . -t f -H -I -E .git -E node_modules"
-export FZF_CTRL_T_OPTS="+m --preview='bat --style=numbers {}'"
+# export FZF_CTRL_T_COMMAND="fd . -t f -H -I -E .git -E node_modules"
+# export FZF_CTRL_T_OPTS="+m --preview='bat --style=numbers {}'"
 
-export FZF_ALT_C_COMMAND="fd --no-ignore-vcs -t d -E node_modules"
-export FZF_ALT_C_OPTS="+s --preview='tree -C -L 1 -x --noreport --dirsfirst {}'"
-
-# export FZF_CTRL_R_OPTS=""
+# export FZF_ALT_C_COMMAND="fd --no-ignore-vcs -t d -E node_modules"
+# export FZF_ALT_C_OPTS="+s --preview='tree -C -L 1 -x --noreport --dirsfirst {}'"
 
 # export FZF_PREVIEW_LINES=""
 # export FZF_PREVIEW_COLUMNS=""
 
-export FZF_COMPLETION_TRIGGER=","
+typeset -AU __FZF
+if (( $+commands[fd] )); then
+  __FZF[CMD]='fd --hidden --no-ignore-vcs -E ".git" -E "node_modules" -E ".DS_Store"'
+  __FZF[DEFAULT]="${__FZF[CMD]} --type f"
+  __FZF[ALT_C]="${__FZF[CMD]} --type d ."
+elif (( $+commands[rg] )); then
+  __FZF[CMD]='rg --no-messages --no-ignore-vcs'
+  __FZF[DEFAULT]="${__FZF[CMD]} --files"
+else
+  __FZF[DEFAULT]='git ls-tree -r --name-only HEAD || find .'
+fi
+
+export FZF_DEFAULT_COMMAND="${__FZF[DEFAULT]}"
+export FZF_CTRL_T_COMMAND="${__FZF[DEFAULT]} -d 3"
+export FZF_ALT_C_COMMAND="${__FZF[ALT_C]}"
+export FZF_DEFAULT_OPTS="
+  --reverse --multi --cycle --tabstop 2
+  --height 80% --min-height 30
+"
+export FZF_CTRL_T_OPTS='
+  --preview-window right:50%
+  --preview "(bat --decorations=never --line-range :100 --wrap never --color always {} || highlight -O ansi -l {} || cat {} || tree -C -L 1 -x --dirsfirst {}) 2> /dev/null | head -500"
+  --bind "enter:execute($EDITOR {})+abort,alt-v:execute(code-insiders -r {})+abort,ctrl-y:execute-silent(pbcopy < {})+abort,alt-y:execute-silent(echo {} | pbcopy)+abort,?:toggle-preview"
+  --header "↵ - open, ⌥V - open in VS Code, ^Y - copy, ⌥Y - copy name, ? - toggle preview"
+'
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {}' --preview-window down:3:hidden:wrap
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort,?:toggle-preview'
+  --header '^Y - copy command, ? - toggle preview'
+"
+export FZF_ALT_C_OPTS="--preview 'tree -C -L 1 -x --dirsfirst {} 2> /dev/null | head -200'"
+
+fzf-history-widget-accept() {
+  fzf-history-widget
+  zle accept-line
+}
+zle     -N     fzf-history-widget-accept
+bindkey '^[d' fzf-history-widget-accept
+
+# export FZF_COMPLETION_TRIGGER=","
 
 export FZFZ_EXTRA_OPTS="-e"
 
