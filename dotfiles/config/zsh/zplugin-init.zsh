@@ -10,6 +10,12 @@ zt() {
 z() { [ -z $2 ] && zplugin light "${@}" || zplugin "${@}"; }
 # ──────────────────────────────────────────────────────────────────────────────
 
+# ─── dotdrop ──────────────────────────────────────────────────────────────────
+
+# zt as"command" src"completion/_dotdrop-completion.zsh" \
+#   pick"dotdrop.sh" atclone"pip3 install -r requirements.txt --user"
+# z deadc0de6/dotdrop
+
 #
 # ─── PROMPT ───────────────────────────────────────────────────────────────────
 #
@@ -36,15 +42,15 @@ z junegunn/fzf
 # ─── fuzzy movement and directory choosing ────────────────────────────────────
 # autojump command
 # https://github.com/rupa/z
-zt 0c; z rupa/z
+zt 0c; z load rupa/z
 
 # Pick from most frecent folders with `Ctrl+g`
 # https://github.com/andrewferrier/fzf-z
-zt 0b; z andrewferrier/fzf-z
+zt 0b; z load andrewferrier/fzf-z
 
 # lets z+[Tab] and zz+[Tab]
 # https://github.com/changyuheng/fz
-zt 0b; z changyuheng/fz
+zt 0b; z load changyuheng/fz
 
 # Like `z` command, but opens a file in vim based on frecency
 # zt 0b as'command' pick"v"; z load rupa/v

@@ -18,8 +18,8 @@ export LC_NUMERIC"=en_US.UTF-8"
 export LC_TIME"=en_US.UTF-8"
 export LC_ALL"=en_US.UTF-8"
 
-#
-# ─── PATH ────────────────────────────────────────────────────────────────────
+# ─── path ───────────────────────────────────────────────────────────────── {{{
+
 # (N-/): do not register if the directory does not exists
 # (Nn[-1]-/)
 #
@@ -31,17 +31,12 @@ export LC_ALL"=en_US.UTF-8"
 #  t   : tail of the path
 #
 
-# Ensure path arrays do not contain duplicates.
-typeset -gU cdpath fpath manpath mailpath path
-
 fpath=(
   # "${ZDOTDIR:-${ZSHCONFIG}}/functions(N-/)"
   # ${ZDOTDIR:-${HOME}/.dotfiles/files/.zsh.d}/completions(N-/)
   /usr/local/share/zsh/site-functions(N-/)
   $fpath
 )
-
-autoload -Uz "${ZDOTDIR:-${ZSHCONFIG}}/functions/**/*(N:t)"
 
 # Set the list of directories that Zsh searches for programs.
 path=(
@@ -67,7 +62,6 @@ elif [[ "$SYSTEM" = "Linux" ]]; then
   fi
 fi
 
-
 # manpath=(
 #   ${HOMEBREW_PREFIX}/opt/*/libexec/gnuman(N-/)
 #   $manpath
@@ -86,12 +80,15 @@ fi
 #   $cdpath
 # )
 
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath manpath mailpath path
 
-#
-# ─── EDITORS ─────────────────────────────────────────────────────────────────
-#
+# }}}
 
-# Vim
+
+# ─── editors ────────────────────────────────────────────────────────────── {{{
+
+# vim
 # if (( $+commands[nvim] )); then
 #   export EDITOR=nvim
 # else
@@ -101,21 +98,29 @@ export EDITOR="micro"
 export VISUAL=$EDITOR
 export PAGER='less'
 
-# ─── less ────────────────────────────────────────────────────────────────────
+# }}}
+
+# ─── less ───────────────────────────────────────────────────────────────── {{{
+
+# https://ss64.com/osx/less_options.html
+# i - case-insensitive searches, unless uppercase characters in search string
+# F - exit immediately if output fits on one screen
+# M - verbose prompt
+# R - ANSI color support
+# S - chop long lines (rather than wrap them onto next line)
+# g - highlight only the particular string which was found by the last search
+# w - temporarily highlights the first "new" line after a forward movement
+# z - changes the default scrolling size
+# X - suppress alternate screen
+export LESS='-i -F -M -R -S -g -w -z-4'
+# export LESS='-i -M -R -S -W -z-4'
 
 # filename (if known), line number if known, falling back to percent if known,
 # falling back to byte offset, falling back to dash
 export LESSPROMPT='?f%f .?ltLine %lt:?pt%pt\%:?btByte %bt:-...'
 export LESSCHARSET"=utf-8"
-
-# i = case-insensitive searches, unless uppercase characters in search string
-# F = exit immediately if output fits on one screen
-# M = verbose prompt
-# R = ANSI color support
-# S = chop long lines (rather than wrap them onto next line)
-# X = suppress alternate screen
-export LESS='-i -F -M -R -S -g -w -z-4'
-# export LESS='-i -M -R -S -W -z-4'
+export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
+export LESSKEY="$XDG_CONFIG_HOME/less/compiled"
 
 # ─── MAN PAGES ────────────────────────────────────────────────────────────────
 
@@ -147,6 +152,8 @@ export LESS_TERMCAP_ZW=$(tput rsupm)
 # export LESS_TERMCAP_ue=$(tput sgr0)                # stop underline
 # export LESS_TERMCAP_so=$(tput smso)                # start standout (reverse video)
 # export LESS_TERMCAP_se=$(tput rmso)                # stop standout
+
+# }}}
 
 # ─── colors ───────────────────────────────────────────────────────────────────
 export SYSTEM="$(uname -s)"

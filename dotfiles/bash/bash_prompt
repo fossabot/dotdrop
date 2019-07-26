@@ -58,8 +58,8 @@ if [[ "$UID" == 0 ]]; then
   prompt_symbol_color="$red"
   prompt_dir_color="$red"
 else
-#
-  prompt_symbol="❯"
+  prompt_symbol="➜"
+  # prompt_symbol="❯"
   prompt_symbol_color="$magenta"
   prompt_dir_color="$blue"
 fi

@@ -62,20 +62,10 @@ dotfiles:
   f_exports:
     src: exports
     dst: ~/.exports
+  f_less:
+    src: config/less
+    dst: ~/.config/less
 profiles:
   base:
     dotfiles:
     - ALL
-
-  bash:
-    dotfiles:
-    - f_profile
-    - f_inputrc
-    - f_bashrc
-    - f_bash_prompt
-    - f_bash_profile
-    - f_bash_completion
-    - f_bash_logout
-    - d_completions
-    - f_aliases
-    - f_exports
