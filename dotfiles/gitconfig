@@ -8,7 +8,7 @@
 
 [commit]
   verbose = true
-  gpgsign = true
+  # gpgsign = true
 
 [core]
   editor = $EDITOR

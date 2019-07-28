@@ -4,4 +4,39 @@
 # directory (usually /usr/share/man). Accepts an optional argument for the manual
 # section (defaults to 1).
 
-man $(fd . /usr/local/share/man/man${1:-1} -t f -L -x echo {/.} | fzf -e -q "$1")
+# 1      User Commands
+# 2      System Calls
+# 3      C Library Functions
+# 4      Devices and Special Files
+# 5      File Formats and Conventions
+# 6      Games et. al.
+# 7      Miscellanea
+# 8      System Administration tools and Daemons
+
+
+_fman() {
+  if [ ! -z "${1##*[!0-9]*}" ]; then
+    SECTION="$1"
+    CMD=$2
+  else
+    SECTION=1
+    CMD=$1
+  fi
+
+  local MANDIRS=()
+  for dir in $(man -w | tr ':' '\n'); do
+    if [ -d "$dir/man$SECTION" ] && [[ ! $dir == /Library/Developer* ]]; then
+      MANDIRS+=("$dir/man$SECTION")
+    fi
+  done
+
+  if [ ! -z "$MANDIRS" ]; then
+    find=$(find "${MANDIRS[@]}" \( -type f -or -type l \) -execdir sh -c 'printf "%s\n" "${@%%.*}"' _ {} + | sort -u | fzf -e --prompt='Man> '  -q "$CMD" --preview 'man {}')
+    # find=$(fd . "${MANDIRS[@]}" -t f -L -X sh -c 'printf "%s\n" "${@%%.*}"' {/.} | sort -u | fzf -e --prompt='Man> '  -q "$CMD" --preview 'man {}')
+    man $find
+  else
+    echo "No manuals for section $SECTION"
+  fi
+}
+
+_fman "$@"

@@ -2,19 +2,21 @@
 
 # svgo
 
-if [ $# -eq 0 ]; then
-  echo "Usage: svg /path/to/file.svg"
-  return
-else
-  for icon in "$1"; do
-    if [ "$(echo $icon | cut -f 2 -d '.')" != "svg" ]; then
-      echo "Error: File extension should be SVG"
-      return
-    fi
-  done
-fi
+_svg() {
+  if [ $# -eq 0 ]; then
+    echo "Usage: svg /path/to/file.svg"
+    return
+  else
+    for icon in "$1"; do
+      if [ "$(echo $icon | cut -f 2 -d '.')" != "svg" ]; then
+        echo "Error: File extension should be SVG"
+        return
+      fi
+    done
+  fi
 
-icon="$1"
-svgo --config="$HOME/.config/svgo/config.yml" -i "$icon" -o "${icon%.*}.min.svg"
+  local icon="$1"
+  svgo --config="$HOME/.config/svgo/config.yml" -i "$icon" -o "${icon%.*}.min.svg"
+}
 
-unset icon
+_svg "$@"

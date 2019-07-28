@@ -1,13 +1,52 @@
 #!/usr/bin/env bash
 
-# wget
+# $_ME
+#
+# Set to the program's basename.
+_ME=$(basename "${0}")
 
-if [ $# -eq 0 ]; then
-  echo "Usage: wg URL FILENAME"
-  return
-fi
+_print_help() {
+  cat <<HEREDOC
+Shorthand for wget.
 
-fileName=${2:-$(basename "$1")}
-wget "$1" -O "$fileName"
+Usage:
+  ${_ME} [<URL>]
+  ${_ME} -h | --help
 
-unset fileName
+Options:
+   x  -x     Make executable after download
+  -h --help  Show this screen.
+HEREDOC
+}
+
+_wg() {
+  if [ $# -eq 0 ]; then
+    _print_help
+    return
+  fi
+
+  local fileName
+
+  while [[ $# > 0 ]]; do
+    case "$1" in
+    -h | --help)
+      _print_help
+      shift
+      ;;
+    x | -x)
+      fileName=${3:-$(basename "$2")}
+      X="&& chmod +x $fileName"
+      shift
+      ;;
+    *)
+      fileName=${2:-$(basename "$1")}
+      break
+      ;;
+    esac
+  done
+
+  # wget "$1" -O "$fileName" $X
+  echo "wget $1 -O $fileName $X"
+}
+
+_wg "$@"

@@ -1,0 +1,67 @@
+#!/usr/bin/env zsh
+
+# vim:syntax=zsh
+# vim:filetype=zsh
+
+# for profiling zsh
+# https://unix.stackexchange.com/a/329719/27109
+#
+# zmodload zsh/zprof
+# typeset -g ZPLG_MOD_DEBUG=1
+
+# ─── Customizing Paths ────────────────────────────────────────────────────────
+export ZSHCONFIG="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
+
+# initial Zplugin's hash definition, if configuring before loading Zplugin
+declare -A ZPLGM
+ZPLG_HOME="$XDG_CACHE_HOME/zsh/zplugin"
+ZPLGM[HOME_DIR]="$ZPLG_HOME"
+ZPLGM[ZCOMPDUMP_PATH]="$XDG_CACHE_HOME/zsh/zcompdump"
+
+# ─── Install zplugin if not installed ─────────────────────────────────────────
+
+if [[ ! -d "$ZPLG_HOME" ]]; then
+	git clone https://github.com/psprint/zplugin "$ZPLG_HOME/bin"
+  # sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+fi
+
+source "$ZPLG_HOME/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+
+# and load the plugins
+# source "$ZSHCONFIG/zplugin-init.zsh"
+source "$ZSHCONFIG/zplugin.zsh"
+# ──────────────────────────────────────────────────────────────────────────────
+
+#
+# ─── LOAD ALL SCRIPTS ${ZSHCONFIG}/config/*.zsh ───────────────────────────────
+#
+
+zsh_config="${ZSHCONFIG}/config"
+if [[ -d "$zsh_config" ]]; then
+  for file in $zsh_config/*.zsh; do
+    source "$file"
+  done
+fi
+unset zsh_config
+
+#
+# ─── SETTING AUTOLOADED FUNCTIONS ────────────────────────────────────────────
+#
+zsh_fpath="$HOME/.bin"
+fpath=($zsh_fpath $fpath)
+if [[ -d "$zsh_fpath" ]]; then
+  for func in $zsh_fpath/*; do
+    autoload -Uz ${func:t}
+  done
+fi
+unset zsh_fpath
+
+# https://direnv.net/
+# see zplugin-init.zsh
+# https://github.com/zdharma/zplugin/wiki/Direnv-explanation
+#eval "$(direnv hook zsh)"
+
+# Private script here
+# [ -f ~/.private.zsh ] && source ~/.private.zsh

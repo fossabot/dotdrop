@@ -7,31 +7,32 @@ config:
   link_dotfile_default: link
   link_on_import: link
   longkey: false
+  minversion: 0.29.4
 dotfiles:
+  d_bin:
+    src: bin
+    dst: ~/.bin
   f_zshenv:
     src: zshenv
     dst: ~/.zshenv
   f_zprofile:
-    src: config/zsh/zprofile
+    src: zsh/zprofile
     dst: ~/.config/zsh/.zprofile
   f_zshrc:
-    src: config/zsh/zshrc
+    src: zsh/zshrc
     dst: ~/.config/zsh/.zshrc
   f_zlogin:
-    src: config/zsh/zlogin
+    src: zsh/zlogin
     dst: ~/.config/zsh/.zlogin
   f_zplugin:
-    src: config/zsh/zplugin.zsh
+    src: zsh/zplugin.zsh
     dst: ~/.config/zsh/zplugin.zsh
-  d_config_zsh_config:
-    src: config/zsh/config
+  f_zconfig:
+    src: zsh/config
     dst: ~/.config/zsh/config
   d_config_fsh:
     src: config/fsh
     dst: ~/.config/fsh
-  d_bin:
-    src: bin
-    dst: ~/.bin
   f_profile:
     src: bash/profile
     dst: ~/.profile
@@ -72,6 +73,15 @@ dotfiles:
   f_gitconfig:
     src: gitconfig
     dst: ~/.gitconfig
+  f_config:
+    src: config/youtube-dl/config
+    dst: ~/.config/youtube-dl/config
+  f_dir_colors:
+    src: dir_colors
+    dst: ~/.dir_colors
+  f_dark_colors.yaml:
+    src: config/colorls/dark_colors.yaml
+    dst: ~/.config/colorls/dark_colors.yaml
 profiles:
   base:
     dotfiles:

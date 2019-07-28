@@ -2,21 +2,22 @@
 
 # clone repo and cd to it
 
-if [ $# -eq 0 ]; then
-  echo "Usage: gcd git://example.com/repo.git"
-  return
-fi
+_gcd() {
+  if [ $# -eq 0 ]; then
+    echo "Usage: gcd git://example.com/repo.git"
+    return
+  fi
 
-url="$1"
-reponame="${2:-$(echo $url | awk -F/ '{print $NF}' | sed -e 's/.git$//')}"
+  local url="$1"
+  local reponame="${2:-$(echo $url | awk -F/ '{print $NF}' | sed -e 's/.git$//')}"
 
-if [ -d "$reponame" ]; then
+  if [ -d "$reponame" ]; then
+    cd $reponame
+    return
+  fi
+
+  git clone --recursive $url $reponame
   cd $reponame
-  return
-fi
+}
 
-git clone --recursive $url $reponame
-cd $reponame
-
-unset url
-unset reponame
+_gcd "$@"
