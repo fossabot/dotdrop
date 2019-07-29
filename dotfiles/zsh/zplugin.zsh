@@ -41,8 +41,8 @@ zplugin light rupa/z
 
 # Pick from most frecent folders with `Ctrl+g`
 # https://github.com/andrewferrier/fzf-z
-zplugin ice wait'0b' lucid
-zplugin load andrewferrier/fzf-z
+# zplugin ice wait'0b' lucid
+# zplugin load andrewferrier/fzf-z
 
 # lets z+[Tab] and zz+[Tab]
 # https://github.com/changyuheng/fz

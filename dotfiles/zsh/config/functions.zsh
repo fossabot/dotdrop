@@ -134,15 +134,10 @@ imencode() {
 }
 
 zf() {
-  if [[ -z "$*" ]]; then
-    local FZF_PREVIEW_DIRS="tree -C -L 1 -x --noreport --dirsfirst "
-
-    f=$(_z -l 2>&1 | sed 's/^[0-9,.]* *//' | sed -e "s,^$HOME,~," | fzf -e --preview 'tree -C -L 1 -x --noreport --dirsfirst $(echo {} | sed -e "s,^~,$HOME,")') && cd $(echo $f | sed -e "s,^~,$HOME,")
-  else
-    _last_z_args="$@"
-    _z "$@"
-  fi
+  f=$(_z -l 2>&1 | sed 's/^[0-9,.]* *//' | sed -e "s,^$HOME,~," | fzf -e --preview 'tree -C -L 1 -x --noreport --dirsfirst $(echo {} | sed -e "s,^~,$HOME,")')
+  cd $(echo $f | sed -e "s,^~,$HOME,")
 }
-
+zle -N zf
+bindkey ^g zf
 
 # dir="$(_zlua "$1" | fzf -1 -0 --reverse --height 30% --no-sort +m)" && cd "${dir}" || return 1
