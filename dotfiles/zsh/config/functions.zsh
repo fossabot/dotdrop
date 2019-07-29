@@ -133,24 +133,14 @@ imencode() {
   echo "$ICON" | pbcopy
 }
 
-zz() {
-  __abr() {
-    print "$1" | sed -e "s,^$HOME,~,"
-  }
-
-  __unabr() {
-    print "$1" | sed -e "s,^~,$HOME,"
-  }
-
-  local FZF_PREVIEW_DIRS="tree -C -L 1 -x --noreport --dirsfirst "
-
+zf() {
   if [[ -z "$*" ]]; then
+    local FZF_PREVIEW_DIRS="tree -C -L 1 -x --noreport --dirsfirst "
 
-    dir="$(_zlua -l 2>&1 | sed 's/^[0-9,.]* *//' | __abr | fzf -q "$_last_z_args" --no-sort --tiebreak=end,index -m --preview '$FZF_PREVIEW_DIRS')"
-    cd $(echo $dir | sed -e "s,^~,$HOME,")
+    f=$(_z -l 2>&1 | sed 's/^[0-9,.]* *//' | sed -e "s,^$HOME,~," | fzf -e --preview 'tree -C -L 1 -x --noreport --dirsfirst $(echo {} | sed -e "s,^~,$HOME,")') && cd $(echo $f | sed -e "s,^~,$HOME,")
   else
-    _last_zlua_args="$@"
-    _zlua "$@"
+    _last_z_args="$@"
+    _z "$@"
   fi
 }
 

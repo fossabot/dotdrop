@@ -45,8 +45,8 @@ _wg() {
     esac
   done
 
-  # wget "$1" -O "$fileName" $X
-  echo "wget $1 -O $fileName $X"
+  wget "$1" -O "$fileName" $X
+  # echo "wget $1 -O $fileName $X"
 }
 
 _wg "$@"

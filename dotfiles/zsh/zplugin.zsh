@@ -28,13 +28,16 @@ zplugin light junegunn/fzf
 # fzf-marks, at slot 0, for quick Ctrl-G accessibility
 # https://github.com/urbainvaes/fzf-marks
 # zt has'fzf' bindmap'^g -> ^f'; zplugin load urbainvaes/fzf-marks
+zplugin ice trackbinds bindmap'^g -> ^f' lucid
+zplugin light urbainvaes/fzf-marks
 
 # ─── fuzzy movement and directory choosing ────────────────────────────────────
 # autojump command
 # https://github.com/rupa/z
-# zplugin light rupa/z
 zplugin ice wait'0c' lucid
-zplugin light skywind3000/z.lua
+zplugin light rupa/z
+# zplugin load agkozak/zsh-z
+# zplugin light skywind3000/z.lua
 
 # Pick from most frecent folders with `Ctrl+g`
 # https://github.com/andrewferrier/fzf-z
@@ -51,7 +54,7 @@ zplugin light changyuheng/fz
 
 # interactive-cd
 # https://github.com/changyuheng/zsh-interactive-cd
-zplugin light changyuheng/zsh-interactive-cd
+# zplugin light changyuheng/zsh-interactive-cd
 
 #
 # ─── GIT ─────────────────────────────────────────────────────────────────────
@@ -79,6 +82,10 @@ zplugin light wfxr/forgit
 zplugin ice wait'0' lucid
 zplugin load desyncr/auto-ls
 
+# zsh-fast-alias-tips
+# https://github.com/sei40kr/zsh-fast-alias-tips
+zplugin ice make'!'
+zplugin light sei40kr/zsh-fast-alias-tips
 
 # zsh-autopair
 # https://github.com/hlissner/zsh-autopair
@@ -170,7 +177,6 @@ zplugin light zsh-users/zsh-history-substring-search
 
 # multi-word, syntax highlighted history searching
 # https://github.com/zdharma/history-search-multi-word
-zstyle ":history-search-multi-word" page-size "50"
 zplugin ice wait'1a' lucid trackbinds bindmap'^R -> ^S'
 zplugin light zdharma/history-search-multi-word
 
@@ -185,7 +191,7 @@ zplugin light zsh-users/zsh-autosuggestions
 
 # Semigraphical .zshrc editor for Zplugin commands
 # https://github.com/zdharma/zplugin-crasis
-: zplugin ice wait"1" lucid
-: zplugin load zdharma/zui
+zplugin ice wait"1" lucid
+zplugin load zdharma/zui
 zplugin ice wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]' lucid
 zplugin light zdharma/zplugin-crasis

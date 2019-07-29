@@ -21,11 +21,10 @@ FZF_DEFAULT_THEME='
  --color=marker:#90a959,spinner:#aa759f,header:#87afaf
 '
 
+# [[ "$(file --mime {})" =~ binary ]] && echo {} is a binary file ||
 export FZF_PREVIEW_FILES='
-  [[ "$(file --mime {})" =~ binary ]] && echo {} is a binary file ||
-  bat --wrap never --color always {} ||
-  highlight -O ansi -l {} ||
-  cat {}
+  (bat --style=numbers --color=always {} || highlight -O ansi -l {} || cat {}) ||
+  tree -C -L 1 -x --noreport --dirsfirst {}
 '
 export FZF_PREVIEW_DIRS="tree -C -L 1 -x --noreport --dirsfirst {}"
 export FZF_PREVIEW_ANY="($FZF_PREVIEW_FILES || $FZF_PREVIEW_DIRS) 2> /dev/null | head -500"
@@ -35,13 +34,15 @@ export FZF_CTRL_T_COMMAND="${__FZF[DEFAULT]} --type f -d 3"
 export FZF_ALT_C_COMMAND="${__FZF[ALT_C]}"
 
 export FZF_DEFAULT_OPTS="
-  --ansi
-  --reverse --multi --cycle --tabstop 2
-  --height 100% --min-height 30
+  --no-mouse --height 100% -1 --ansi --cycle
+  --reverse --multi --inline-info --tabstop 2
+  --preview='$FZF_PREVIEW_FILES  2> /dev/null | head -500'
+  --preview-window='right:hidden:wrap'
+  --bind='f3:execute(bat -l sh --style=numbers {} || less -f {}),f2:toggle-preview,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-y:execute-silent(echo {+} | pbcopy)'
 "
 export FZF_CTRL_T_OPTS="
   --preview-window right:50%
-  --preview '$FZF_PREVIEW_FILES'
+  --preview '$FZF_PREVIEW_FILES '
   --bind 'enter:execute($EDITOR {})+abort,alt-v:execute(code-insiders -r {})+abort,ctrl-y:execute-silent(pbcopy < {})+abort,alt-y:execute-silent(echo {} | pbcopy)+abort,?:toggle-preview'
   --header '↵ - open, ⌥V - open in VS Code, ^Y - copy, ⌥Y - copy name, ? - toggle preview'
 "
@@ -68,7 +69,7 @@ export _Z_DATA="$XDG_CACHE_HOME/zsh/z"
 export _ZL_DATA="$XDG_CACHE_HOME/zsh/zlua"
 
 # ─── fz ───────────────────────────────────────────────────────────────────────
-export FZ_HISTORY_CD_CMD=_zlua
+# export FZ_HISTORY_CD_CMD=_zlua
 
 # ─── fzf-z ────────────────────────────────────────────────────────────────────
 # https://github.com/andrewferrier/fzf-z
@@ -83,6 +84,7 @@ export FZFZ_SUBDIR_LIMIT=0
 # dont filter out duplicates
 export FZFZ_UNIQUIFIER="cat"
 # export FZFZ_UNIQUIFIER="sed -E \"s-^$HOME($|(/.*))-~\2-\""
+
 
 # }}}
 
@@ -119,10 +121,22 @@ export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=017,fg=white,bold'
 # auto-ls
 # https://github.com/desyncr/auto-ls
 auto-ls-exa() {
-  exa --group-directories-first --icons -a -F -I=$EXA_IGNORE
+  exa --group-directories-first -a -I=$EXA_IGNORE
 }
 
 export AUTO_LS_COMMANDS=(exa)
 export AUTO_LS_NEWLINE=1
+
+
+# zsh-fast-alias-tips
+# https://github.com/sei40kr/zsh-fast-alias-tips
+export FAST_ALIAS_TIPS_PREFIX="💡 $(tput bold)"
+export FAST_ALIAS_TIPS_SUFFIX="$(tput sgr0)"
+
+
+# multi-word, syntax highlighted history searching
+# https://github.com/zdharma/history-search-multi-word
+zstyle ":history-search-multi-word" page-size "50"
+
 
 # }}}
