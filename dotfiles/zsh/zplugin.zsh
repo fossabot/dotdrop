@@ -41,8 +41,8 @@ zplugin light rupa/z
 
 # Pick from most frecent folders with `Ctrl+g`
 # https://github.com/andrewferrier/fzf-z
-# zplugin ice wait'0b' lucid
-# zplugin load andrewferrier/fzf-z
+: zplugin ice wait'0b' lucid
+: zplugin load andrewferrier/fzf-z
 
 # lets z+[Tab] and zz+[Tab]
 # https://github.com/changyuheng/fz
@@ -50,11 +50,12 @@ zplugin ice wait'0b' lucid
 zplugin light changyuheng/fz
 
 # Like `z` command, but opens a file in vim based on frecency
-# zt 0b as'command' pick"v"; zplugin load rupa/v
+: zplugin wait'0b' as'command' pick"v"
+: zplugin light rupa/v
 
 # interactive-cd
 # https://github.com/changyuheng/zsh-interactive-cd
-# zplugin light changyuheng/zsh-interactive-cd
+: zplugin light changyuheng/zsh-interactive-cd
 
 #
 # ─── GIT ─────────────────────────────────────────────────────────────────────
@@ -66,12 +67,12 @@ zplugin ice has'fzf'
 zplugin light wfxr/forgit
 
 # gitignore plugin – commands gii and gi
-# zt 1b has'git' pick'init.zsh' atload'alias gi="git-ignore"' blockf
-# z laggardkernel/git-ignore
+: zplugin ice wait'1b' has'git' pick'init.zsh' atload'alias gi="git-ignore"' blockf
+: zplugin light laggardkernel/git-ignore
 
 # git-quick-stats
-# zt 1b as"command" pick"$ZPFX/bin/git-quick-stats" atload"export _MENU_THEME=legacy" make"PREFIX=$ZPFX install"
-# zplugin load arzzen/git-quick-stats
+: zplugin ice wait'1b' as"command" pick"$ZPFX/bin/git-quick-stats" atload"export _MENU_THEME=legacy" make"PREFIX=$ZPFX install"
+: zplugin load arzzen/git-quick-stats
 
 #
 # ─── PLUGINS ─────────────────────────────────────────────────────────────────
@@ -80,11 +81,11 @@ zplugin light wfxr/forgit
 # auto-ls
 # https://github.com/desyncr/auto-ls
 zplugin ice wait'0' lucid
-zplugin load desyncr/auto-ls
+zplugin light desyncr/auto-ls
 
 # zsh-fast-alias-tips
 # https://github.com/sei40kr/zsh-fast-alias-tips
-zplugin ice make'!'
+zplugin ice has'go' make'!'
 zplugin light sei40kr/zsh-fast-alias-tips
 
 # zsh-autopair
@@ -118,18 +119,8 @@ zplugin light Tarrasch/zsh-bd
 # base16-shell
 # https://github.com/chriskempson/base16-shell
 # zplugin ice cloneonly
-zplugin load chriskempson/base16-shell
-
-# a collection of LS_COLORS definitions
-# https://github.com/trapd00r/LS_COLORS
-# on macOS, you might need to install coreutils from homebrew and use the
-# g-prefix – gsed, gdircolors
-: zplugin ice pick"c.zsh" atclone"local PFX=${${(M)OSTYPE:#*darwin*}:+g}
-            git reset --hard;
-            \${PFX}sed -i '/DIR/c\DIR                   38;5;105;1' LS_COLORS; \
-            \${PFX}sed -i '/LINK/c\LINK                 38;5;115' LS_COLORS; \
-            \${PFX}dircolors -b LS_COLORS > c.zsh" atpull'%atclone' nocompile'!'
-: zplugin light trapd00r/LS_COLORS
+zplugin ice atclone="[ ! -f ~/base16-theme ] && ln -s $ZPLGM[PLUGINS_DIR]/chriskempson---base16-shell/scripts/base16-default-dark.sh ~/.base16_theme"
+zplugin light chriskempson/base16-shell
 
 # a progress spinner
 # https://github.com/psprint/revolver
@@ -146,9 +137,6 @@ zplugin load chriskempson/base16-shell
 # https://github.com/fidian/ansi
 zplugin ice as"command" pick"ansi"
 zplugin light fidian/ansi
-
-# zt 2b atclone"gencomp k; ZPLGM[COMPINIT_OPTS]='-i' zpcompinit" atpull'%atclone'
-# zplugin load supercrabtree/k
 
 # vramsteg
 # zt 2 has'cmake' as"command" pick"src/vramsteg" atclone'cmake .' atpull'%atclone' make
@@ -195,3 +183,19 @@ zplugin ice wait"1" lucid
 zplugin load zdharma/zui
 zplugin ice wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]' lucid
 zplugin light zdharma/zplugin-crasis
+
+# ──────────────────────────────────────────────────────────────────────────────
+
+
+
+# a collection of LS_COLORS definitions
+# https://github.com/trapd00r/LS_COLORS
+# on macOS, you might need to install coreutils from homebrew and use the
+# g-prefix – gsed, gdircolors
+: zplugin ice pick"c.zsh" atclone"local PFX=${${(M)OSTYPE:#*darwin*}:+g}
+            git reset --hard;
+            \${PFX}sed -i '/DIR/c\DIR                   38;5;105;1' LS_COLORS; \
+            \${PFX}sed -i '/LINK/c\LINK                 38;5;115' LS_COLORS; \
+            \${PFX}dircolors -b LS_COLORS > c.zsh" atpull'%atclone' nocompile'!'
+: zplugin light trapd00r/LS_COLORS
+

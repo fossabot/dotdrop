@@ -133,10 +133,6 @@ alias yui="yarn upgrade-interactive --latest"
 alias unrar="unrar x"
 alias ed='ed -p:'
 
-# QuickLook on macOS
-ql() {
-  qlmanage -p "$@" 2> /dev/null
-}
 
 # ─── EDITORS ──────────────────────────────────────────────────────────────────
 
@@ -194,38 +190,52 @@ alias ipi='ipconfig getifaddr en0'
 alias ipe='curl ipinfo.io/ip'
 # Show active network interfaces
 alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
+# determine if a port is in use
+alias fport="sudo lsof -i -P -n | grep"
 
-alias dmount='diskutil mount'
-alias dumount='diskutil unmount'
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  alias dmount='diskutil mount'
+  alias dumount='diskutil unmount'
+
+  # open in ForkLift
+  fl() {
+    if [ $# -eq 0 ]; then
+      open -a ForkLift .
+    else
+      open -a ForkLift "$@"
+    fi
+  }
+
+  # QuickLook on macOS
+  ql() {
+    qlmanage -p "$@" 2> /dev/null
+  }
 
 
-alias gws='PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/gnu-sed/libexec/gnubin:$PATH gws'
+  alias ff="/Applications/Firefox.app/Contents/MacOS/firefox"
+  alias ffb="/Applications/Firefox.app/Contents/MacOS/firefox-bin"
 
-# arch
-# alias sc="systemctl"
-# alias sce="systemctl list-units --type service --state active"
-# alias scr="systemctl list-units --type service --state running"
+  alias gws='PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/gnu-sed/libexec/gnubin:$PATH gws'
 
-# alias y="yay"
-# alias p='pkgsearch'
-# alias sp="sudo pacman -Syu --noconfirm"
-# alias spu="sudo pacman -Syu --noconfirm"
-# alias spr='sudo pacman -Rs --noconfirm'
+elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+  # arch
+  alias sc="systemctl"
+  alias sce="systemctl list-units --type service --state active"
+  alias scr="systemctl list-units --type service --state running"
+
+  alias y="yay -S --noconfirm"
+  alias yi="yay -Si"
+  alias ys="yay -Ss"
+  # alias p='pkgsearch'
+  alias sp="sudo pacman -Syu --noconfirm"
+  alias spu="sudo pacman -Syu --noconfirm"
+  alias spr='sudo pacman -Rs --noconfirm'
+
+fi
+
 
 # ─────────────────────────────────────────────────────────────────────────────
-
-# open with ForkLift
-fl() {
-  if [ $# -eq 0 ]; then
-    open -a ForkLift .
-  else
-    open -a ForkLift "$@"
-  fi
-}
-
-alias ff="/Applications/Firefox.app/Contents/MacOS/firefox"
-alias ffb="/Applications/Firefox.app/Contents/MacOS/firefox-bin"
-
 
 # if [ `command -v grc` ]; then
 #   alias grc="grc --colour=auto"

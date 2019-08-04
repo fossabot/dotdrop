@@ -82,6 +82,9 @@ dotfiles:
   f_dark_colors.yaml:
     src: config/colorls/dark_colors.yaml
     dst: ~/.config/colorls/dark_colors.yaml
+  f_mpd.conf:
+    src: config/mpd/mpd.conf
+    dst: ~/.config/mpd/mpd.conf
 profiles:
   base:
     dotfiles:

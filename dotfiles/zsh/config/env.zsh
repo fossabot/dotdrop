@@ -62,31 +62,6 @@ export FZF_ALT_C_OPTS="
 
 # }}}
 
-# ─── z ──────────────────────────────────────────────────────────────────── {{{
-# https://github.com/rupa/z
-
-export _Z_DATA="$XDG_CACHE_HOME/zsh/z"
-export _ZL_DATA="$XDG_CACHE_HOME/zsh/zlua"
-
-# ─── fz ───────────────────────────────────────────────────────────────────────
-# export FZ_HISTORY_CD_CMD=_zlua
-
-# ─── fzf-z ────────────────────────────────────────────────────────────────────
-# https://github.com/andrewferrier/fzf-z
-
-# change the preview command
-# export FZFZ_PREVIEW_COMMAND="$FZF_PREVIEW_DIRS"
-export FZFZ_PREVIEW_COMMAND="$FZF_PREVIEW_DIRS | head -$LINES"
-# enable exact match
-export FZFZ_EXTRA_OPTS="-e --height=100%"
-# dont show directories under the current directory
-export FZFZ_SUBDIR_LIMIT=0
-# dont filter out duplicates
-export FZFZ_UNIQUIFIER="cat"
-# export FZFZ_UNIQUIFIER="sed -E \"s-^$HOME($|(/.*))-~\2-\""
-
-
-# }}}
 
 # ─── prompt ─────────────────────────────────────────────────────────────── {{{
 # https://github.com/sindresorhus/pure#options
@@ -107,6 +82,10 @@ zstyle :prompt:pure:user:root color red
 # }}}
 
 # ─── plugins ────────────────────────────────────────────────────────────── {{{
+
+# base16-shell
+# https://github.com/chriskempson/base16-shell
+# export BASE16_THEME="base16_tomorrow-night"
 
 # autosuggestions
 # https://github.com/zsh-users/zsh-autosuggestions
@@ -130,7 +109,7 @@ export AUTO_LS_NEWLINE=1
 
 # zsh-fast-alias-tips
 # https://github.com/sei40kr/zsh-fast-alias-tips
-export FAST_ALIAS_TIPS_PREFIX="💡 $(tput bold)"
+export FAST_ALIAS_TIPS_PREFIX="💡 Tip: $(tput bold)"
 export FAST_ALIAS_TIPS_SUFFIX="$(tput sgr0)"
 
 
@@ -138,5 +117,33 @@ export FAST_ALIAS_TIPS_SUFFIX="$(tput sgr0)"
 # https://github.com/zdharma/history-search-multi-word
 zstyle ":history-search-multi-word" page-size "50"
 
+# }}}
+
+# ─── z ──────────────────────────────────────────────────────────────────── {{{
+# https://github.com/rupa/z
+
+export _Z_DATA="$XDG_CACHE_HOME/zsh/z"
+export _ZL_DATA="$XDG_CACHE_HOME/zsh/zlua"
+
+# ─── fz ───────────────────────────────────────────────────────────────────────
+# export FZ_HISTORY_CD_CMD=_zlua
+
+# ─── fzf-z ────────────────────────────────────────────────────────────────────
+# https://github.com/andrewferrier/fzf-z
+
+# change the preview command
+# export FZFZ_PREVIEW_COMMAND="$FZF_PREVIEW_DIRS"
+export FZFZ_PREVIEW_COMMAND="$FZF_PREVIEW_DIRS | head -$LINES"
+# enable exact match
+export FZFZ_EXTRA_OPTS="-e --height=100%"
+# dont show directories under the current directory
+export FZFZ_SUBDIR_LIMIT=0
+# dont filter out duplicates
+export FZFZ_UNIQUIFIER="cat"
+# export FZFZ_UNIQUIFIER="sed -E \"s-^$HOME($|(/.*))-~\2-\""
+
+# ─── fzf-marks ────────────────────────────────────────────────────────────────
+# https://github.com/urbainvaes/fzf-marks
+export FZF_MARKS_FILE="$XDG_CACHE_HOME/zsh/marks"
 
 # }}}
