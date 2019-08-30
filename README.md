@@ -48,7 +48,7 @@ Check out the tool at https://github.com/deadc0de6/dotdrop.
 3. Get to know the host name of your machine, and add that to the `config.yaml` file, and specify the files that you wish to sync.
 4. Assuming that you are still in the dotfiles directory, do
   ```shell
-  ./dotdrop.sh install
+  ./dotdrop.sh install -p base
   ```
 
 #### Extra
