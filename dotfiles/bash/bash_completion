@@ -10,7 +10,9 @@ export FIGNORE=".swp:swo:~"
 # treats a command name that doesn’t have any completions as a possible alias
 # and attempts alias expansion. If it has an alias, Bash attempts programmable
 # completion using the command word resulting from the expanded alias
-shopt -s progcomp_alias
+if [ "${BASH_VERSINFO:-0}" -ge 5 ]; then
+  shopt -s progcomp_alias
+fi
 
 # don't try to complete empty lines
 shopt -s no_empty_cmd_completion

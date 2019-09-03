@@ -61,6 +61,11 @@ zplugin light changyuheng/fz
 # ─── GIT ─────────────────────────────────────────────────────────────────────
 #
 
+# diff-so-fancy
+# https://github.com/so-fancy/diff-so-fancy
+zplugin ice wait"1b" lucid as"program" pick"bin/git-dsf"
+zplugin light zdharma/zsh-diff-so-fancy
+
 # fuzzy git
 # https://github.com/wfxr/forgit
 zplugin ice has'fzf'
