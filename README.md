@@ -42,8 +42,7 @@ Check out the tool at https://github.com/deadc0de6/dotdrop.
 2. make sure to install [dependencies for Dotdrop](https://github.com/deadc0de6/dotdrop/wiki/dependencies):
   ```shell
   git clone --recurse-submodules https://github.com/dotiful/dotdrop
- && cd ~/dotfiles
-  pip3 install --user -r ./dotdrop/requirements.txt
+ && cd ~/dotfiles && pip3 install --user -r ./dotdrop/requirements.txt
   ```
 3. Get to know the host name of your machine, and add that to the `config.yaml` file, and specify the files that you wish to sync.
 4. Assuming that you are still in the dotfiles directory, do
