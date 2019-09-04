@@ -1,6 +1,52 @@
 # dotfiles
 Opinionated configurations for this relatively new and under-educated power user
 
+## Installation
+
+**Note:** If you are on a completely new machine that does not have pip3 (or pip) do install python using your package manager first.
+
+1. make sure to install [dependencies for dotdrop](https://github.com/deadc0de6/dotdrop/wiki/dependencies)
+  clone repo
+  ```shell
+  git clone --recurse-submodules https://github.com/dotiful/dotdrop ~/dotfiles && cd ~/dotfiles
+  ```
+  
+  and install `dotdrop` requirements
+  ```shell
+  pip3 install --user -r ./dotdrop/requirements.txt
+  ```
+2. assuming that you are still in the dotfiles directory, do
+  ```shell
+  ./dotdrop.sh install -p base
+  ```
+
+3. or use one line install
+  ```shell
+  git clone --recurse-submodules https://github.com/dotiful/dotdrop ~/dotfiles && cd ~/dotfiles && pip3 install --user -r ./dotdrop/requirements.txt
+  ```
+
+## Dotfiles Manager
+
+I use `dotdrop` to manage my dotfiles across different machines.
+
+Check out the tool at https://github.com/deadc0de6/dotdrop.
+
+Update `dotdrop` submodule
+```shell
+git submodule update --init
+```
+
+---
+
+#### Extra
+If you wish to save yourself the trouble of having to run `~/dotfiles/dotdrop.sh` every time, do
+```shell
+ln -s ~/dotfiles/dotdrop.sh ~/.bin/dotdrop
+```
+and be sure to add `$HOME/.bin` to your `.bash_profile` (for bash) or `.zshenv` (for zsh).
+
+---
+
 ## Setup
 
 ### macOS
@@ -23,38 +69,6 @@ Here's a list of my commonly used applications:
 * Text Editors: VS Code Insiders, **nvim**, micro
 * Browser: **FF**, qutebrowser, surf
 * Music: mpd + mpc + ncmpcpp
-
----
-
-## Dotfiles Manager
-
-I use Dotdrop to manage my dotfiles across different machines.
-
-Check out the tool at https://github.com/deadc0de6/dotdrop.
-
----
-
-## Installation Guide for dotfiles
-
-**Note:** If you are on a completely new machine that does not have pip3 (or pip) do install python using your package manager first.
-
-1. `git clone --recursive https://gitlab.com/dotiful/dotdrop ~/dotfiles`
-2. make sure to install [dependencies for Dotdrop](https://github.com/deadc0de6/dotdrop/wiki/dependencies):
-  ```shell
-  git clone --recurse-submodules https://github.com/dotiful/dotdrop && cd ~/dotfiles && pip3 install --user -r ./dotdrop/requirements.txt
-  ```
-3. Get to know the host name of your machine, and add that to the `config.yaml` file, and specify the files that you wish to sync.
-4. Assuming that you are still in the dotfiles directory, do
-  ```shell
-  ./dotdrop.sh install -p base
-  ```
-
-#### Extra
-If you wish to save yourself the trouble of having to run `~/dotfiles/dotdrop.sh` every time, do
-```shell
-ln -s ~/dotfiles/dotdrop.sh ~/.bin/dotdrop
-```
-and be sure to add `$HOME/.bin` to your `.bash_profile` (for bash) or `.zshenv` (for zsh).
 
 ---
 

@@ -83,6 +83,11 @@ zplugin light wfxr/forgit
 # ─── PLUGINS ─────────────────────────────────────────────────────────────────
 #
 
+# exa
+# https://github.com/ogham/exa
+zplugin ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
+zplugin light ogham/exa
+
 # auto-ls
 # https://github.com/desyncr/auto-ls
 zplugin ice wait'0' lucid
