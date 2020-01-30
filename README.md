@@ -25,6 +25,11 @@ Opinionated configurations for this relatively new and under-educated power user
   git clone --recurse-submodules https://github.com/dotiful/dotdrop ~/dotfiles && cd ~/dotfiles && pip3 install --user -r ./dotdrop/requirements.txt
   ```
 
+4. set zsh as a default shell
+  ```shell
+  grep -q $(which zsh) /etc/shells || echo $(which zsh) | sudo tee -a /etc/shells && chsh -s $(which zsh)
+  ```
+
 ## Dotfiles Manager
 
 I use `dotdrop` to manage my dotfiles across different machines.
@@ -44,31 +49,6 @@ If you wish to save yourself the trouble of having to run `~/dotfiles/dotdrop.sh
 ln -s ~/dotfiles/dotdrop.sh ~/.bin/dotdrop
 ```
 and be sure to add `$HOME/.bin` to your `.bash_profile` (for bash) or `.zshenv` (for zsh).
-
----
-
-## Setup
-
-### macOS
-
-* WM: [ chunkwm ](https://github.com/koekeishiya/chunkwm)
-* Hotkey daemon: [ skhd ](https://github.com/koekeishiya/skhd)
-* Terminal: [ alacritty ](https://gitlab.com/jwilm/alacritty), [ iTerm ](https://iterm2.com/)
-* Utility Bar: [ Übersicht ](http://tracesof.net/uebersicht/)
-* Application Launcher: Alfred
-* Other utilities: Hammerspoon (emoji chooser, fontawesome chooser [semi-usable])
-* Package Manager: [ Homebrew ](https://brew.sh)
-
----
-
-## Applications
-
-Here's a list of my commonly used applications:
-
-* Shell: zsh, bash
-* Text Editors: VS Code Insiders, **nvim**, micro
-* Browser: **FF**, qutebrowser, surf
-* Music: mpd + mpc + ncmpcpp
 
 ---
 
