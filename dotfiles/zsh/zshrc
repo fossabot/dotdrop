@@ -7,25 +7,25 @@
 # https://unix.stackexchange.com/a/329719/27109
 #
 # zmodload zsh/zprof
-# typeset -g ZPLG_MOD_DEBUG=1
+# typeset -g ZINIT_MOD_DEBUG=1
 
 # ─── Customizing Paths ────────────────────────────────────────────────────────
 export ZSHCONFIG="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 
 # initial Zplugin's hash definition, if configuring before loading Zplugin
-declare -A ZPLGM
-ZPLG_HOME="$XDG_CACHE_HOME/zsh/zplugin"
-ZPLGM[HOME_DIR]="$ZPLG_HOME"
-ZPLGM[ZCOMPDUMP_PATH]="$XDG_CACHE_HOME/zsh/zcompdump"
+declare -A ZINIT
+ZINIT_HOME="$XDG_CACHE_HOME/zsh/zplugin"
+ZINIT[HOME_DIR]="$ZINIT_HOME"
+ZINIT[ZCOMPDUMP_PATH]="$XDG_CACHE_HOME/zsh/zcompdump"
 
 # ─── Install zplugin if not installed ─────────────────────────────────────────
 
-if [[ ! -d "$ZPLG_HOME" ]]; then
-	git clone https://github.com/psprint/zplugin "$ZPLG_HOME/bin"
+if [[ ! -d "$ZINIT_HOME" ]]; then
+	git clone https://github.com/psprint/zplugin "$ZINIT_HOME/bin"
   # sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
 fi
 
-source "$ZPLG_HOME/bin/zplugin.zsh"
+source "$ZINIT_HOME/bin/zplugin.zsh"
 autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 

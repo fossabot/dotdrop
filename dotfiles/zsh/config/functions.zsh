@@ -56,7 +56,7 @@ _zpcompinit_fast() {
   setopt extendedglob local_options
   autoload -Uz compinit
   # local zcd="${ZDOTDIR:-$HOME}/.zcompdump"
-  local zcd="${ZPLGM[ZCOMPDUMP_PATH]:-${ZDOTDIR:-$HOME}/.zcompdump}"
+  local zcd="${ZINIT[ZCOMPDUMP_PATH]:-${ZDOTDIR:-$HOME}/.zcompdump}"
   local zcdc="$zcd.zwc"
   # Compile the completion dump to increase startup speed, if dump is newer or doesn't exist,
   # in the background as this is doesn't affect the current session

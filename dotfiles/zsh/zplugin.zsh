@@ -116,7 +116,7 @@ zplugin light Tarrasch/zsh-bd
 # automatically generates completion functions from getopt-style help texts
 # https://github.com/RobSis/zsh-completion-generator
 # zstyle :plugin:zsh-completion-generator programs ''
-# export GENCOMPL_FPATH="$ZPLGM[COMPLETIONS_DIR]"
+# export GENCOMPL_FPATH="$ZINIT[COMPLETIONS_DIR]"
 # zt 2a; z RobSis/zsh-completion-generator
 
 # : zt 0a blockf
@@ -129,12 +129,12 @@ zplugin light Tarrasch/zsh-bd
 # base16-shell
 # https://github.com/chriskempson/base16-shell
 # zplugin ice cloneonly
-zplugin ice atclone="[ ! -f ~/base16-theme ] && ln -s $ZPLGM[PLUGINS_DIR]/chriskempson---base16-shell/scripts/base16-default-dark.sh ~/.base16_theme"
+zplugin ice atclone="[ ! -f ~/base16-theme ] && ln -s $ZINIT[PLUGINS_DIR]/chriskempson---base16-shell/scripts/base16-default-dark.sh ~/.base16_theme"
 zplugin light chriskempson/base16-shell
 
 # a progress spinner
 # https://github.com/psprint/revolver
-# zt 2c as"command" pick"revolver" atclone'cp revolver.zsh-completion $ZPLGM[COMPLETIONS_DIR]/_revolver' atpull'%atclone'
+# zt 2c as"command" pick"revolver" atclone'cp revolver.zsh-completion $ZINIT[COMPLETIONS_DIR]/_revolver' atpull'%atclone'
 : zplugin ice as"command" pick"revolver"
 : zplugin light psprint/revolver
 
@@ -166,7 +166,7 @@ zplugin light zsh-users/zsh-completions
 # fast-syntax-highlighting
 # https://github.com/zdharma/fast-syntax-highlighting
 # (compinit without `-i` spawns warning on `sudo -s`)
-zplugin ice wait'0a' lucid atinit"ZPLGM[COMPINIT_OPTS]='-i' _zpcompinit_fast; zpcdreplay"
+zplugin ice wait'0a' lucid atinit"ZINIT[COMPINIT_OPTS]='-i' _zpcompinit_fast; zpcdreplay"
 zplugin light zdharma/fast-syntax-highlighting
 
 # zsh-history-substring-search

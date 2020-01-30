@@ -90,7 +90,7 @@ zt 1b; z Tarrasch/zsh-bd
 # automatically generates completion functions from getopt-style help texts
 # https://github.com/RobSis/zsh-completion-generator
 # zstyle :plugin:zsh-completion-generator programs ''
-# export GENCOMPL_FPATH="$ZPLGM[COMPLETIONS_DIR]"
+# export GENCOMPL_FPATH="$ZINIT[COMPLETIONS_DIR]"
 # zt 2a; z RobSis/zsh-completion-generator
 
 # : zt 0a blockf
@@ -118,7 +118,7 @@ z trapd00r/LS_COLORS
 
 # a progress spinner
 # https://github.com/psprint/revolver
-# zt 2c as"command" pick"revolver" atclone'cp revolver.zsh-completion $ZPLGM[COMPLETIONS_DIR]/_revolver' atpull'%atclone'
+# zt 2c as"command" pick"revolver" atclone'cp revolver.zsh-completion $ZINIT[COMPLETIONS_DIR]/_revolver' atpull'%atclone'
 zt as"command" pick"revolver"; z psprint/revolver
 
 # highlight strings in the output
@@ -130,7 +130,7 @@ z paoloantinori/hhighlighter
 # https://github.com/fidian/ansi
 zt as"command" pick"ansi"; z fidian/ansi
 
-# zt 2b atclone"gencomp k; ZPLGM[COMPINIT_OPTS]='-i' zpcompinit" atpull'%atclone'
+# zt 2b atclone"gencomp k; ZINIT[COMPINIT_OPTS]='-i' zpcompinit" atpull'%atclone'
 # z load supercrabtree/k
 
 # vramsteg
@@ -150,7 +150,7 @@ zt blockf; z zsh-users/zsh-completions
 # fast-syntax-highlighting
 # https://github.com/zdharma/fast-syntax-highlighting
 # (compinit without `-i` spawns warning on `sudo -s`)
-zt 0a atinit"ZPLGM[COMPINIT_OPTS]='-i' _zpcompinit_fast; zpcdreplay"
+zt 0a atinit"ZINIT[COMPINIT_OPTS]='-i' _zpcompinit_fast; zpcdreplay"
 z zdharma/fast-syntax-highlighting
 
 # autosuggestions
