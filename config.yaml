@@ -109,42 +109,44 @@ dotfiles:
 profiles:
   all:
     dotfiles:
-    - ALL
-  shell:
-    dotfiles:
-    - d_bin
-    - f_zshenv
-    - f_zprofile
-    - f_zshrc
-    - f_zlogin
-    - f_zplugin
-    - f_zconfig
-    - d_fsh
-    - f_profile
-    - f_inputrc
-    - f_bashrc
-    - f_bash_prompt
-    - f_bash_profile
-    - f_bash_completion
-    - f_bash_logout
-    - d_completions
-    - f_aliases
-    - f_exports
-    - f_dir_colors
+      - ALL
   base:
     dotfiles:
-    - f_gitconfig
-    - f_exrc
-    - f_vimrc
+      - f_gitconfig
+      - f_exrc
+      - f_vimrc
+    include:
+      - shell
+  shell:
+    dotfiles:
+      - d_bin
+      - f_zshenv
+      - f_zprofile
+      - f_zshrc
+      - f_zlogin
+      - f_zplugin
+      - f_zconfig
+      - d_fsh
+      - f_profile
+      - f_inputrc
+      - f_bashrc
+      - f_bash_prompt
+      - f_bash_profile
+      - f_bash_completion
+      - f_bash_logout
+      - d_completions
+      - f_aliases
+      - f_exports
+      - f_dir_colors
   other:
     dotfiles:
-    - f_npmrc
-    - f_curlrc
-    - f_gemrc
-    - f_wgetrc
-    - f_less
-    - f_tldrrc
-    - f_youtubedl
-    - f_mpd
-    - d_gnupg
-    - f_colorls
+      - f_npmrc
+      - f_curlrc
+      - f_gemrc
+      - f_wgetrc
+      - f_less
+      - f_tldrrc
+      - f_youtubedl
+      - f_mpd
+      - d_gnupg
+      - f_colorls
