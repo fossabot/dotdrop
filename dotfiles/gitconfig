@@ -14,14 +14,21 @@
   editor = $EDITOR
   commitGraph = true
   whitespace=fix,space-before-tab,tab-in-indent,trailing-space,cr-at-eol
-  excludesfile = ~/.git.d/.gitignore
-  attributesfile = ~/.git.d/.gitattributes
+  excludesfile = ~/.config/git/gitignore
+  attributesfile = ~/.config/git/gitattributes
   ; https://news.ycombinator.com/item?id=11388479
   untrackedCache = true
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = diff-so-fancy | less --tabs=2 -RFX
   ; # conflicts with Markdown
   commentChar = %
-  hooksPath = ~/.git.d/hooks
+  hooksPath = ~/.config/git/hooks
+
+[credential]
+{%@@ if os == "linux-gnu" @@%}
+  helper = cache
+{%@@ elif os == "darwin" @@%}
+  helper = osxkeychain
+{%@@ endif @@%}
 
 [branch]
   autosetupmerge = always
@@ -44,44 +51,6 @@
   autosquash = true
   instructionFormat = [%cn <%ce> %G?] %s
   autoStash = true
-
-[diff]
-  # Detect copies as well as renames
-  renames = copies
-  algorithm = histogram
-  tool = vimdiff
-  indentHeuristic = true
-  colorMoved = zebra
-
-[difftool]
-  prompt = false
-  trustExitCode = true
-
-[diff "exif"]
-  textconv = exiftool
-
-[diff "plist"]
-  textconv = plutil -convert xml1 -o -
-
-[difftool "vimdiff"]
-  cmd = $EDITOR -d $LOCAL $REMOTE
-
-[merge]
-  # Include summaries of merged commits in newly created merge commit messages
-  log = 1000
-  tool = vimdiff
-  conflictstyle = diff3
-
-[mergetool]
-  trustExitCode = true
-  keepBackup = false
-  prompt = false
-
-[mergetool "vimdiff"]
-  cmd = $EDITOR -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-
-[mergetool "fugitivediff"]
-  cmd = $EDITOR -f -c "Gdiff" "$MERGED"
 
 [log]
   decorate = short
@@ -143,6 +112,44 @@
 [receive]
   fsckObjects = true
 
+[diff]
+  # Detect copies as well as renames
+  renames = copies
+  algorithm = histogram
+  tool = vimdiff
+  indentHeuristic = true
+  colorMoved = zebra
+
+[difftool]
+  prompt = false
+  trustExitCode = true
+
+[diff "exif"]
+  textconv = exiftool
+
+[diff "plist"]
+  textconv = plutil -convert xml1 -o -
+
+[difftool "vimdiff"]
+  cmd = $EDITOR -d $LOCAL $REMOTE
+
+[merge]
+  # Include summaries of merged commits in newly created merge commit messages
+  log = 1000
+  tool = vimdiff
+  conflictstyle = diff3
+
+[mergetool]
+  trustExitCode = true
+  keepBackup = false
+  prompt = false
+
+[mergetool "vimdiff"]
+  cmd = $EDITOR -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[mergetool "fugitivediff"]
+  cmd = $EDITOR -f -c "Gdiff" "$MERGED"
+
 # URL shorthands
 [url "git@github.com:"]
   insteadOf = "gh:"
@@ -175,9 +182,6 @@
 
 [url "git://bitbucket.org/"]
   insteadOf = bitbucket:
-
-[credential]
-  helper = osxkeychain
 
 [filter "lfs"]
   clean = git-lfs clean %f

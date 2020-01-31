@@ -115,6 +115,21 @@ dotfiles:
   d_ripgrep:
     src: config/ripgrep
     dst: ~/.config/ripgrep
+  d_htop:
+    src: config/htop
+    dst: ~/.config/htop
+  f_yarnrc:
+    src: yarnrc
+    dst: ~/.yarnrc
+  d_asciinema:
+    src: config/asciinema
+    dst: ~/.config/asciinema
+  d_git:
+    src: config/git
+    dst: ~/.config/git
+  d_svgo:
+    src: config/svgo
+    dst: ~/.config/svgo
 profiles:
   all:
     dotfiles:
@@ -122,10 +137,19 @@ profiles:
   base:
     dotfiles:
     - f_gitconfig
+    - d_git
     - f_exrc
     - f_vimrc
     - d_micro
+    - d_htop
+    - f_npmrc
+    - f_yarnrc
+    - f_curlrc
+    - f_gemrc
+    - f_wgetrc
+    - f_less
     - d_ripgrep
+    - d_asciinema
     include:
     - shell
   shell:
@@ -152,17 +176,15 @@ profiles:
     - d_bat
   other:
     dotfiles:
-    - f_npmrc
-    - f_curlrc
-    - f_gemrc
-    - f_wgetrc
-    - f_less
     - f_tldrrc
     - f_youtubedl
     - f_mpd
     - d_gnupg
     - f_colorls
-  art-pc:
+    - d_svgo
+  test:
     dotfiles:
-    - d_micro
-    - d_ripgrep
+    - d_svgo
+dynvariables:
+  home: echo $HOME
+  os: echo $OSTYPE
