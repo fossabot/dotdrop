@@ -7,55 +7,55 @@
 #
 
 # ─── pure ─────────────────────────────────────────────────────────────────────
-zplugin ice lucid pick"async.zsh" src"pure.zsh"
-zplugin light sindresorhus/pure
+zinit ice lucid pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
 
 #
 # ─── FZF ──────────────────────────────────────────────────────────────────────
 #
 
 # Install `fzf` binary and tmux helper script
-zplugin ice from"gh-r" as'command'
-zplugin light junegunn/fzf-bin
+zinit ice from"gh-r" as'command'
+zinit light junegunn/fzf-bin
 
-zplugin ice as'command' pick"bin/fzf-tmux"
-zplugin light junegunn/fzf
+zinit ice as'command' pick"bin/fzf-tmux"
+zinit light junegunn/fzf
 
 # Create and bind multiple widgets using fzf
-zplugin ice wait'0a' lucid id-as"junegunn/fzf_completions" pick"/dev/null" multisrc"shell/{completion,key-bindings}.zsh"
-zplugin light junegunn/fzf
+zinit ice wait'0a' lucid id-as"junegunn/fzf_completions" pick"/dev/null" multisrc"shell/{completion,key-bindings}.zsh"
+zinit light junegunn/fzf
 
 # fzf-marks, at slot 0, for quick Ctrl-G accessibility
 # https://github.com/urbainvaes/fzf-marks
-# zt has'fzf' bindmap'^g -> ^f'; zplugin load urbainvaes/fzf-marks
-zplugin ice trackbinds bindmap'^g -> ^f' lucid
-zplugin light urbainvaes/fzf-marks
+# zt has'fzf' bindmap'^g -> ^f'; zinit load urbainvaes/fzf-marks
+zinit ice trackbinds bindmap'^g -> ^f' lucid
+zinit light urbainvaes/fzf-marks
 
 # ─── fuzzy movement and directory choosing ────────────────────────────────────
 # autojump command
 # https://github.com/rupa/z
-zplugin ice wait'0c' lucid
-zplugin light rupa/z
-# zplugin load agkozak/zsh-z
-# zplugin light skywind3000/z.lua
+zinit ice wait'0c' lucid
+zinit light rupa/z
+# zinit load agkozak/zsh-z
+# zinit light skywind3000/z.lua
 
 # Pick from most frecent folders with `Ctrl+g`
 # https://github.com/andrewferrier/fzf-z
-: zplugin ice wait'0b' lucid
-: zplugin load andrewferrier/fzf-z
+: zinit ice wait'0b' lucid
+: zinit load andrewferrier/fzf-z
 
 # lets z+[Tab] and zz+[Tab]
 # https://github.com/changyuheng/fz
-zplugin ice wait'0b' lucid
-zplugin light changyuheng/fz
+zinit ice wait'0b' lucid
+zinit light changyuheng/fz
 
 # Like `z` command, but opens a file in vim based on frecency
-: zplugin wait'0b' as'command' pick"v"
-: zplugin light rupa/v
+: zinit wait'0b' as'command' pick"v"
+: zinit light rupa/v
 
 # interactive-cd
 # https://github.com/changyuheng/zsh-interactive-cd
-: zplugin light changyuheng/zsh-interactive-cd
+: zinit light changyuheng/zsh-interactive-cd
 
 #
 # ─── GIT ─────────────────────────────────────────────────────────────────────
@@ -63,21 +63,21 @@ zplugin light changyuheng/fz
 
 # diff-so-fancy
 # https://github.com/so-fancy/diff-so-fancy
-zplugin ice wait"1b" lucid as"program" pick"bin/git-dsf"
-zplugin light zdharma/zsh-diff-so-fancy
+zinit ice wait"1b" lucid as"program" pick"bin/git-dsf"
+zinit light zdharma/zsh-diff-so-fancy
 
 # fuzzy git
 # https://github.com/wfxr/forgit
-zplugin ice has'fzf'
-zplugin light wfxr/forgit
+zinit ice has'fzf'
+zinit light wfxr/forgit
 
 # gitignore plugin – commands gii and gi
-: zplugin ice wait'1b' has'git' pick'init.zsh' atload'alias gi="git-ignore"' blockf
-: zplugin light laggardkernel/git-ignore
+: zinit ice wait'1b' has'git' pick'init.zsh' atload'alias gi="git-ignore"' blockf
+: zinit light laggardkernel/git-ignore
 
 # git-quick-stats
-: zplugin ice wait'1b' as"command" pick"$ZPFX/bin/git-quick-stats" atload"export _MENU_THEME=legacy" make"PREFIX=$ZPFX install"
-: zplugin load arzzen/git-quick-stats
+: zinit ice wait'1b' as"command" pick"$ZPFX/bin/git-quick-stats" atload"export _MENU_THEME=legacy" make"PREFIX=$ZPFX install"
+: zinit load arzzen/git-quick-stats
 
 #
 # ─── PLUGINS ─────────────────────────────────────────────────────────────────
@@ -85,33 +85,33 @@ zplugin light wfxr/forgit
 
 # exa
 # https://github.com/ogham/exa
-zplugin ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
-zplugin light ogham/exa
+zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
+zinit light ogham/exa
 
 # auto-ls
 # https://github.com/desyncr/auto-ls
-zplugin ice wait'0' lucid
-zplugin light desyncr/auto-ls
+zinit ice wait'0' lucid
+zinit light desyncr/auto-ls
 
 # zsh-fast-alias-tips
 # https://github.com/sei40kr/zsh-fast-alias-tips
-zplugin ice has'go' make'!'
-zplugin light sei40kr/zsh-fast-alias-tips
+zinit ice has'go' make'!'
+zinit light sei40kr/zsh-fast-alias-tips
 
 # zsh-autopair
 # https://github.com/hlissner/zsh-autopair
-zplugin ice wait'1b' lucid
-zplugin light hlissner/zsh-autopair
+zinit ice wait'1b' lucid
+zinit light hlissner/zsh-autopair
 
 # toggles "sudo" before the command by pressing [ESC][ESC]
 # https://github.com/hcgraf/zsh-sudo
-zplugin ice wait'1b' lucid
-zplugin light hcgraf/zsh-sudo
+zinit ice wait'1b' lucid
+zinit light hcgraf/zsh-sudo
 
 # jump back to a specific directory
 # https://github.com/Tarrasch/zsh-bd
-zplugin ice wait'1b' lucid
-zplugin light Tarrasch/zsh-bd
+zinit ice wait'1b' lucid
+zinit light Tarrasch/zsh-bd
 
 # automatically generates completion functions from getopt-style help texts
 # https://github.com/RobSis/zsh-completion-generator
@@ -128,29 +128,29 @@ zplugin light Tarrasch/zsh-bd
 
 # base16-shell
 # https://github.com/chriskempson/base16-shell
-# zplugin ice cloneonly
-zplugin ice atclone="[ ! -f ~/base16-theme ] && ln -s $ZINIT[PLUGINS_DIR]/chriskempson---base16-shell/scripts/base16-default-dark.sh ~/.base16_theme"
-zplugin light chriskempson/base16-shell
+# zinit ice cloneonly
+zinit ice atclone="[ ! -f ~/base16-theme ] && ln -s $ZINIT[PLUGINS_DIR]/chriskempson---base16-shell/scripts/base16-default-dark.sh ~/.base16_theme"
+zinit light chriskempson/base16-shell
 
 # a progress spinner
 # https://github.com/psprint/revolver
 # zt 2c as"command" pick"revolver" atclone'cp revolver.zsh-completion $ZINIT[COMPLETIONS_DIR]/_revolver' atpull'%atclone'
-: zplugin ice as"command" pick"revolver"
-: zplugin light psprint/revolver
+: zinit ice as"command" pick"revolver"
+: zinit light psprint/revolver
 
 # highlight strings in the output
 # https://github.com/paoloantinori/hhighlighter
-: zplugin ice pick"h.sh" atclone"sed -i.bk 's/h()/hl()/g' h.sh" atpull"%atclone" nocompile'!'
-: zplugin light paoloantinori/hhighlighter
+: zinit ice pick"h.sh" atclone"sed -i.bk 's/h()/hl()/g' h.sh" atpull"%atclone" nocompile'!'
+: zinit light paoloantinori/hhighlighter
 
 # ansi escape codes
 # https://github.com/fidian/ansi
-zplugin ice as"command" pick"ansi"
-zplugin light fidian/ansi
+zinit ice as"command" pick"ansi"
+zinit light fidian/ansi
 
 # vramsteg
 # zt 2 has'cmake' as"command" pick"src/vramsteg" atclone'cmake .' atpull'%atclone' make
-# zplugin load psprint/vramsteg-zsh
+# zinit load psprint/vramsteg-zsh
 
 
 #
@@ -159,53 +159,55 @@ zplugin light fidian/ansi
 
 # additional completion definitions
 # https://github.com/zsh-users/zsh-completions
-# zt 0a blockf atpull'zplugin creinstall -q .'; z zsh-users/zsh-completions
-zplugin ice blockf
-zplugin light zsh-users/zsh-completions
+# zt 0a blockf atpull'zinit creinstall -q .'; z zsh-users/zsh-completions
+zinit ice blockf
+zinit light zsh-users/zsh-completions
+
+zinit ice as"completion"
+zinit snippet https://github.com/deadc0de6/dotdrop/blob/master/completion/_dotdrop.sh-completion.zsh
 
 # fast-syntax-highlighting
 # https://github.com/zdharma/fast-syntax-highlighting
 # (compinit without `-i` spawns warning on `sudo -s`)
-zplugin ice wait'0a' lucid atinit"ZINIT[COMPINIT_OPTS]='-i' _zpcompinit_fast; zpcdreplay"
-zplugin light zdharma/fast-syntax-highlighting
+zinit ice wait'0a' lucid atinit"ZINIT[COMPINIT_OPTS]='-i' _zpcompinit_fast; zpcdreplay"
+zinit light zdharma/fast-syntax-highlighting
 
 # zsh-history-substring-search
 # https://github.com/zsh-users/zsh-history-substring-search
-zplugin light zsh-users/zsh-history-substring-search
+zinit light zsh-users/zsh-history-substring-search
 
 # multi-word, syntax highlighted history searching
 # https://github.com/zdharma/history-search-multi-word
-zplugin ice wait'1a' lucid trackbinds bindmap'^R -> ^S'
-zplugin light zdharma/history-search-multi-word
+zinit ice wait'1a' lucid trackbinds bindmap'^R -> ^S'
+zinit light zdharma/history-search-multi-word
 
 # autosuggestions
 # https://github.com/zsh-users/zsh-autosuggestions
 # Note: should go _after_ syntax highlighting plugin
-zplugin ice wait'0a' lucid atload'_zsh_autosuggest_start' compile'{src/*.zsh,src/strategies/*}'
-zplugin light zsh-users/zsh-autosuggestions
+zinit ice wait'0a' lucid atload'_zsh_autosuggest_start' compile'{src/*.zsh,src/strategies/*}'
+zinit light zsh-users/zsh-autosuggestions
 
 
 # ──────────────────────────────────────────────────────────────────────────────
 
-# Semigraphical .zshrc editor for Zplugin commands
+# Semigraphical .zshrc editor for zinit commands
 # https://github.com/zdharma/zplugin-crasis
-zplugin ice wait"1" lucid
-zplugin load zdharma/zui
-zplugin ice wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]' lucid
-zplugin light zdharma/zplugin-crasis
+zinit ice wait"1" lucid
+zinit load zdharma/zui
+zinit ice wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]' lucid
+zinit light zdharma/zplugin-crasis
 
 # ──────────────────────────────────────────────────────────────────────────────
-
 
 
 # a collection of LS_COLORS definitions
 # https://github.com/trapd00r/LS_COLORS
 # on macOS, you might need to install coreutils from homebrew and use the
 # g-prefix – gsed, gdircolors
-: zplugin ice pick"c.zsh" atclone"local PFX=${${(M)OSTYPE:#*darwin*}:+g}
+: zinit ice pick"c.zsh" atclone"local PFX=${${(M)OSTYPE:#*darwin*}:+g}
             git reset --hard;
             \${PFX}sed -i '/DIR/c\DIR                   38;5;105;1' LS_COLORS; \
             \${PFX}sed -i '/LINK/c\LINK                 38;5;115' LS_COLORS; \
             \${PFX}dircolors -b LS_COLORS > c.zsh" atpull'%atclone' nocompile'!'
-: zplugin light trapd00r/LS_COLORS
+: zinit light trapd00r/LS_COLORS
 

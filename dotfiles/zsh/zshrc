@@ -12,26 +12,26 @@
 # ─── Customizing Paths ────────────────────────────────────────────────────────
 export ZSHCONFIG="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 
-# initial Zplugin's hash definition, if configuring before loading Zplugin
+# initial zinit's hash definition, if configuring before loading zinit
 declare -A ZINIT
-ZINIT_HOME="$XDG_CACHE_HOME/zsh/zplugin"
+ZINIT_HOME="$XDG_CACHE_HOME/zsh/zinit"
 ZINIT[HOME_DIR]="$ZINIT_HOME"
 ZINIT[ZCOMPDUMP_PATH]="$XDG_CACHE_HOME/zsh/zcompdump"
 
-# ─── Install zplugin if not installed ─────────────────────────────────────────
+# ─── Install zinit if not installed ─────────────────────────────────────────
 
 if [[ ! -d "$ZINIT_HOME" ]]; then
-	git clone https://github.com/psprint/zplugin "$ZINIT_HOME/bin"
-  # sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+	git clone https://github.com/zdharma/zinit "$ZINIT_HOME/bin"
+  # sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 fi
 
-source "$ZINIT_HOME/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+source "$ZINIT_HOME/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 # and load the plugins
-# source "$ZSHCONFIG/zplugin-init.zsh"
-source "$ZSHCONFIG/zplugin.zsh"
+# source "$ZSHCONFIG/zinit-init.zsh"
+source "$ZSHCONFIG/zinit.zsh"
 # ──────────────────────────────────────────────────────────────────────────────
 
 #
@@ -59,8 +59,8 @@ fi
 unset zsh_fpath
 
 # https://direnv.net/
-# see zplugin-init.zsh
-# https://github.com/zdharma/zplugin/wiki/Direnv-explanation
+# see zinit-init.zsh
+# https://github.com/zdharma/zinit/wiki/Direnv-explanation
 #eval "$(direnv hook zsh)"
 
 # Private script here

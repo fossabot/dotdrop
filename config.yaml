@@ -54,9 +54,9 @@ dotfiles:
   f_zlogin:
     src: zsh/zlogin
     dst: ~/.config/zsh/.zlogin
-  f_zplugin:
-    src: zsh/zplugin.zsh
-    dst: ~/.config/zsh/zplugin.zsh
+  f_zinit:
+    src: zsh/zinit.zsh
+    dst: ~/.config/zsh/zinit.zsh
   f_zconfig:
     src: zsh/config
     dst: ~/.config/zsh/config
@@ -159,7 +159,7 @@ profiles:
     - f_zprofile
     - f_zshrc
     - f_zlogin
-    - f_zplugin
+    - f_zinit
     - f_zconfig
     - d_fsh
     - f_profile
