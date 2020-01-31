@@ -1,0 +1,4 @@
+{
+  "Alt-x": "Save,Quit",
+  "Alt-\\": "filemanager.toggle_tree"
+}

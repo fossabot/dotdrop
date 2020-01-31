@@ -106,47 +106,63 @@ dotfiles:
   f_colorls:
     src: config/colorls/dark_colors.yaml
     dst: ~/.config/colorls/dark_colors.yaml
+  d_bat:
+    src: config/bat
+    dst: ~/.config/bat
+  d_micro:
+    src: config/micro
+    dst: ~/.config/micro
+  d_ripgrep:
+    src: config/ripgrep
+    dst: ~/.config/ripgrep
 profiles:
   all:
     dotfiles:
-      - ALL
+    - ALL
   base:
     dotfiles:
-      - f_gitconfig
-      - f_exrc
-      - f_vimrc
+    - f_gitconfig
+    - f_exrc
+    - f_vimrc
+    - d_micro
+    - d_ripgrep
     include:
-      - shell
+    - shell
   shell:
     dotfiles:
-      - d_bin
-      - f_zshenv
-      - f_zprofile
-      - f_zshrc
-      - f_zlogin
-      - f_zplugin
-      - f_zconfig
-      - d_fsh
-      - f_profile
-      - f_inputrc
-      - f_bashrc
-      - f_bash_prompt
-      - f_bash_profile
-      - f_bash_completion
-      - f_bash_logout
-      - d_completions
-      - f_aliases
-      - f_exports
-      - f_dir_colors
+    - d_bin
+    - f_zshenv
+    - f_zprofile
+    - f_zshrc
+    - f_zlogin
+    - f_zplugin
+    - f_zconfig
+    - d_fsh
+    - f_profile
+    - f_inputrc
+    - f_bashrc
+    - f_bash_prompt
+    - f_bash_profile
+    - f_bash_completion
+    - f_bash_logout
+    - d_completions
+    - f_aliases
+    - f_exports
+    - f_dir_colors
+    - d_bat
   other:
     dotfiles:
-      - f_npmrc
-      - f_curlrc
-      - f_gemrc
-      - f_wgetrc
-      - f_less
-      - f_tldrrc
-      - f_youtubedl
-      - f_mpd
-      - d_gnupg
-      - f_colorls
+    - f_npmrc
+    - f_curlrc
+    - f_gemrc
+    - f_wgetrc
+    - f_less
+    - f_tldrrc
+    - f_youtubedl
+    - f_mpd
+    - d_gnupg
+    - f_colorls
+  art-pc:
+    dotfiles:
+    - d_micro
+    - d_ripgrep

@@ -1,6 +1,6 @@
 # vi:syntax=sh
 
-alias d="~/code/dotdrop/dotdrop.sh --cfg=~/code/dotdrop/config.yaml"
+# alias dotdrop="DOTDROP_CONFIG=~/code/dotdrop/config.yaml ~/code/dotdrop/dotdrop.sh"
 
 
 # search aliases
