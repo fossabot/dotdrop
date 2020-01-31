@@ -41,37 +41,54 @@ Update `dotdrop` submodule
 git submodule update --init
 ```
 
----
-
-#### Extra
+### Extra
 If you wish to save yourself the trouble of having to run `~/dotfiles/dotdrop.sh` every time, do
 ```shell
-ln -s ~/dotfiles/dotdrop.sh ~/.bin/dotdrop
+ln -s ~/dotfiles/dotdrop.sh /usr/local/bin/dotdrop
 ```
-and be sure to add `$HOME/.bin` to your `.bash_profile` (for bash) or `.zshenv` (for zsh).
 
 ---
 
-## Installation Guide for packages (and applications)
+## Installation Guide for packages
 
 ### macOS
 
 Simply run `$HOME/dotfiles/install/mac-bootstrap.sh`
 
-The installation will include [Homebrew](https://brew.sh) and some packages that I use (please see `./install/brewPackages.txt`) and use 
-zsh as the default shell, with [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) installed.
+The installation will include [Homebrew](https://brew.sh), packages that and use 
+zsh as the default shell installed.
   
-### antergos-base & archlinux
+### archlinux
 
-Since I use [auracle](https://aur.archlinux.org/packages/auracle-git/), and I did not manually track packages that I have installed via it, 
-they are, unfortunately, mixed into the list that I have (or shall) generated using [pacman](https://wiki.archlinux.org/index.php/Pacman). 
-Please install packages via pacman as you would normally do, and just cherry-pick those that throws errors, and then install them via 
-your favorite AUR package manager.
-
-<sub><sup>Although, if you're not me and using Arch, you wouldn't want my dotfiles anyway :P</sup></sub>
+comming soon
 
 ---
 
-### Possibly Relevant Links
+## Tutorials
 
-1. [Why did you switch to Antergos/Arch Linux?](https://japorized.gitlab.io/technical/2018/02/27/making-the-move-to-linux.html)
+### shell
+
+<details>
+  <summary>zsh</summary>
+
+  - [ZSH Keybindings](http://zshwiki.org/home/keybindings/)
+</details>
+
+<details>
+  <summary>bash</summary>
+
+  - [Right align part of prompt](https://superuser.com/a/187483)
+  - [Prompt Statement var iables](https://ss64.com/bash/syntax-prompt.html)
+</details>
+
+
+<details>
+  <summary>ansi colors</summary>
+
+  - [ANSI escape codes](http://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html)
+  - [Colors and formatting](https://misc.flogisoft.com/bash/tip_colors_and_formatting)
+  - [tput](http://linuxcommand.org/lc3_adv_tput.php)
+  - [Colours and Cursor Movement With tput](https://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x405.html)
+  - [fzf Web Color Picker](https://minsw.github.io/fzf-color-picker/)
+</details>
+

@@ -12,27 +12,6 @@ dotfiles:
   d_bin:
     src: bin
     dst: ~/.bin
-  f_zshenv:
-    src: zshenv
-    dst: ~/.zshenv
-  f_zprofile:
-    src: zsh/zprofile
-    dst: ~/.config/zsh/.zprofile
-  f_zshrc:
-    src: zsh/zshrc
-    dst: ~/.config/zsh/.zshrc
-  f_zlogin:
-    src: zsh/zlogin
-    dst: ~/.config/zsh/.zlogin
-  f_zplugin:
-    src: zsh/zplugin.zsh
-    dst: ~/.config/zsh/zplugin.zsh
-  f_zconfig:
-    src: zsh/config
-    dst: ~/.config/zsh/config
-  d_config_fsh:
-    src: config/fsh
-    dst: ~/.config/fsh
   f_profile:
     src: bash/profile
     dst: ~/.profile
@@ -63,29 +42,109 @@ dotfiles:
   f_exports:
     src: exports
     dst: ~/.exports
+  f_zshenv:
+    src: zshenv
+    dst: ~/.zshenv
+  f_zprofile:
+    src: zsh/zprofile
+    dst: ~/.config/zsh/.zprofile
+  f_zshrc:
+    src: zsh/zshrc
+    dst: ~/.config/zsh/.zshrc
+  f_zlogin:
+    src: zsh/zlogin
+    dst: ~/.config/zsh/.zlogin
+  f_zplugin:
+    src: zsh/zplugin.zsh
+    dst: ~/.config/zsh/zplugin.zsh
+  f_zconfig:
+    src: zsh/config
+    dst: ~/.config/zsh/config
+  d_fsh:
+    src: config/fsh
+    dst: ~/.config/fsh
+  f_gitconfig:
+    src: gitconfig
+    dst: ~/.gitconfig
+  f_dir_colors:
+    src: dir_colors
+    dst: ~/.dir_colors
+  f_npmrc:
+    src: npmrc
+    dst: ~/.npmrc
+  f_curlrc:
+    src: curlrc
+    dst: ~/.curlrc
+  f_gemrc:
+    src: gemrc
+    dst: ~/.gemrc
+  f_wgetrc:
+    src: wgetrc
+    dst: ~/.wgetrc
+  f_exrc:
+    src: exrc
+    dst: ~/.exrc
+  f_vimrc:
+    src: vimrc
+    dst: ~/.vimrc
   f_less:
     src: config/less
     dst: ~/.config/less
+  f_tldrrc:
+    src: tldrrc
+    dst: ~/.tldrrc
+  f_youtubedl:
+    src: config/youtube-dl/config
+    dst: ~/.config/youtube-dl/config
+  f_mpd:
+    src: config/mpd/mpd.conf
+    dst: ~/.config/mpd/mpd.conf
   d_gnupg:
     src: gnupg
     dst: ~/.gnupg
     link: link_children
-  f_gitconfig:
-    src: gitconfig
-    dst: ~/.gitconfig
-  f_config:
-    src: config/youtube-dl/config
-    dst: ~/.config/youtube-dl/config
-  f_dir_colors:
-    src: dir_colors
-    dst: ~/.dir_colors
-  f_dark_colors.yaml:
+  f_colorls:
     src: config/colorls/dark_colors.yaml
     dst: ~/.config/colorls/dark_colors.yaml
-  f_mpd.conf:
-    src: config/mpd/mpd.conf
-    dst: ~/.config/mpd/mpd.conf
 profiles:
-  base:
+  all:
     dotfiles:
     - ALL
+  shell:
+    dotfiles:
+    - d_bin
+    - f_zshenv
+    - f_zprofile
+    - f_zshrc
+    - f_zlogin
+    - f_zplugin
+    - f_zconfig
+    - d_fsh
+    - f_profile
+    - f_inputrc
+    - f_bashrc
+    - f_bash_prompt
+    - f_bash_profile
+    - f_bash_completion
+    - f_bash_logout
+    - d_completions
+    - f_aliases
+    - f_exports
+    - f_dir_colors
+  base:
+    dotfiles:
+    - f_gitconfig
+    - f_exrc
+    - f_vimrc
+  other:
+    dotfiles:
+    - f_npmrc
+    - f_curlrc
+    - f_gemrc
+    - f_wgetrc
+    - f_less
+    - f_tldrrc
+    - f_youtubedl
+    - f_mpd
+    - d_gnupg
+    - f_colorls

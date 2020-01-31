@@ -1,0 +1,24 @@
+" -------------- setup
+set autoindent
+set showmode
+set exrc
+set number
+set ruler
+set verbose
+set sw=2
+
+" -------------- macro
+" add shebang
+" F1 sh
+map OPsh 1Gi#!/usr/local/bin/sh^M^M^[``
+" F1 py
+map OPpy 1Gi#!/usr/local/bin/python^M^M^[``
+" F1 pl
+map OPpl 1Gi#!/usr/local/bin/perl^M^M^[``
+
+" F2 save
+map OQ :w^M
+" F3 save and quit
+map OR :wq^M
+" esc-esc quit without saving
+map ^[^[ :q^M
