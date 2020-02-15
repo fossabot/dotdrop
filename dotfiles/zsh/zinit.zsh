@@ -83,10 +83,26 @@ zinit light wfxr/forgit
 # ─── PLUGINS ─────────────────────────────────────────────────────────────────
 #
 
+# sharkdp/fd
+zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
+zinit light sharkdp/fd
+
+# sharkdp/bat
+zinit ice as"command" from"gh-r" mv"bat* -> bat" pick"bat/bat"
+zinit light sharkdp/bat
+
 # exa
 # https://github.com/ogham/exa
 zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
 zinit light ogham/exa
+
+# # All of the above using the for-syntax and also z-a-bin-gem-node annex
+# zinit wait"1" lucid from"gh-r" as"null" for \
+#      sbin"**/fd"        @sharkdp/fd \
+#      sbin"**/bat"       @sharkdp/bat \
+#      sbin"exa* -> exa"  ogham/exa
+
+# ────────────────────────────────────────────────────────────────────────────────
 
 # auto-ls
 # https://github.com/desyncr/auto-ls

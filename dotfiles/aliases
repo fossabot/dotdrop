@@ -225,8 +225,10 @@ elif [[ "$OSTYPE" == "linux-gnu" ]]; then
   alias scr="systemctl list-units --type service --state running"
 
   alias y="yay -S --noconfirm"
-  alias yi="yay -Si"
+  alias yr="yay -Rns --noconfirm"
   alias ys="yay -Ss"
+  alias yi="yay -Si --noconfirm"
+
   # alias p='pkgsearch'
   alias sp="sudo pacman -Syu --noconfirm"
   alias spu="sudo pacman -Syu --noconfirm"

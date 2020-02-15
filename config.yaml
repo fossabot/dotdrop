@@ -112,6 +112,7 @@ dotfiles:
   d_micro:
     src: config/micro
     dst: ~/.config/micro
+    link: link_children
   d_ripgrep:
     src: config/ripgrep
     dst: ~/.config/ripgrep

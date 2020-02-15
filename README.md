@@ -6,9 +6,16 @@ Opinionated configurations for this relatively new and under-educated power user
 
 If you are on a completely new machine that does not have pip3 do install [dotdrop dependencies](https://github.com/deadc0de6/dotdrop/wiki/dependencies) first
 
+debian
 ```bash
 sudo apt-get update -y && sudo apt-get install -y bash git zsh python3 python3-pip
 ```
+
+arch
+```bash
+sudo pacman --noconfirm -Sy bash git zsh python python-pip
+```
+
 
 clone repo and cd to it
 

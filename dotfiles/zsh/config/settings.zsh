@@ -13,6 +13,8 @@ setopt promptsubst          # enable parameter expansion, command substitution, 
 setopt pushdignoredups      # don't push multiple copies of the same directory onto the directory stack
 setopt pushdminus           # swapped the meaning of cd +1 and cd -1; we want them to mean the opposite of what they mean
 
+unsetopt MULTIBYTE          # support modern chars sets for languages other en
+
 # }}}
 
 # ─── modules ────────────────────────────────────────────────────────────── {{{

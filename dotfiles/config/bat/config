@@ -39,3 +39,5 @@
 --map-syntax=".zshrc.local:bash"
 --map-syntax=".ignore:.gitignore"
 --map-syntax=".exrc:vim"
+--map-syntax="conf:ini"
+--map-syntax="imwheelrc:bash"
