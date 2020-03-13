@@ -6,14 +6,14 @@
 ; vim: ft=gitconfig
 
 [core]
-  excludesfile      = ~/.config/git/ignore
-  attributesfile    = ~/.config/git/attributes
+  safecrlf = warn
+  autocrlf = input
+  excludesfile = ~/.config/git/ignore
+  attributesfile = ~/.config/git/attributes
+  editor = $EDITOR
+  commitGraph = true
+  whitespace = trailing-space,space-before-tab
   ; hooksPath       = ~/.config/git/hooks
-  editor            = $EDITOR
-	autocrlf          = input
-  commitGraph       = true
-	whitespace        = trailing-space,space-before-tab
-	safecrlf          = warn
 
 [credential]
 {%@@ if os == "linux-gnu" @@%}
@@ -51,13 +51,14 @@
 [submodule]
 	fetchJobs         = 4
 
-# [log]
-#   decorate          = short
-#   date              = local
+[log]
+  abbrevCommit      = true
+  date              = local
+  decorate          = short
 
 [status]
 	short             = true
-	branch            = true
+	branch            = false
   submodulesummary  = true
 
 [help]
@@ -75,8 +76,6 @@
 ; https://github.com/so-fancy/diff-so-fancy/issues/296
 [interactive]
 	diffFilter        = diff-so-fancy --patch-mode | less --tabs=2 -RFX
-
-
 
 ;
 ; ─── PRETTY FORMATS ─────────────────────────────────────────────────────────────
@@ -108,7 +107,7 @@
 
   count   = shortlog -sn
   last    = log -1 HEAD
-  log --graph --pretty=format:'%C(bold red)%h%Creset -%C(bold magenta)%d%Creset %s %C(bold green)(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -10
+  lg      = log --graph --pretty=format:'%C(bold red)%h%Creset -%C(bold magenta)%d%Creset %s %C(bold green)(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -10
   lgg     = log --graph --abbrev-commit --pretty=default -5
 
   mk      = checkout -b
@@ -143,65 +142,19 @@
 ;
 ; ─── COLORS ──────────────────────────────────────────────────────────────────
 ;
-
-# # Nova
-# # https://github.com/trevordmiller/nova-git
-# [color]
-#   pager        = true
-#   ui           = auto
-#   status       = auto
-#   diff         = auto
-#   branch       = auto
-#   showBranch   = auto
-#   interactive  = auto
-#   grep         = auto
-# [color "status"]
-#   header       = black bold
-#   branch       = cyan
-#   nobranch     = red
-#   unmerged     = red
-#   untracked    = cyan
-#   added        = green
-#   changed      = red bold
-# [color "diff"]
-#   meta         = red bold
-#   frag         = black bold
-#   func         = blue
-#   old          = red strike
-#   new          = green
-#   commit       = blue
-#   whitespace   = red
-#   context      = normal
-# [color "branch"]
-#   current      = cyan
-#   local        = blue
-#   remote       = magenta
-#   upstream     = magenta
-#   plain        = normal
-# [color "decorate"]
-#   branch       = blue
-#   remoteBranch = magenta
-#   tag          = magenta
-#   stash        = cyan
-#   HEAD         = blue
-# [color "interactive"]
-#   prompt       = red
-#   header       = red bold
-#   error        = red
-#   help         = black bold
-# [color "grep"]
-#   context      = normal
-#   match        = cyan
-#   filename     = blue
-#   function     = blue
-#   selected     = normal
-#   separator    = red bold
-#   linenumber   = normal
-
+[color]
+  branch      = always
+  diff        = always
+  grep        = always
+  interactive = always
+  pager       = true
+  showBranch  = always
+  status      = always
+  ui          = always
 
 # [include]
-#   path                  = ~/.config/git/nova-color.config
-  ; path                = ~/.config/git/tomorrow-night-eighties.config
+  # path                = ~/.config/git/color-tomorrow-night-eighties.config
+  # path                  = ~/.config/git/color-nova.config
 
 ;
 ; ─── DIFF & MERGE ─────────────────────────────────────────────────────────────
@@ -247,6 +200,46 @@
 [mergetool "vimdiff"]
   cmd                   = $EDITOR -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
+;
+; ─── URL shorthands────────────────────────────────────────────────────────────
+;
+[url "git@github.com:"]
+  insteadOf = "gh:"
+  pushInsteadOf = "github:"
+  pushInsteadOf = "git://github.com/"
+
+[url "git://github.com/"]
+  insteadOf = "github:"
+
+[url "git@gist.github.com:"]
+  insteadOf = "gst:"
+  pushInsteadOf = "gist:"
+  pushInsteadOf = "git://gist.github.com/"
+
+[url "git://gist.github.com/"]
+  insteadOf = "gist:"
+
+[url "git@gitlab.com:"]
+  insteadOf = gl:
+  pushInsteadOf = gitlab:
+  pushInsteadOf = git://gitlab.com/
+
+[url "git://gitlab.com/"]
+  insteadOf = gitlab:
+
+[url "git@bitbucket.org:"]
+  insteadOf = bb:
+  pushInsteadOf = bitbucket:
+  pushInsteadOf = git://bitbucket.org/
+
+[url "git://bitbucket.org/"]
+  insteadOf = bitbucket:
+
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
+
 
 ;
 ; ─── GPG ──────────────────────────────────────────────────────────────────────
@@ -257,6 +250,7 @@
 
 ; [gpg]
 ; 	program = /usr/local/bin/gpg
+
 
 ;
 ; ─── LOCAL SETTINGS ───────────────────────────────────────────────────────────
