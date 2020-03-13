@@ -108,8 +108,9 @@ typeset -gU cdpath fpath manpath mailpath path
 #   export EDITOR="vim"
 # fi
 export EDITOR="micro"
-export VISUAL=$EDITOR
-export PAGER='less'
+export VISUAL="$EDITOR"
+export PAGER='less -R'
+export BAT_PAGER="$PAGER"
 
 # }}}
 

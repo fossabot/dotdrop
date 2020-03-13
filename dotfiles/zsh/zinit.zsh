@@ -9,7 +9,12 @@
 # ─── pure ─────────────────────────────────────────────────────────────────────
 # zinit ice lucid pick"async.zsh" src"pure.zsh"
 # zinit light sindresorhus/pure
-eval "$(starship init zsh)"
+
+
+# ─── starship ─────────────────────────────────────────────────────────────────
+zinit ice lucid as"program" from"gh-r" mv"starship* -> starship" \
+  bpick"*unknown-linux-gnu.tar.gz" atload"eval \"\$(starship init zsh)\""
+zinit light starship/starship
 
 #
 # ─── SNIPPETS ─────────────────────────────────────────────────────────────────
@@ -25,8 +30,8 @@ zinit ice as"program" from"gh-r" pick"pet/pet" bpick"*linux_amd64.tar.gz"
 zinit light knqyf263/pet
 
 
-zinit ice as"program" from"gh-r" pick"pet/pet" bpick"*linux_amd64.tar.gz"
-zinit light mattn/memo
+# zinit ice as"program" from"gh-r" pick"pet/pet" bpick"*linux_amd64.tar.gz"
+# zinit light mattn/memo
 
 #
 # ─── FZF ──────────────────────────────────────────────────────────────────────
@@ -80,13 +85,22 @@ zinit light changyuheng/fz
 # ─── GIT ─────────────────────────────────────────────────────────────────────
 #
 
+# git-now
+# https://github.com/iwata/git-now
 zinit ice wait"!0" lucid as"program" pick"{git-now,git-now-add,git-now-rebase,gitnow-common,gitnow-shFlags}"
 zinit light "iwata/git-now"
+
+# git-delta
+# https://github.com/dandavison/delta
+zinit ice wait"1b" lucid as"program" from"gh-r" mv"delta* -> delta" pick"delta/delta"
+zinit light "dandavison/delta"
 
 # diff-so-fancy
 # https://github.com/so-fancy/diff-so-fancy
 zinit ice wait"1b" lucid as"program" pick"bin/git-dsf"
 zinit light zdharma/zsh-diff-so-fancy
+
+
 
 # fuzzy git
 # https://github.com/wfxr/forgit

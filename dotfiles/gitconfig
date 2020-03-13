@@ -1,195 +1,266 @@
+;
+; ─── GENERAL ────────────────────────────────────────────────────────────────────
+; https://git-scm.com/docs/git-config#Documentation/git-config
+; http://showthedocs.com/
+;
 ; vim: ft=gitconfig
 
-[user]
-  useconfigonly = true
-
-[gpg]
-  program = /usr/local/bin/gpg
-
-[commit]
-  verbose = true
-  # gpgsign = true
-
 [core]
-  editor = $EDITOR
-  commitGraph = true
-  whitespace=fix,space-before-tab,tab-in-indent,trailing-space,cr-at-eol
-  excludesfile = ~/.config/git/gitignore
-  attributesfile = ~/.config/git/gitattributes
-  ; https://news.ycombinator.com/item?id=11388479
-  untrackedCache = true
-  pager = diff-so-fancy | less --tabs=2 -RFX
-  ; # conflicts with Markdown
-  commentChar = %
-  hooksPath = ~/.config/git/hooks
+  excludesfile      = ~/.config/git/ignore
+  attributesfile    = ~/.config/git/attributes
+  ; hooksPath       = ~/.config/git/hooks
+  editor            = $EDITOR
+	autocrlf          = input
+  commitGraph       = true
+	whitespace        = trailing-space,space-before-tab
+	safecrlf          = warn
 
 [credential]
 {%@@ if os == "linux-gnu" @@%}
-  helper = cache
+  helper            = cache
 {%@@ elif os == "darwin" @@%}
-  helper = osxkeychain
+  helper            = osxkeychain
 {%@@ endif @@%}
 
+
 [branch]
-  autosetupmerge = always
-  autosetuprebase = always
+  autosetupmerge    = always
+  autosetuprebase   = always
 
 [branch "master"]
-  rebase = true
+  rebase            = true
+
+[init]
+	templatedir       = ~/.config/git/templates
 
 [pull]
-  rebase = true
+  rebase            = true
 
 [push]
-  default = simple
-  followTags = true
+	default           = simple
+	followTags        = true
 
 [fetch]
-  prune = true
+  prune             = true
 
 [rebase]
-  autosquash = true
+  autosquash        = true
   instructionFormat = [%cn <%ce> %G?] %s
-  autoStash = true
+  autoStash         = true
 
-[log]
-  decorate = short
-  date = local
+[submodule]
+	fetchJobs         = 4
+
+# [log]
+#   decorate          = short
+#   date              = local
 
 [status]
-  submodulesummary = true
-  color = true
+	short             = true
+	branch            = true
+  submodulesummary  = true
 
-[tag]
-  forceSignAnnotated = true
+[help]
+	autocorrect       = 1
 
-[apply]
-  whitespace = nowarn
-
-[color]
-  ui = true
-
-[color "branch"]
-  current = yellow reverse
-  local = yellow
-  remote = green
-
-[color "diff"]
-  meta = yellow
-  frag = magenta
-  old = red strike
-  new = green italic
-  whitespace = red reverse
-  commit = 227 bold
-
-[color "status"]
-  added = green
-  changed = yellow
-  untracked = red
-
-[color "diff-highlight"]
-  oldNormal = red strike
-  oldHighlight = red 52 strike
-  newNormal = green italic
-  newHighlight = green 22 italic
+[grep]
+	extendedRegexp    = true
+	lineNumber        = true
 
 [pager]
-  show = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
-  diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
+	diff              = diff-so-fancy | less --tabs=2 -RFX --pattern '^(Date|added|deleted|modified): '
+	log               = delta --dark --plus-color="#012800" --minus-color="#340001" --theme="base16-onedark"
+	show              = delta --dark --theme="base16-tomorrow-night"
 
 ; https://github.com/so-fancy/diff-so-fancy/issues/296
 [interactive]
-  diffFilter = diff-so-fancy --patch-mode | less --tabs=4 -RFX
+	diffFilter        = diff-so-fancy --patch-mode | less --tabs=2 -RFX
 
-[filter "media"]
-  clean = git-media-clean %f
-  smudge = git-media-smudge %f
-# https://git-scm.com/docs/git-config#git-config-transferfsckObjects
-[transfer]
-  fsckObjects = true
-[fetch]
-  fsckObjects = true
-[receive]
-  fsckObjects = true
+
+
+;
+; ─── PRETTY FORMATS ─────────────────────────────────────────────────────────────
+;
+
+[pretty]
+	default           = %C(auto)%h -%d %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
+	onelinecolor      = %Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset
+
+;
+; ─── ALIASES ────────────────────────────────────────────────────────────────────
+;
+
+[alias]
+  a       = add
+  amend   = commit --amend --reuse-message=HEAD  # Amend the currently staged files to the latest commit
+  b       = branch
+  br      = branch -a
+  c       = commit
+  cl      = clone --recursive
+
+  co      = checkout
+  cp      = cherry-pick
+
+  d       = diff
+  dfb     = diff-blame
+  dsf     = "!f() { [ -z \"$GIT_PREFIX\" ] || cd \"$GIT_PREFIX\" && git diff --color \"$@\" | diff-so-fancy  | less --tabs=2 -RFX; }; f"
+  dm      = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"  # Remove branches that have already been merged with master, a.k.a. ‘delete merged’
+
+  count   = shortlog -sn
+  last    = log -1 HEAD
+  log --graph --pretty=format:'%C(bold red)%h%Creset -%C(bold magenta)%d%Creset %s %C(bold green)(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -10
+  lgg     = log --graph --abbrev-commit --pretty=default -5
+
+  mk      = checkout -b
+  mt      = mergetool
+
+  p       = push
+  pF      = push --force
+  pall    = "!fn() { git pull && git submodule foreach git pull origin master; }; fn"   # Pull in remote changes for the current repository and all its submodules
+  pm      = "!fn() { git pull origin $(git rev-parse --abbrev-ref HEAD); }; fn"         # pull origin's current branch into local
+
+  rb      = rebase
+  rba     = rebase --abort
+  rbc     = rebase --continue
+  rbi     = rebase -i
+  rbs     = rebase --skip
+
+  ra      = remote add
+  rr      = remote remove
+  rv      = remote -v
+
+  st      = status
+
+	changed  = show --pretty=\"format:\" --name-only
+	commend  = commit --amend --no-edit
+	; please = push --force-with-lease
+
+	patch    = --no-pager diff --no-color
+	; add-upstream = !zsh -ic \\\"add-upstream $*\\\"
+	; add-remote = !zsh -ic \\\"add-remote $*\\\"
+  undo     = "!fn() { git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}; }; fn"  # http://postd.cc/git-undo
+
+;
+; ─── COLORS ──────────────────────────────────────────────────────────────────
+;
+
+# # Nova
+# # https://github.com/trevordmiller/nova-git
+# [color]
+#   pager        = true
+#   ui           = auto
+#   status       = auto
+#   diff         = auto
+#   branch       = auto
+#   showBranch   = auto
+#   interactive  = auto
+#   grep         = auto
+# [color "status"]
+#   header       = black bold
+#   branch       = cyan
+#   nobranch     = red
+#   unmerged     = red
+#   untracked    = cyan
+#   added        = green
+#   changed      = red bold
+# [color "diff"]
+#   meta         = red bold
+#   frag         = black bold
+#   func         = blue
+#   old          = red strike
+#   new          = green
+#   commit       = blue
+#   whitespace   = red
+#   context      = normal
+# [color "branch"]
+#   current      = cyan
+#   local        = blue
+#   remote       = magenta
+#   upstream     = magenta
+#   plain        = normal
+# [color "decorate"]
+#   branch       = blue
+#   remoteBranch = magenta
+#   tag          = magenta
+#   stash        = cyan
+#   HEAD         = blue
+# [color "interactive"]
+#   prompt       = red
+#   header       = red bold
+#   error        = red
+#   help         = black bold
+# [color "grep"]
+#   context      = normal
+#   match        = cyan
+#   filename     = blue
+#   function     = blue
+#   selected     = normal
+#   separator    = red bold
+#   linenumber   = normal
+
+
+# [include]
+#   path                  = ~/.config/git/nova-color.config
+  ; path                = ~/.config/git/tomorrow-night-eighties.config
+
+;
+; ─── DIFF & MERGE ─────────────────────────────────────────────────────────────
+;
 
 [diff]
-  # Detect copies as well as renames
-  renames = copies
-  algorithm = histogram
-  tool = vimdiff
-  indentHeuristic = true
-  colorMoved = zebra
+  renames               = copies
+  algorithm             = histogram
+	tool                  = vimdiff
+	indentHeuristic       = true
+	# compactionHeuristic = true
 
 [difftool]
-  prompt = false
-  trustExitCode = true
+	prompt                = false
+	trustExitCode         = true
+
+[diff "json"]
+	textconv              = python -m json.tool
+
+[diff "word"]
+	textconv              = docx2txt
 
 [diff "exif"]
-  textconv = exiftool
+  textconv              = exiftool
 
 [diff "plist"]
-  textconv = plutil -convert xml1 -o -
+  textconv              = plutil -convert xml1 -o -
 
 [difftool "vimdiff"]
-  cmd = $EDITOR -d $LOCAL $REMOTE
+  cmd                   = $EDITOR -d $LOCAL $REMOTE
 
 [merge]
   # Include summaries of merged commits in newly created merge commit messages
-  log = 1000
-  tool = vimdiff
-  conflictstyle = diff3
+  log                   = 1000
+  tool                  = vimdiff
+  conflictstyle         = diff3
 
 [mergetool]
-  trustExitCode = true
-  keepBackup = false
-  prompt = false
+  trustExitCode         = true
+  keepBackup            = false
+  prompt                = false
 
 [mergetool "vimdiff"]
-  cmd = $EDITOR -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+  cmd                   = $EDITOR -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
-[mergetool "fugitivediff"]
-  cmd = $EDITOR -f -c "Gdiff" "$MERGED"
 
-# URL shorthands
-[url "git@github.com:"]
-  insteadOf = "gh:"
-  pushInsteadOf = "github:"
-  pushInsteadOf = "git://github.com/"
+;
+; ─── GPG ──────────────────────────────────────────────────────────────────────
+;
 
-[url "git://github.com/"]
-  insteadOf = "github:"
+; [commit]
+;   gpgsign = true
 
-[url "git@gist.github.com:"]
-  insteadOf = "gst:"
-  pushInsteadOf = "gist:"
-  pushInsteadOf = "git://gist.github.com/"
+; [gpg]
+; 	program = /usr/local/bin/gpg
 
-[url "git://gist.github.com/"]
-  insteadOf = "gist:"
-
-[url "git@gitlab.com:"]
-  insteadOf = gl:
-  pushInsteadOf = gitlab:
-  pushInsteadOf = git://gitlab.com/
-
-[url "git://gitlab.com/"]
-  insteadOf = gitlab:
-
-[url "git@bitbucket.org:"]
-  insteadOf = bb:
-  pushInsteadOf = bitbucket:
-  pushInsteadOf = git://bitbucket.org/
-
-[url "git://bitbucket.org/"]
-  insteadOf = bitbucket:
-
-[filter "lfs"]
-  clean = git-lfs clean %f
-  smudge = git-lfs smudge %f
-  required = true
+;
+; ─── LOCAL SETTINGS ───────────────────────────────────────────────────────────
+;
 
 [include]
-  path = ~/.gitconfig.local
-
-[protocol "keybase"]
-  allow = always
+	path = ~/.gitconfig.local

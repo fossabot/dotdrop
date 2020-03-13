@@ -66,6 +66,9 @@ dotfiles:
   f_gitconfig:
     src: gitconfig
     dst: ~/.gitconfig
+  d_git:
+    src: config/git
+    dst: ~/.config/git
   f_dir_colors:
     src: dir_colors
     dst: ~/.dir_colors
@@ -125,9 +128,6 @@ dotfiles:
   d_asciinema:
     src: config/asciinema
     dst: ~/.config/asciinema
-  d_git:
-    src: config/git
-    dst: ~/.config/git
   d_svgo:
     src: config/svgo
     dst: ~/.config/svgo
@@ -137,8 +137,6 @@ profiles:
     - ALL
   base:
     dotfiles:
-    - f_gitconfig
-    - d_git
     - f_exrc
     - f_vimrc
     - d_micro
@@ -153,6 +151,11 @@ profiles:
     - d_asciinema
     include:
     - shell
+    - git
+  git:
+    dotfiles:
+    - f_gitconfig
+    - d_git
   shell:
     dotfiles:
     - d_bin

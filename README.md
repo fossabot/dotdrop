@@ -185,7 +185,8 @@ Check out the tool at https://github.com/deadc0de6/dotdrop.
 Update `dotdrop` submodule
 
 ```bash
-git submodule update --init
+git submodule update --init --recursive
+git submodule update --remote dotdrop
 ```
 
 ### Extra
