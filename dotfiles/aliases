@@ -1,15 +1,17 @@
 # vi:syntax=sh
 
+source "$HOME/code/dotfiles/dotfiles/config/pet.sh"
+
 # alias dotdrop="DOTDROP_CONFIG=~/code/dotdrop/config.yaml ~/code/dotdrop/dotdrop.sh"
 
 
 # search aliases
 alias als='alias | grep --color=auto -i --'
 
-alias alst='cat ~/.aliases | grep "^alias" | gsed -En "s/alias (\w+)=(.+)/${bold}\1\n  ${normal}\2\n/p"'
+alias alst='cat ~/.aliases | grep "^alias" | sed -En "s/alias (\w+)=(.+)/${bold}\1\n  ${normal}\2\n/p"'
 
-# copy the previous command
-alias lcc='fc -ln -1 | awk "{\$1=\$1}1" ORS="" | pbcopy'
+# copy last command
+alias lcc='fc -ln -1 | awk "{\$1=\$1}1" ORS="" | clipcopy'
 
 # ─── CD ───────────────────────────────────────────────────────────────────────
 
@@ -57,6 +59,50 @@ else
   alias la='ls -lhAF ${colorflag}' # list all files colorized in long format
 fi
 
+
+#
+# ─── GRC ────────────────────────────────────────────────────────────────────────
+#
+if [ `command -v grc` ]; then
+  alias df="grc df"
+  alias diff="grc diff"
+  alias du="grc du"
+  alias env="grc env"
+  alias fdisk="grc fdisk"
+  alias free='grc free'
+  alias gcc="grc gcc"
+  alias grc="grc --colour=auto"
+  alias id="grc id"
+  alias ip="grc ip"
+  alias journalctl='grc journalctl'
+  alias last='grc last'
+  alias link="grc ip link"
+  alias logh="grc head"
+  alias logt="grc tail"
+  alias lsattr='grc lsattr'
+  alias lsblk='grc lsblk'
+  alias lsmod='grc lsmod'
+  alias lsof="grc lsof"
+  alias lspci='grc lspci'
+  alias make="grc make"
+  alias mount="grc mount"
+  alias nmap='grc nmap'
+  alias ping="grc ping -4"
+  alias ps="grc ps"
+  alias showmount="grc showmount"
+  alias ss="grc ss"
+  alias stat="grc stat"
+  alias sysctl='grc sysctl'
+  alias systemctl='grc systemctl'
+  alias ulimit="grc ulimit"
+  alias unlimit='grc unlimit'
+  alias uptime='grc uptime'
+  alias vmstat="grc vmstat"
+  alias w='grc w'
+  alias who='grc who'
+fi
+
+
 # ─── GIT ──────────────────────────────────────────────────────────────────────
 alias g="git"
 # alias ga="git add"
@@ -96,42 +142,17 @@ alias info='info --vi-keys'
 alias mime="file --mime-type -b"
 
 # alias path='echo -e ${PATH//:/\\n}' # Print each PATH entry on a separate line
-alias trim="tr -d '\n' | pbcopy" # Trim new lines and copy to clipboard
-alias cpwd='pwd | xargs echo -n | pbcopy' # copy pwd to the clipboard
+alias trim="tr -d '\n' | clipcopy" # Trim new lines and copy to clipboard
+alias cpwd='pwd | xargs echo -n | clipcopy' # copy pwd to the clipboard
 
 if [ `command -v trash` ]; then
   alias rm='trash'
 fi
 
-# ─── NPM ──────────────────────────────────────────────────────────────────────
-# https://github.com/dylang/npm-check#options
-alias ncu="npm-check --no-emoji -u"
-alias ncuy="npm-check --no-emoji -u -y"
-alias ncug="npm-check --no-emoji -u -g"
-
-alias ni="npm i"
-alias nig="npm i -g"
-alias nlg="npm ls -g"
-alias nir="npm rm"
-alias nirg="npm rm -g"
-
-alias y="yarn"
-alias yi="yarn install"
-alias ya="yarn add"
-alias yad="yarn add -D"
-alias yrm="yarn remove"
-alias yga="yarn global add"
-alias ygr="yarn global remove"
-alias ygl="yarn global list"
-alias you="yarn outdated"
-alias yui="yarn upgrade-interactive --latest"
-
-# ──────────────────────────────────────────────────────────────────────────────
 
 
 # ─── UTILITIES ────────────────────────────────────────────────────────────────
 alias unrar="unrar x"
-alias ed='ed -p:'
 
 
 # ─── EDITORS ──────────────────────────────────────────────────────────────────
@@ -142,59 +163,85 @@ alias ed='ed -p:'
 
 # alias c='code-insiders -r'
 c() {
+  [ `command -v code-insiders` ] && CODE=code-insiders
+  [ `command -v code` ] && CODE=code
+
   if [ $# -eq 0 ]; then
-    code-insiders -r .
+    $CODE -r .
   else
-    code-insiders $@
+    $CODE $@
   fi
 }
-alias code='code-insiders'
+# alias code='code-insiders'
 alias v='vim'
 alias m='micro'
 
-# ─── HOMEBREW ─────────────────────────────────────────────────────────────────
-# alias bri="brew install"
-# alias brx="brew uninstall"
-alias brs="brew search"
-alias bru="brew update && brew upgrade && brew cu -ay"
-alias brh="brew home"
-alias brf="brew info"
-# alias brc="brew cat"
-brc() {
-  brew cat "$@" | bat -l ruby
-}
-alias brl="brew ls"
-alias brlv="brew leaves | column"
-
-alias cs="brew cask"
-alias csl="brew cask ls"
-# alias csi="brew cask install"
-# alias csx="brew cask uninstall"
-alias csz="brew cask zap"
-alias csh="brew cask home"
-alias csf="brew cask info"
-# alias csc="brew cask cat"
-csc() {
-  brew cask cat "$@" | bat -l ruby
-}
 
 # ─── NETWORK ──────────────────────────────────────────────────────────────────
 # Flush Directory Service cache
 alias flush="sudo killall -HUP mDNSResponder"
 # IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en0"
-alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+# alias dip="dig +short myip.opendns.com @resolver1.opendns.com"
+# alias localip="ipconfig getifaddr en0"
+# alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 # Get internal and external IP address
-alias ipi='ipconfig getifaddr en0'
+# alias ipi='ipconfig getifaddr en0'
 alias ipe='curl ipinfo.io/ip'
 # Show active network interfaces
-alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
+# alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
 # determine if a port is in use
 alias fport="sudo lsof -i -P -n | grep"
 
 
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  # arch
+  alias sc="systemctl"
+  alias sct="systemctl status"
+  alias sce="systemctl list-units --type service --state active"
+  alias scr="systemctl list-units --type service --state running"
+
+  alias y="yay -S --noconfirm --needed"
+  alias yr="yay -Rns --noconfirm"
+  alias ys="yay -Ss"
+  alias yi="yay -Si --noconfirm"
+  alias yls="yay -Qq | fzf --preview 'yay -Qil {}' --layout=reverse --bind 'enter:execute(yay -Qil {} | less)'"
+
+
+  # alias p='pkgsearch'
+  alias sp="sudo pacman -Syu --noconfirm"
+  alias spu="sudo pacman -Syu --noconfirm"
+  alias spr='sudo pacman -Rs --noconfirm'
+fi
+
+#
+# ─── MACOS ──────────────────────────────────────────────────────────────────────
+#
 if [[ "$OSTYPE" == "darwin"* ]]; then
+  # alias bri="brew install"
+  # alias brx="brew uninstall"
+  alias brs="brew search"
+  alias bru="brew update && brew upgrade && brew cu -ay"
+  alias brh="brew home"
+  alias brf="brew info"
+  # alias brc="brew cat"
+  brc() {
+    brew cat "$@" | bat -l ruby
+  }
+  alias brl="brew ls"
+  alias brlv="brew leaves | column"
+
+  alias cs="brew cask"
+  alias csl="brew cask ls"
+  # alias csi="brew cask install"
+  # alias csx="brew cask uninstall"
+  alias csz="brew cask zap"
+  alias csh="brew cask home"
+  alias csf="brew cask info"
+  # alias csc="brew cask cat"
+  csc() {
+    brew cask cat "$@" | bat -l ruby
+  }
+
   alias dmount='diskutil mount'
   alias dumount='diskutil unmount'
 
@@ -217,77 +264,59 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   alias ffb="/Applications/Firefox.app/Contents/MacOS/firefox-bin"
 
   alias gws='PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/gnu-sed/libexec/gnubin:$PATH gws'
-
-elif [[ "$OSTYPE" == "linux-gnu" ]]; then
-  # arch
-  alias sc="systemctl"
-  alias sce="systemctl list-units --type service --state active"
-  alias scr="systemctl list-units --type service --state running"
-
-  alias y="yay -S --noconfirm"
-  alias yr="yay -Rns --noconfirm"
-  alias ys="yay -Ss"
-  alias yi="yay -Si --noconfirm"
-
-  # alias p='pkgsearch'
-  alias sp="sudo pacman -Syu --noconfirm"
-  alias spu="sudo pacman -Syu --noconfirm"
-  alias spr='sudo pacman -Rs --noconfirm'
-
 fi
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ─── NPM ──────────────────────────────────────────────────────────────────────
+# https://github.com/dylang/npm-check#options
+alias ncu="npm-check --no-emoji -u"
+alias ncuy="npm-check --no-emoji -u -y"
+alias ncug="npm-check --no-emoji -u -g"
+
+alias ni="npm i"
+alias nig="npm i -g"
+alias nlg="npm ls -g"
+alias nir="npm rm"
+alias nirg="npm rm -g"
+
+# alias y="yarn"
+alias yi="yarn"
+alias ya="yarn add"
+alias yad="yarn add -D"
+alias yrm="yarn remove"
+alias yga="yarn global add"
+alias ygr="yarn global remove"
+alias ygl="yarn global list"
+alias you="yarn outdated"
+alias yui="yarn upgrade-interactive --latest"
+# ──────────────────────────────────────────────────────────────────────────────
+
+
 
 # if [ `command -v grc` ]; then
-#   alias grc="grc --colour=auto"
-
-#   alias diskutil="grc diskutil"
 #   alias addr="grc ip addr"
 #   alias ant="grc ant"
 #   alias blkid='grc blkid'
 #   alias configure='grc configure'
-#   alias df="grc df"
-#   alias diff="grc diff"
 #   alias dig="grc dig"
+#   alias diskutil="grc diskutil"
 #   alias dnf='grc dnf'
-#   alias du="grc du"
-#   alias env="grc env"
-#   alias fdisk="grc fdisk"
 #   alias findmnt="grc findmnt"
-#   alias free='grc free'
-#   alias gcc="grc gcc"
 #   alias getfacl='grc getfacl'
 #   alias getsebool='grc getsebool'
-#   alias id="grc id"
 #   alias ifconfig='grc ifconfig'
 #   alias iostat_sar="grc iostat_sar"
 #   alias iostat='grc iostat'
-#   alias ip="grc ip"
 #   alias ipaddr="grc ipaddr"
 #   alias ipneighbor="grc ipneighbor"
 #   alias iproute="grc iproute"
 #   alias iptables='sudo grc iptables'
-#   alias journalctl='grc journalctl'
-#   alias last='grc last'
-#   alias link="grc ip link"
 #   alias logc="grc cat"
-#   alias logh="grc head"
-#   alias logt="grc tail"
-#   alias lsattr='grc lsattr'
-#   alias lsblk='grc lsblk'
-#   alias lsmod='grc lsmod'
-#   alias lsof="grc lsof"
-#   alias lspci='grc lspci'
-#   alias make="grc make"
-#   alias mount="grc mount"
+#   alias ls="grc ls"
 #   alias mtr="grc mtr"
 #   alias mvn="grc mvn"
 #   alias neighbor='grc --colour=ip neighbor'
 #   alias netstat="grc netstat"
-#   alias nmap='grc nmap'
-#   alias ping="grc ping -4"
-#   alias ps="grc ps"
 #   alias pv="grc pv"
 #   alias route="grc ip route"
 #   alias sar='grc sar'
@@ -295,22 +324,10 @@ fi
 #   alias semanageboolean="grc semanageboolean"
 #   alias semanagefcontext="grc semanagefcontext"
 #   alias semanageuser="grc semanageuser"
-#   alias showmount="grc showmount"
-#   alias ss="grc ss"
-#   alias stat="grc stat"
-#   alias sysctl='grc sysctl'
-#   alias systemctl='grc systemctl'
 #   alias tcpdump='grc tcpdump'
 #   alias traceroute="grc traceroute"
 #   alias tune2fs='grc tune2fs'
-#   alias ulimit="grc ulimit"
-#   alias unlimit='grc unlimit'
-#   alias uptime='grc uptime'
-#   alias vmstat="grc vmstat"
 #   alias vnstat="grc vnstat"
-#   alias w='grc w'
+#   alias warn="grc -c conf.warn cat"
 #   alias wdiff="grc wdiff"
-#   alias who='grc who'
-#   # alias ls="grc ls"
-#   # alias warn="grc -c conf.warn cat"
 # fi

@@ -1,4 +1,15 @@
 {
   "Alt-x": "Save,Quit",
-  "Alt-\\": "filemanager.toggle_tree"
+  "Alt-\\": "filemanager.toggle_tree",
+  "Ctrl-Alt-L": "manipulator.lower",
+  "Ctrl-Alt-U": "manipulator.upper",
+  "Altp": "command:fzf",
+  "CtrlLeft": "WordLeft",
+  "CtrlRight": "WordRight",
+  "CtrlDown": "ParagraphNext",
+  "CtrlUp": "ParagraphPrevious",
+  "CtrlShiftLeft": "SelectWordLeft",
+  "CtrlShiftRight": "SelectWordRight",
+  "Ctrl-/": "lua:comment.comment",
+  "Ctrlx": "Redo"
 }

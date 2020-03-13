@@ -7,8 +7,26 @@
 #
 
 # ─── pure ─────────────────────────────────────────────────────────────────────
-zinit ice lucid pick"async.zsh" src"pure.zsh"
-zinit light sindresorhus/pure
+# zinit ice lucid pick"async.zsh" src"pure.zsh"
+# zinit light sindresorhus/pure
+eval "$(starship init zsh)"
+
+#
+# ─── SNIPPETS ─────────────────────────────────────────────────────────────────
+#
+
+# ─── clipboard ────────────────────────────────────────────────────────────────
+zinit ice wait lucid
+zinit snippet OMZ::lib/clipboard.zsh
+
+# pet
+# https://github.com/knqyf263/pet
+zinit ice as"program" from"gh-r" pick"pet/pet" bpick"*linux_amd64.tar.gz"
+zinit light knqyf263/pet
+
+
+zinit ice as"program" from"gh-r" pick"pet/pet" bpick"*linux_amd64.tar.gz"
+zinit light mattn/memo
 
 #
 # ─── FZF ──────────────────────────────────────────────────────────────────────
@@ -22,7 +40,8 @@ zinit ice as'command' pick"bin/fzf-tmux"
 zinit light junegunn/fzf
 
 # Create and bind multiple widgets using fzf
-zinit ice wait'0a' lucid id-as"junegunn/fzf_completions" pick"/dev/null" multisrc"shell/{completion,key-bindings}.zsh"
+zinit ice wait'0a' lucid id-as"junegunn/fzf_completions" pick"/dev/null" \
+  multisrc"shell/{completion,key-bindings}.zsh"
 zinit light junegunn/fzf
 
 # fzf-marks, at slot 0, for quick Ctrl-G accessibility
@@ -60,6 +79,9 @@ zinit light changyuheng/fz
 #
 # ─── GIT ─────────────────────────────────────────────────────────────────────
 #
+
+zinit ice wait"!0" lucid as"program" pick"{git-now,git-now-add,git-now-rebase,gitnow-common,gitnow-shFlags}"
+zinit light "iwata/git-now"
 
 # diff-so-fancy
 # https://github.com/so-fancy/diff-so-fancy
@@ -111,8 +133,12 @@ zinit light desyncr/auto-ls
 
 # zsh-fast-alias-tips
 # https://github.com/sei40kr/zsh-fast-alias-tips
-zinit ice has'go' make'!'
+zinit ice from'gh-r' as'program'
+# zinit light sei40kr/fast-alias-tips-bin
 zinit light sei40kr/zsh-fast-alias-tips
+
+# zinit ice has'go' make'!' "build/def-matcher"
+# zinit light sei40kr/zsh-fast-alias-tips
 
 # zsh-autopair
 # https://github.com/hlissner/zsh-autopair

@@ -1,5 +1,10 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
+export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_LOGGING_RULES='*.debug=false;qt.qpa.*=false'
+
+
+
 [ -n "$PS1" ] && source ~/.bash_profile
 
 # if [[ "$OSTYPE" == "darwin"* ]]; then

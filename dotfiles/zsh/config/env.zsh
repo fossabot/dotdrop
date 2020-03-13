@@ -35,21 +35,21 @@ export FZF_ALT_C_COMMAND="${__FZF[ALT_C]}"
 
 export FZF_DEFAULT_OPTS="
   --no-mouse --height 100% -1 --ansi --cycle
-  --reverse --multi --inline-info --tabstop 2
+  --reverse --multi --info=inline --tabstop 2
   --preview='$FZF_PREVIEW_FILES  2> /dev/null | head -500'
   --preview-window='right:hidden:wrap'
-  --bind='f3:execute(bat -l sh --style=numbers {} || less -f {}),f2:toggle-preview,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-y:execute-silent(echo {+} | pbcopy)'
+  --bind='f3:execute(bat -l sh --style=numbers {} || less -f {}),f2:toggle-preview,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-y:execute-silent(echo {+} | xclip -sel clip)'
 "
 export FZF_CTRL_T_OPTS="
   --preview-window right:50%
   --preview '$FZF_PREVIEW_FILES '
-  --bind 'enter:execute($EDITOR {})+abort,alt-v:execute(code-insiders -r {})+abort,ctrl-y:execute-silent(pbcopy < {})+abort,alt-y:execute-silent(echo {} | pbcopy)+abort,?:toggle-preview'
+  --bind 'enter:execute($EDITOR {})+abort,alt-v:execute(code-insiders -r {})+abort,ctrl-y:execute-silent(xclip -sel clip < {})+abort,alt-y:execute-silent(echo {} | xclip -sel clip)+abort,?:toggle-preview'
   --header '↵ - open, ⌥V - open in VS Code, ^Y - copy, ⌥Y - copy name, ? - toggle preview'
 "
 export FZF_CTRL_R_OPTS="
   -e
   --preview 'echo {}' --preview-window down:3:hidden:wrap
-  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort,?:toggle-preview'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | xclip -sel clip)+abort,?:toggle-preview'
   --header '^Y - copy command, ? - toggle preview'
 "
 export FZF_ALT_C_OPTS="

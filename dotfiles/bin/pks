@@ -1,149 +1,167 @@
 #!/usr/bin/env bash
 
-declare -r esc=$'\033'
-declare -r c_reset="${esc}[0m"
-declare -r c_red="${esc}[31m"
-declare -r c_green="${esc}[32m"
-declare -r c_blue="${esc}[34m"
-declare distro
-declare preview_pos='right:hidden'
-
-usage() {
-  LESS=-FEXR less <<HELP
-pkgsearch [options] [query]
-  lists and installs packages from your distro's repositories
-
-  without any arguments pkgsearch will list all available packages from your cache
-  note: on Arch Linux you must pass a string to query the AUR
-HELP
-}
-
-err() {
-  printf "${c_red}%s${c_reset}\n" "$*" >&2
-}
-
-die() {
-  exit 1
-}
-
-has() {
-  local verbose=0
-  if [[ $1 = '-v' ]]; then
-    verbose=1
-    shift
+# bug #3:
+# "pacui --pacui_tty_clean" helper function. this function is only called from within pacui.
+function pacui_tty_clean() {
+  if ( tty | grep tty &>/dev/null ); then                                           # check, whether output of "tty" contains the string "tty". this is TRUE, if pacui is used within a tty.
+    # in tty, fzf does not clear the screen before and after it runs. this makes a bad visual style in tty. the other code (in the "else bracket") does not help to "clear" the screen before and after fzf runs, either. only the real "clear" command works.
+    # unfortunately the "clear" command also destroys the terminal history. therefore, the "clear" command should only be used when absolutely necessary (such as in tty)!
+    clear
   fi
-  for c; do c="${c%% *}"
-    if ! command -v "$c" &> /dev/null; then
-      (( "$verbose" > 0 )) && err "$c not found"
-      return 1
+}
+
+# Install Packages
+# this function provides core functionality of "Install Packages". the help page provides additional explanations.
+function func_i() {
+  local FZF_PREVIEW_FILES='
+    (bat --style=numbers --color=always {} || highlight -O ansi -l {} || cat {}) ||
+    tree -C -L 1 -x --noreport --dirsfirst {}
+  '
+  local AUR_Helper=yay
+  local {pacui_list_install,pkg}                                              # declare local variables
+
+  # write package list of system repositories (package name and description) to $pacui_list_install. %-33n uses printf support in expac to format output nicely (reserve a 33 character wide field for package name %n).
+  pacui_list_install="$(  expac -S "%-33n\t%d" )"                             # here the parenthesis in "$(...)" are essential to write multiple lines to a variable! without parenthesis the variable will contain only a single line (space separated)!
+
+  # for performance reasons, there are multiple files of package lists created in the following code. a comparison to local files is much faster than checking, whether a selected package is part of an online repository.
+  # the use of variables instead of files can give more performance (and security) gains, but variables cannot be called from within fzf's preview, because it needs to be used with ' symbols (e.g. --preview '...')
+  # these files do not need a trap (for security reasons), because they are only used for comparison. if tampered with, the comparison (which is done in "comm" without root privileges) simply fails and no package info is shown.
+  expac -Q "%n" > /tmp/pacui-list-installed                                   # get locally installed packages (equivalent to "pacman -Qq", but faster).
+
+  if [[ ! -f /tmp/pacui-list-install-repo ]]; then                                  # check, if file does not exist.
+    echo "$pacui_list_install" | cut -d " " -f 1 > /tmp/pacui-list-install-repo                     # get the content of $pacui_list_install variable and save (only a list of package names) to /tmp/pacui-list-install-repo file.
+  fi
+
+  # add a list of package groups in the system repositories to $pacui_list_install variable
+  pacui_list_install+="\n"                                                    # by default, the "+=" operator adds all stuff directly to the end of a variable (but without a newline!). therefore, an additional "\n" (newline) is needed before adding stuff to a list.
+
+  if [[ ! -f /tmp/pacui-list-install-groups ]]; then
+    # "pacman -Sgq" is equivalent to "expac -Sg %G | sort -u | sed 's/ /\n/g' | sort -u | awk 'NF != 0'", but much faster
+    # split output of "pacman -Sgq" using "tee" to $pacui_list_install variable and /tmp/pacui-list-install-groups file. this saves a little time.
+    pacui_list_install+="$( pacman -Sgq | tee /tmp/pacui-list-install-groups )"
+  else
+    pacui_list_install+="$( cat /tmp/pacui-list-install-groups )"           # if /tmp/pacui-list-install-groups file already exists, its content is added to $pacui_list_install variable. this is insecure, but because the same is done below (which i do not know how to do differently) with a list of AUR packages, i think it is an acceptable performance optimization.
+    #pacui_list_install+="$( pacman -Sgq )"                                 # secure solution needs a bit of extra time.
+  fi
+
+
+  if [[ -n "$AUR_Helper" ]]; then                                                   # check, if output of "$AUR_Helper" is non-zero
+    # download AUR package list (only when not already downloaded) and add it to $pacui_list_install
+    #if  [[ ! -f /tmp/pacui-aur/packages.gz ]]
+    if  [[ ! -f /tmp/pacui-aur/packages ]]; then
+      echo " downloading list of AUR packages (which can take a while) ..."
+
+      #wget -P "/tmp/pacui-aur/" "https://aur.archlinux.org/packages.gz" &>/dev/null
+      #wget -P "/tmp/pacui-aur/" "https://aur.archlinux.org/packages.gz" &>/dev/null && gunzip -f "/tmp/pacui-aur/packages.gz"
+      curl --url 'https://aur.archlinux.org/packages.gz' --create-dirs --output "/tmp/pacui-aur/packages.gz" &>/dev/null && gunzip -f "/tmp/pacui-aur/packages.gz"
     fi
-  done
-}
 
-select_from() {
-  local cmd='command -v'
-  for a; do
-    case "$a" in
-      -c)
-        cmd="$2"
-        shift 2
-        ;;
-    esac
-  done
-  for c; do
-    if $cmd "${c%% *}" &> /dev/null; then
-      echo "$c"
-      return 0
+    # check, if /tmp/pacui-aur/packages exists. /tmp/pacui-aur/packages does not exist, if there is no internet connection or something went wrong during the download of the list of AUR packages.
+    #if [[ -f /tmp/pacui-aur/packages.gz ]]
+    if [[ -f /tmp/pacui-aur/packages ]]; then
+      pacui_list_install+="\n"
+      # remove line with download date from list of AUR packages with "grep" and add content of /tmp/pacui-aur/packages file to $pacui_list_install variable. this is insecure, but i do not know how to download the list of AUR packages directly into a variable. doing this with temporary files and traps would be a (quite slow!) secure solution, which i am not willing to implement yet.
+      #pacui_list_install+="$( grep -v '#' '/tmp/pacui-aur/packages.gz' | tr -d ' ' )"            # delete all trailing spaces with "tr". command equivalent to "awk '{print $1}'"
+      pacui_list_install+="$( grep -v '#' '/tmp/pacui-aur/packages' )"
     fi
-  done
-  return 1
+  fi
+
+
+  pacui_tty_clean                                                             # clear terminal
+  #set +e                                                                     # prevent PacUI to quit, if fzf is quit using CTRL+C or ESC (which exits fzf with an error code)
+  #set +E
+
+  # fzf lets you search and select a given list. "man fzf" lists all its arguments beautifully. "fzf" commands in this script are typically in a convoluted form. here, a long "fzf" command is listed in maximum readable form.
+  # the package list in $pacui_list_install gets sorted and displayed by fzf. then it is filtered by awk and saved in pkg variable.
+  pkg="$(
+    echo -e "$pacui_list_install" |                                     # load list of package names from $pacui_list_install_all variable. "-e" interprets the added newlines.
+    sort -k1,1 -u |                                                     # sort list: only first column gets used for sorting
+    # the "--multi" flag makes it possible to select multiple list items
+    # $argument_input variable gets defined after function definitions --> search for "argument_input="
+    # the "--preview" flag displays information about the currently selected line in fzf's preview window
+    fzf -i \
+      --multi \
+      --exact \
+      --no-sort \
+      --select-1 \
+      --query="$argument_input" \
+      --cycle \
+      --reverse \
+      --bind=right:half-page-down,left:half-page-up \
+      --margin="4%,1%,1%,2%" \
+      --info=inline \
+      --no-unicode \
+      --preview '
+          if [[ $(comm -12 <(echo {1}) <(sort /tmp/pacui-list-installed)) ]]; then                  # check, if 1. field of selected line (in fzf) is a locally installed package.
+            echo -e "\e[1mInstalled package info: \e[0m"
+            pacman -Qi {1} --color always                       # display local package information in preview window of fzf
+            echo
+          fi
+          if [[ $(comm -12 <(echo {1}) <(sort /tmp/pacui-list-install-repo)) ]]; then               # check, if 1. field of selected line (in fzf) is a package from system repositories
+            echo -e "\e[1mRepository package info: \e[0m"
+            pacman -Si {1} --color always                       # display repository package information in preview window of fzf
+            echo
+          fi
+          if [[ $(comm -12 <(echo {1}) <(sort /tmp/pacui-list-install-groups)) ]]; then                 # check, if 1. field of selected line (in fzf) is a package group
+            echo -e "\e[1m{1} group has the following members: \e[0m"
+            pacman -Sgq {1}                                         # display package name of group members in preview window of fzf
+          else
+            if [[ ! $(comm -12 <(echo {1}) <(sort /tmp/pacui-list-install-repo)) ]] && ( test -n '$AUR_Helper' ); then                   # preview window of fzf requires checking with "test": check whether internet connection is up.
+              echo -e "\e[1mAUR package info: \e[0m"
+              if test '$AUR_Helper' = "yay"; then
+                yay -Si {1} | grep -v "::"                      # grep command removes all errors displayed by yay
+              elif test '$AUR_Helper' = "pikaur"; then
+                pikaur -Si {1}
+              elif test '$AUR_Helper' = "aurman"; then                  # if {1} is neither locally installed nor a group, it is from the AUR. display info with AUR helper
+                aurman -Si {1} | grep -v "::"                   # grep command removes all errors displayed by aurman
+              elif test '$AUR_Helper' = "pakku"; then
+                pakku -Si {1}
+              elif test '$AUR_Helper' = "trizen"; then
+                trizen -Si {1}
+              elif test '$AUR_Helper' = "pacaur"; then
+                pacaur -Si {1} --color always | grep -v "::"    # grep command removes all errors displayed by pacaur
+              fi
+            fi
+          fi' \
+      "$(
+        if (( $(tput cols) >= 125 )); then
+          echo "--preview-window=right:55%:wrap"                  # depending on the terminal width (determined by "tput cols"), the preview window is either shown on the right or the bottom
+        else
+          echo "--preview-window=bottom:60%:wrap"
+        fi
+      )" \
+      --header="TAB key to (un)select. ENTER to install. ESC to quit." \
+      --prompt="Enter string to filter list > " |
+    awk '{print $1}'                                                    # use "awk" to filter output of "fzf" and only get the first field (which contains the package name). "fzf" should output a separated (by newline characters) list of all chosen packages!
+  )"
+
+  #set -e
+  #set -E
+  pacui_tty_clean                                                             # clear terminal
+
+  # $pkg contains package names below each other (=separated by \n), but we need a list in 1 line (which is space separated):
+  pkg="$( echo "$pkg" | paste -sd " " )"
+
+
+  # only run the command inside the if-statement, if variable $pkg is not empty (this happens when fzf is quit with ESC or CTRL+C)
+  if [[ -n "$pkg" ]]; then
+    if [[ "$AUR_Helper" == "yay" ]]; then
+      yay "$argument_flag"-S $pkg                                         # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkg variable breaks AUR helper and pacman
+    elif [[ "$AUR_Helper" == "pikaur" ]]; then
+      pikaur "$argument_flag"-S $pkg                                      # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkg variable breaks AUR helper and pacman
+    elif [[ "$AUR_Helper" == "aurman" ]]; then
+      aurman "$argument_flag"-S $pkg                                      # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkg variable breaks AUR helper and pacman
+    elif [[ "$AUR_Helper" == "pakku" ]]; then
+      pakku "$argument_flag"-S $pkg                                       # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkg variable breaks AUR helper and pacman
+    elif [[ "$AUR_Helper" == "trizen" ]]; then
+      trizen "$argument_flag"-S $pkg                                      # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkg variable breaks AUR helper and pacman
+    elif [[ "$AUR_Helper" == "pacaur" ]]; then
+      pacaur "$argument_flag"--color always -S $pkg                       # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkg variable breaks AUR helper and pacman
+    else
+      sudo pacman "$argument_flag"--color always -Syu $pkg                # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkg variable breaks AUR helper and pacman
+    fi
+  fi
 }
 
-fzf() {
-  command fzf -e +s --multi --cycle --ansi \
-    --bind='Ctrl-X:toggle-preview' \
-    --no-hscroll --inline-info \
-    --header='tab to select multiple packages, Ctrl-X for more info on a package' "$@"
-}
 
-install() {
-  local pkgs count
-  mapfile -t pkgs
-  (( ${#pkgs} > 0 )) || exit
-  count="${#pkgs[@]} package"
-  (( ${#pkgs[@]} > 1 )) && count+='s'
-  printf "installing %s: %s\n" "$count" "${pkgs[*]}"
-  $1 "${pkgs[@]}" < /dev/tty
-}
-
-debian() {
-  fzf --preview='apt-cache show {1}' \
-      --query="$1" \
-    < <(apt-cache search '.*' | sort |
-      sed -u -r "s|^([^ ]+)|${c_green}\1${c_reset}|") |
-    cut -d' ' -f1 |
-    install "sudo $(select_from 'apt' 'aptitude' 'apt-get') install"
-}
-
-arch() {
-  local search packages
-  search='pacman'
-  [[ -n "$1" ]] && search=$(select_from 'pacaur' 'trizen' 'yaourt' 'packer' 'apacman' 'pacman')
-  packages=$(fzf -e --reverse --preview="$search -Si {2}" \
-    < <( $search -Ss "$1" |
-      gawk '{
-        getline descr;
-        sub(/ */,"", descr);
-        repo = blue "[" gensub(/\/.*/, "", 1) "]" reset;
-        name = green gensub(/.*\//, "", 1, $1) reset;
-        info = gensub(/[^ ]* /, "", 1);
-        print repo, name, info, descr;
-      }' blue="$c_blue" green="$c_green" reset="$c_reset"
-    ) | cut -d' ' -f2)
-  [[ "$search" = "pacman" ]] && search="sudo pacman"
-  install "$search -S --noconfirm" <<< "$packages"
-}
-
-void() {
-  local package_list packagename='{ sub(/-[^\-]*$/, "", $2); print $2 }'
-  package_list=$(xbps-query -Rs '' | sort)
-  fzf --preview="p=\$(awk \"$packagename\" <<< {}); xbps-query -Rx \$p" \
-      --query="$1" <<< "$package_list" |
-    awk "$packagename" |
-    install 'xbps-install -S'
-}
-
-fedora() {
-  fzf --query="$*" --preview='p={}; p="${p%% *}"; dnf -q info "${p%.*}"' \
-    < <(dnf -qC repoquery --qf "${c_green}%{name} ${c_reset} - %{summary}" \*) |
-    awk '{ package=$1; sub(/\.\S+/, "", package); print package }' |
-    install 'sudo dnf install'
-}
-
-while true; do
-  case "$1" in
-    -h|--help) usage; exit ;;
-    -p|--preview) preview_pos="$2"; shift 2 ;;
-    *) break
-  esac
-done
-
-has -v fzf gawk || die
-
-request="$*"
-
-if [[ -r /etc/os-release ]]; then
-  distro=$(awk -F'=' '"ID_LIKE" == $1 { gsub("\"", "", $2); print tolower($2); }' /etc/os-release)
-  distro="${distro%% *}"
-fi
-
-case "$distro" in
-  debian|ubuntu) debian "$request" ;;
-  arch) arch "$request" ;;
-  void) void "$request" ;;
-  fedora) fedora "$request" ;;
-  *) die 'unknown distro :(' ;;
-esac
-
-# TODO: homebrew: brew desc -s
-# sample output: https://pastebin.com/raw/3frRf6C7
+func_i

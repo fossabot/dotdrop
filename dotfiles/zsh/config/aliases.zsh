@@ -1,4 +1,5 @@
-[ -f "$HOME/.aliases" ] && . "$HOME/.aliases"
+# [ -f "$HOME/.aliases" ] && . "$HOME/.aliases"
+source "$HOME/.aliases"
 
 # print $fpath in a human-readable way
 alias fpath='print -l $fpath'
@@ -7,17 +8,6 @@ alias fpath='print -l $fpath'
 # Global aliases
 # (work at any position within the command line)
 #
-
-if [ `command -v clipper` ]; then
-  # Mnemonic: "[C]lip"
-  alias -g C="|clip"
-else
-  # Mnemonic: "[C]opy"
-  alias -g C="|pbcopy"
-fi
-
-# Mnemonic: "[P]aste"
-alias -g P="|pbpaste"
 
 # Mnemonic: "[G]rep"
 alias -g G='|grep'
@@ -47,4 +37,21 @@ fi
 # Mnemonic: "[B]at"
 if [ `command -v bat` ]; then
   alias -g B="|bat -l sh "
+fi
+
+# fix zsh: no matches found
+# http://mikeballou.com/blog/2011/07/18/zsh-and-rake-parameters/
+# alias rake='noglob rake'
+
+
+if [ `command -v clipper` ]; then
+  # Mnemonic: "[C]lip"
+  alias -g C="|clip"
+fi
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # Mnemonic: "[C]opy"
+  alias -g C="|pbcopy"
+  # Mnemonic: "[P]aste"
+  alias -g P="|pbpaste"
 fi

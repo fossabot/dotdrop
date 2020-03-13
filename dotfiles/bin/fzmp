@@ -144,7 +144,7 @@ fzf() {
   opts=( +s -e -i --reverse --cycle )
   [[ -v FZMP_FZF_OPTIONS ]] && opts=( $FZMP_FZF_OPTIONS )
   command fzf "${opts[@]}" \
-    --inline-info \
+    --info=inline \
     --ansi \
     --no-clear \
     "$@"
