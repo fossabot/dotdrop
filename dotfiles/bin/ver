@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+_ver() {
+  cat /etc/os-release
+  echo "───────────────────────────────────────────"
+  cat /etc/lsb-release
+}
+
+_ver "$@"
