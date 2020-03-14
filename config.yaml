@@ -93,22 +93,6 @@ dotfiles:
   f_less:
     src: config/less
     dst: ~/.config/less
-  f_tldrrc:
-    src: tldrrc
-    dst: ~/.tldrrc
-  f_youtubedl:
-    src: config/youtube-dl/config
-    dst: ~/.config/youtube-dl/config
-  f_mpd:
-    src: config/mpd/mpd.conf
-    dst: ~/.config/mpd/mpd.conf
-  d_gnupg:
-    src: gnupg
-    dst: ~/.gnupg
-    link: link_children
-  f_colorls:
-    src: config/colorls/dark_colors.yaml
-    dst: ~/.config/colorls/dark_colors.yaml
   d_bat:
     src: config/bat
     dst: ~/.config/bat
@@ -128,9 +112,28 @@ dotfiles:
   d_asciinema:
     src: config/asciinema
     dst: ~/.config/asciinema
+  f_tldrrc:
+    src: tldrrc
+    dst: ~/.tldrrc
+  f_youtubedl:
+    src: config/youtube-dl/config
+    dst: ~/.config/youtube-dl/config
+  f_mpd:
+    src: config/mpd/mpd.conf
+    dst: ~/.config/mpd/mpd.conf
+  d_gnupg:
+    src: gnupg
+    dst: ~/.gnupg
+    link: link_children
+  f_colorls:
+    src: config/colorls/dark_colors.yaml
+    dst: ~/.config/colorls/dark_colors.yaml
   d_svgo:
     src: config/svgo
     dst: ~/.config/svgo
+  f_xmodmap:
+    src: Xmodmap
+    dst: ~/.Xmodmap
 profiles:
   all:
     dotfiles:
@@ -156,16 +159,8 @@ profiles:
     dotfiles:
     - f_gitconfig
     - d_git
-  shell:
+  bash:
     dotfiles:
-    - d_bin
-    - f_zshenv
-    - f_zprofile
-    - f_zshrc
-    - f_zlogin
-    - f_zinit
-    - f_zconfig
-    - d_fsh
     - f_profile
     - f_inputrc
     - f_bashrc
@@ -174,10 +169,25 @@ profiles:
     - f_bash_completion
     - f_bash_logout
     - d_completions
+  zsh:
+    dotfiles:
+    - f_zshenv
+    - f_zprofile
+    - f_zshrc
+    - f_zlogin
+    - f_zinit
+    - f_zconfig
+  shell:
+    dotfiles:
+    - d_bin
+    - d_fsh
     - f_aliases
     - f_exports
     - f_dir_colors
     - d_bat
+    include:
+    - bash
+    - zsh
   other:
     dotfiles:
     - f_tldrrc
@@ -186,9 +196,9 @@ profiles:
     - d_gnupg
     - f_colorls
     - d_svgo
-  test:
+  kde:
     dotfiles:
-    - d_svgo
+    - f_xmodmap
 dynvariables:
   home: echo $HOME
   os: echo $OSTYPE

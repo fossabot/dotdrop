@@ -80,6 +80,8 @@ grep -q $(which bash) /etc/shells || echo $(which bash) | sudo tee -a /etc/shell
   * [Readline File](https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html)
   * [Git config reference](https://git-scm.com/docs/git-config)
   * [ZSH Keybindings](http://zshwiki.org/home/keybindings/)
+  * [showthedocs](http://showthedocs.com/) documentation browser that finds the relevant docs for your code
+  * [explainshell](https://explainshell.com/) see the help text that matches each argument
 </details>
 
 <details>

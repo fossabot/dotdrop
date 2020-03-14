@@ -7,6 +7,10 @@
 #
 
 # ─── pure ─────────────────────────────────────────────────────────────────────
+# zinit ice lucid src"zsh/zygal.zsh"
+# zinit light davla/zygal
+
+# # ─── pure ─────────────────────────────────────────────────────────────────────
 # zinit ice lucid pick"async.zsh" src"pure.zsh"
 # zinit light sindresorhus/pure
 
@@ -24,10 +28,15 @@ zinit light starship/starship
 zinit ice wait lucid
 zinit snippet OMZ::lib/clipboard.zsh
 
-# pet
+# pet - snippet manager
 # https://github.com/knqyf263/pet
-zinit ice as"program" from"gh-r" pick"pet/pet" bpick"*linux_amd64.tar.gz"
-zinit light knqyf263/pet
+# zinit ice as"program" from"gh-r" pick"pet/pet" bpick"*linux_amd64.tar.gz"
+# zinit light knqyf263/pet
+
+# navi - interactive cheatsheet tool
+# https://github.com/denisidoro/navi
+zinit ice as"program" from"gh-r" pick"navi/navi"
+zinit light denisidoro/navi
 
 
 # zinit ice as"program" from"gh-r" pick"pet/pet" bpick"*linux_amd64.tar.gz"
@@ -129,7 +138,7 @@ zinit light sharkdp/bat
 
 # exa
 # https://github.com/ogham/exa
-zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
+zinit ice as"program" from"gh-r" mv"exa* -> exa"
 zinit light ogham/exa
 
 # # All of the above using the for-syntax and also z-a-bin-gem-node annex
@@ -140,6 +149,11 @@ zinit light ogham/exa
 
 # ────────────────────────────────────────────────────────────────────────────────
 
+# clears previous command output
+# https://github.com/Valiev/almostontop
+zinit ice wait"1c" lucid
+zinit light Valiev/almostontop
+
 # auto-ls
 # https://github.com/desyncr/auto-ls
 zinit ice wait'0' lucid
@@ -148,11 +162,8 @@ zinit light desyncr/auto-ls
 # zsh-fast-alias-tips
 # https://github.com/sei40kr/zsh-fast-alias-tips
 zinit ice from'gh-r' as'program'
-# zinit light sei40kr/fast-alias-tips-bin
 zinit light sei40kr/zsh-fast-alias-tips
-
-# zinit ice has'go' make'!' "build/def-matcher"
-# zinit light sei40kr/zsh-fast-alias-tips
+# zinit light sei40kr/fast-alias-tips-bin
 
 # zsh-autopair
 # https://github.com/hlissner/zsh-autopair
@@ -191,13 +202,13 @@ zinit light chriskempson/base16-shell
 # a progress spinner
 # https://github.com/psprint/revolver
 # zt 2c as"command" pick"revolver" atclone'cp revolver.zsh-completion $ZINIT[COMPLETIONS_DIR]/_revolver' atpull'%atclone'
-: zinit ice as"command" pick"revolver"
-: zinit light psprint/revolver
+# zinit ice as"command" pick"revolver"
+# zinit light psprint/revolver
 
 # highlight strings in the output
 # https://github.com/paoloantinori/hhighlighter
-: zinit ice pick"h.sh" atclone"sed -i.bk 's/h()/hl()/g' h.sh" atpull"%atclone" nocompile'!'
-: zinit light paoloantinori/hhighlighter
+# zinit ice pick"h.sh" atclone"sed -i.bk 's/h()/hl()/g' h.sh" atpull"%atclone" nocompile'!'
+# zinit light paoloantinori/hhighlighter
 
 # ansi escape codes
 # https://github.com/fidian/ansi
@@ -246,12 +257,19 @@ zinit light zsh-users/zsh-autosuggestions
 
 # ──────────────────────────────────────────────────────────────────────────────
 
+# zshell user interface library
+# https://github.com/zdharma/zui
+# zinit ice wait"1" lucid
+# zinit load zdharma/zui
+
+# curses consolette for Zsh-Zinit plugin manager
+# https://github.com/zinit-zsh/zinit-console
+# zinit wait lucid for zinit-zsh/zinit-console
+
 # Semigraphical .zshrc editor for zinit commands
 # https://github.com/zdharma/zplugin-crasis
-zinit ice wait"1" lucid
-zinit load zdharma/zui
-zinit ice wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]' lucid
-zinit light zdharma/zplugin-crasis
+# zinit ice wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]' lucid
+# zinit light zdharma/zplugin-crasis
 
 # ──────────────────────────────────────────────────────────────────────────────
 
@@ -260,10 +278,9 @@ zinit light zdharma/zplugin-crasis
 # https://github.com/trapd00r/LS_COLORS
 # on macOS, you might need to install coreutils from homebrew and use the
 # g-prefix – gsed, gdircolors
-: zinit ice pick"c.zsh" atclone"local PFX=${${(M)OSTYPE:#*darwin*}:+g}
-            git reset --hard;
-            \${PFX}sed -i '/DIR/c\DIR                   38;5;105;1' LS_COLORS; \
-            \${PFX}sed -i '/LINK/c\LINK                 38;5;115' LS_COLORS; \
-            \${PFX}dircolors -b LS_COLORS > c.zsh" atpull'%atclone' nocompile'!'
-: zinit light trapd00r/LS_COLORS
-
+# zinit ice pick"c.zsh" atclone"local PFX=${${(M)OSTYPE:#*darwin*}:+g}
+#             git reset --hard;
+#             \${PFX}sed -i '/DIR/c\DIR                   38;5;105;1' LS_COLORS; \
+#             \${PFX}sed -i '/LINK/c\LINK                 38;5;115' LS_COLORS; \
+#             \${PFX}dircolors -b LS_COLORS > c.zsh" atpull'%atclone' nocompile'!'
+# zinit light trapd00r/LS_COLORS

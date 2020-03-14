@@ -266,8 +266,8 @@ zinit ice svn atload"prompt garrett" silent
 zinit snippet PZT::modules/prompt
 
 zinit ice wait'!' lucid nocompletions \
-         compile"{zinc_functions/*,segments/*,zinc.zsh}" \
-         atload'!prompt_zinc_setup; prompt_zinc_precmd'
+  compile"{zinc_functions/*,segments/*,zinc.zsh}" \
+  atload'!prompt_zinc_setup; prompt_zinc_precmd'
 zinit load robobenklein/zinc
 
 # ZINC git info is already async, but if you want it
