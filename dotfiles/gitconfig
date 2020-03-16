@@ -5,6 +5,11 @@
 ;
 ; vim: ft=gitconfig
 
+# {{@@ header() @@}}
+# [user]
+# 	name = {{@@ git_user @@}}
+# 	email = {{@@ git_email @@}}
+
 [core]
   safecrlf = warn
   autocrlf = input

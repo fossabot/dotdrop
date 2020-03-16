@@ -1,0 +1,28 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/octet-stream;inode/directory
+Actions=copyPath;copeFileName;copyDirPath;
+X-KDE-Priority=TopLevel
+X-KDE-Submenu=Copy Path
+X-KDE-Submenu[ru]=Скопировать путь
+Icon=edit-copy
+
+[Desktop Action copyPath]
+Name=Full Path
+Name[ru]=Полный путь
+Exec=bash $HOME/.local/share/kservices5/ServiceMenus/copy-path/copyPath.sh %F
+Icon=edit-copy
+
+[Desktop Action copeFileName]
+Name=Filename
+Name[ru]=Имя файла
+Exec=bash $HOME/.local/share/kservices5/ServiceMenus/copy-path/copeFileName.sh %F
+Icon=edit-copy
+
+[Desktop Action copyDirPath]
+Name=Path to Dir
+Name[ru]=Путь к папке
+Exec=bash $HOME/.local/share/kservices5/ServiceMenus/copy-path/copyDirPath.sh %F
+Icon=edit-copy
+

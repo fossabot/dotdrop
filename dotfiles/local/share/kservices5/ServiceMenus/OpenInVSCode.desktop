@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/octet-stream;inode/directory
+Actions=open;new;
+X-KDE-Priority=TopLevel
+Icon=visual-studio-code-insiders
+# X-KDE-Submenu=Open In VS Code
+
+[Desktop Action open]
+Name=Open in VS Code
+Exec=/usr/bin/code-insiders -r %U
+Icon=visual-studio-code-insiders
+
+[Desktop Action new]
+Name=Open in New VS Code Window
+Exec=/usr/bin/code-insiders -n %U
+Icon=visual-studio-code-insiders
+

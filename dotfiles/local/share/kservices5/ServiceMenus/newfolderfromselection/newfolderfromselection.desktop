@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin,all/allfiles
+MimeType=Application/octet-stream;inode/directory
+Actions=NFFS
+X-KDE-Priority=TopLevel
+Icon=folder-add
+
+[Desktop Action NFFS]
+Name=New Folder from Selection
+Icon=folder-add
+Exec=bash $HOME/.local/share/kservices5/ServiceMenus/newfolderfromselection/newfolderfromselection.sh %U

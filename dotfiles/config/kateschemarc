@@ -1,0 +1,47 @@
+[$Version]
+update_info=fonts_kate.upd:Plasma_Fonts_Kate
+
+[Breeze Dark]
+Font=Cascadia Code,10,-1,5,50,0,0,0,0,0,Regular
+dummy=prevent-empty-group
+
+[Cobalt]
+Color Background=0,27,51
+Color Code Folding=0,78,78
+Color Current Line Number=0,192,192
+Color Highlighted Bracket=0,52,52
+Color Highlighted Line=0,59,112
+Color Icon Bar=0,16,16
+Color Indentation Line=148,148,148
+Color Line Number=0,192,192
+Color MarkType 1=0,0,147
+Color MarkType 2=118,0,0
+Color MarkType 3=104,104,0
+Color MarkType 4=114,0,114
+Color MarkType 5=69,69,74
+Color MarkType 6=176,128,0
+Color MarkType 7=191,3,3
+Color Modified Lines=49,0,0
+Color Replace Highlight=0,105,0
+Color Saved Lines=0,28,10
+Color Search Highlight=0,0,0
+Color Selection=0,136,255
+Color Separator=136,135,134
+Color Spelling Mistake Line=191,3,3
+Color Tab Marker=148,148,148
+Color Template Background=0,16,16
+Color Template Editable Placeholder=0,28,10
+Color Template Focused Editable Placeholder=0,28,10
+Color Template Not Editable Placeholder=49,0,0
+Color Word Wrap Marker=52,52,52
+Font=Cascadia Code,12,-1,5,50,0,0,0,0,0,Regular
+dummy=prevent-empty-group
+
+[KDE]
+dummy=prevent-empty-group
+
+[Normal]
+dummy=prevent-empty-group
+
+[Solarized (dark)]
+dummy=prevent-empty-group

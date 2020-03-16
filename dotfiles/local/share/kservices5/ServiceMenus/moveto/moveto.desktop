@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/octet-stream;inode/directory
+Actions=moveTo;
+X-KDE-Priority=TopLevel
+Icon=transform-move
+Encoding=UTF-8
+
+[Desktop Action moveTo]
+Name=Move To...
+Icon=transform-move
+Exec=bash $HOME/.local/share/kservices5/ServiceMenus/moveto/moveto.sh %U
