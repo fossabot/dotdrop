@@ -133,7 +133,7 @@ zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
 zinit light sharkdp/fd
 
 # sharkdp/bat
-zinit ice as"command" from"gh-r" mv"bat* -> bat" pick"bat/bat"
+zinit ice as"command" from"gh-r" mv"bat* -> bat" pick"bat/bat" atclone"bat cache -b"
 zinit light sharkdp/bat
 
 # exa

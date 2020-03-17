@@ -8,6 +8,11 @@
     * [add custom items to the context menu](https://askubuntu.com/questions/719262/how-do-i-add-custom-items-to-the-context-menu-in-dolphin-in-kde-5/719757#719757)
     * [Recognizethed desktop entry keys](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html)
 
+  - keybindings
+    * [Bind Mouse Buttons To Keyboard Keys](https://www.linuxuprising.com/2019/11/how-to-bind-mouse-buttons-to-keyboard.html)
+    * [Xbindkeys - ArchWiki](https://wiki.archlinux.org/index.php/Xbindkeys)
+    * [Xmodmap - ArchWiki](https://wiki.archlinux.org/index.php/Xmodmap)
+
 ## shell
   * [Readline File](https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html)
   * [Git config reference](https://git-scm.com/docs/git-config)

@@ -153,9 +153,6 @@ dotfiles:
   d_svgo:
     src: config/svgo
     dst: ~/.config/svgo
-  f_xmodmap:
-    src: Xmodmap
-    dst: ~/.Xmodmap
   f_katerc:
     src: config/katerc
     dst: ~/.config/katerc
@@ -193,6 +190,12 @@ dotfiles:
   f_xsession:
     src: xsession
     dst: ~/.xsession
+  f_xmodmap:
+    src: Xmodmap
+    dst: ~/.Xmodmap
+  f_xbindkeysrc:
+    src: xbindkeysrc
+    dst: ~/.xbindkeysrc
 profiles:
   all:
     dotfiles:
@@ -258,6 +261,7 @@ profiles:
   kde:
     dotfiles:
     - f_xmodmap
+    - f_xbindkeysrc
   kde-kate:
     dotfiles:
     - f_katerc
@@ -282,8 +286,6 @@ profiles:
     - f_xsession
     actions:
     - gtkfilechooser
-  art:
-    dotfiles:
 dynvariables:
   home: echo $HOME
   os: echo $OSTYPE
