@@ -2,6 +2,7 @@ actions:
   rebuildcache: |
     echo "        -> Rebuild the KService desktop file system configuration cache"
     /usr/bin/kbuildsycoca5
+  gtkfilechooser: gsettings set org.gtk.Settings.FileChooser startup-mode cwd
   czdeps: yarn global add commitizen @metahub/cz-conventional-commit
   fontcache: fc-cache -rv
   install_fonts: sudo ./dotfiles/config/fontconfig/fonts/install.sh
@@ -15,8 +16,10 @@ actions:
   pre:
     install_pkgs: yay -S --needed --noconfirm --useask $(grep -v '^\s*$\|^\s*\#' packages.txt)
   post:
-    loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
-    make_pkg: pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck && popd
+    loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst
+      @@}} >> {0}
+    make_pkg: pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck
+      && popd
 config:
   backup: true
   banner: true
@@ -178,6 +181,18 @@ dotfiles:
     src: local/share/kservices5/ServiceMenus
     dst: ~/.local/share/kservices5/ServiceMenus
     link: nolink
+  f_gtk2rc:
+    src: gtkrc-2.0
+    dst: ~/.gtkrc-2.0
+  f_gtk2:
+    src: config/gtk-2.0/gtkfilechooser.ini
+    dst: ~/.config/gtk-2.0/gtkfilechooser.ini
+  d_gtk3:
+    src: config/gtk-3.0
+    dst: ~/.config/gtk-3.0
+  f_xsession:
+    src: xsession
+    dst: ~/.xsession
 profiles:
   all:
     dotfiles:
@@ -259,6 +274,16 @@ profiles:
     - f_dolphin_servicemenus
     actions:
     - rebuildcache
+  gtk:
+    dotfiles:
+    - f_gtk2rc
+    - f_gtk2
+    - d_gtk3
+    - f_xsession
+    actions:
+    - gtkfilechooser
+  art:
+    dotfiles:
 dynvariables:
   home: echo $HOME
   os: echo $OSTYPE

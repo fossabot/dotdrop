@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# `o` with no arguments opens the current directory, otherwise opens the given
+# location
+
+if [ $# -eq 0 ]; then
+  xdg-open . >/dev/null 2>&1
+else
+  xdg-open "$@" >/dev/null 2>&1
+fi

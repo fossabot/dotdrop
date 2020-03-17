@@ -7822,6 +7822,9 @@ Nemerle:Preprocessing=10,,,,,,,,,,---
 Nemerle:String=12,,,,,,,,,,---
 Nemerle:TypeDeclaration=29,ffe6c82c,ff008c8c,1,,,,,,,---
 
+[Highlighting None - Schema Breeze Dark]
+None:Normal=0,,,,,,,,,,---
+
 [Highlighting None - Schema Cobalt]
 None:Normal=0,,,,,,,,,,---
 

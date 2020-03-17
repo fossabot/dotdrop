@@ -32,7 +32,8 @@ sudo pacman -Sy --noconfirm yay-bin pacui
 
 # dev
 yay -S --noconfirm --needed \
-  git bash zsh micro vim tmux wget curl aria2 git-delta-bin \
+  git bash bash-completion zsh micro vim tmux git-delta-bin \
+  wget curl aria2 net-tools \
   nodejs npm python python-pip python-pipenv go \
   visual-studio-code-insiders tilix shfmt shellcheck \
   ripgrep the_silver_searcher
@@ -40,8 +41,7 @@ yay -S --noconfirm --needed \
 # system
 yay -S --noconfirm --needed \
   binutils libunity bind-tools \
-  colorgcc grc \
-  xclip wmctrl xdotool keynav mlocate neofetch
+  colorgcc grc mlocate neofetch
 
 # fonts
 yay -S --noconfirm --needed \
@@ -50,7 +50,7 @@ yay -S --noconfirm --needed \
 
 # ui
 yay -S --noconfirm --needed \
-  gtk-engines gtk-engine-murrine gtk3-nocsd-git \
+  gtk-engines gtk-engine-murrine lib32-libgtk3-nocsd-git \
   appmenu-gtk-module appmenu-qt4 libdbusmenu-glib libdbusmenu-gtk3 libdbusmenu-gtk2 \
   kvantum-qt5 ocs-url hardcode-fixer \
   materia-kde kvantum-theme-materia materia-gtk-theme papirus-icon-theme \
@@ -74,7 +74,7 @@ yay -S --noconfirm --needed \
 
 # keyboard
 yay -S --noconfirm --needed \
-  xorg-xev
+  xclip wmctrl xdotool keynav xwininfo xorg-xev
 
 # load virtualbox module
 sudo /sbin/rcvboxdrv setup
