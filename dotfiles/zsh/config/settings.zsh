@@ -24,7 +24,7 @@ unsetopt MULTIBYTE          # support modern chars sets for languages other en
 autoload -U colors && colors
 # }}}
 
-export WORDCHARS="${WORDCHARS//[\/]}"
+# export WORDCHARS="${WORDCHARS//[\/]}"
 
 typeset -A abbreviations
 abbreviations=(
@@ -49,6 +49,10 @@ abbreviations=(
   "gst"  "git status --branch --short"
   "iconv" "iconv -f cp932 -t utf8"
   "rmansi" "sed 's/\x1b\[[0-9;]*m//g'"
+
+  "y"     "yay -S --noconfirm --needed"
+  "yls"   "yay -Qq | fzf --preview 'yay -Qil {}' --layout=reverse --bind 'enter:execute(yay -Qil {} | less)'"
+  "sp"    "sudo pacman -Syu --noconfirm"
 )
 magic-abbrev-expand() {
   local MATCH

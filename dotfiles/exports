@@ -1,0 +1,33 @@
+echo "exoirts"
+
+
+# # The XDG Base Directory Specification is based on the following concepts
+
+# #
+# # ─── USER DIRECTORIES ───────────────────────────────────────────────────────────
+# #
+
+# # single base directory relative to which user-specific data files should be written. This directory is defined by the environment variable
+# export XDG_DATA_HOME="$HOME/.local/share"
+
+# # single base directory relative to which user-specific configuration files should be written. This directory is defined by the environment variable
+# export XDG_CONFIG_HOME="$HOME/.config"
+
+# # single base directory relative to which user-specific non-essential (cached) data should be written. This directory is defined by the environment variable
+# export XDG_CACHE_HOME="$HOME/.cache"
+
+# # single base directory relative to which user-specific runtime files and other file objects should be placed. This directory is defined by the environment variable
+# # export XDG_RUNTIME_DIR=""
+
+
+# #
+# # ─── SYSTEM DIRECTORIES ─────────────────────────────────────────────────────────
+# #
+
+# # set of prefs ordered base directories relative to which data files should be
+# # searched. This directories is defined by the environment variable
+# # export XDG_DATA_DIRS=""
+
+# # set of prefs ordered base directories relative to which configuration files
+# # should be searched. This directories is defined by the environment variable
+# # export XDG_CONFIG_DIRS=""

@@ -1,34 +1,34 @@
-# swap backtick --> tilde
+! swap backtick --> tilde
 keycode 49 = asciitilde grave asciitilde grave
 
-# # print screen --> use as another super key, print screen with Mode_switch
-# # Note: On GNOME, it appears Super_R doesn't work the same as Super_L
-# xmodmap -e "keycode 107 = Super_L NoSymbol Print Sys_Req"
+! print screen --> use as another super key, print screen with Mode_switch
+! Note: On GNOME, it appears Super_R doesn't work the same as Super_L
+! xmodmap -e "keycode 107 = Super_L NoSymbol Print Sys_Req"
 
-# # left alt --> mode_switch key
-# xmodmap -e "keycode 64 = Mode_switch NoSymbol"
+! left alt --> mode_switch key
+! xmodmap -e "keycode 64 = Mode_switch NoSymbol"
 
-# # escape key --> tilde and backtick
-# # Note: this can have unexpected consequences if you use `xcape` to map
-# # Control/Caps to send Escape when tapped. It will instead send `/~ when you
-# # press Caps Lock attempting to get Escape.
-# # A solution might be to switch the keys around and use a non-op key as a
-# # placeholder, like in the xcape README
-# # https://github.com/alols/xcape/blob/master/README.md#examples
-# xmodmap -e "keycode 9 = grave asciitilde grave asciitilde"
+! escape key --> tilde and backtick
+! Note: this can have unexpected consequences if you use `xcape` to map
+! Control/Caps to send Escape when tapped. It will instead send `/~ when you
+! press Caps Lock attempting to get Escape.
+! A solution might be to switch the keys around and use a non-op key as a
+! placeholder, like in the xcape README
+! https://github.com/alols/xcape/blob/master/README.md#examples
+! xmodmap -e "keycode 9 = grave asciitilde grave asciitilde"
 
-# # backspace --> delete, and
-# # mode_switch + backspace --> home
-# xmodmap -e "keycode 22 = Delete NoSymbol Home"
+! backspace --> delete, and
+! mode_switch + backspace --> home
+! xmodmap -e "keycode 22 = Delete NoSymbol Home"
 
-# # mode_switch + delete --> end
-# # Note: This won't work when combined with `xbindkeys`, since `xbindkeys`
-# # hijacks the entire Delete key from X.
-# xmodmap -e "keycode 119 = Delete NoSymbol End"
+! mode_switch + delete --> end
+! Note: This won't work when combined with `xbindkeys`, since `xbindkeys`
+! hijacks the entire Delete key from X.
+! xmodmap -e "keycode 119 = Delete NoSymbol End"
 
-# mode_switch + h, j, k, l --> additional arrow keys
-# Bonus: capital J/K are Page Down/Up, H/L are Home/End with Mode_switch + Shift
-# xmodmap -e "keycode 43 = h H Left Home"
-# xmodmap -e "keycode 44 = j J Down Next"
-# xmodmap -e "keycode 45 = k K Up Prior"
-# xmodmap -e "keycode 46 = l L Right End"
+! mode_switch + h, j, k, l --> additional arrow keys
+! Bonus: capital J/K are Page Down/Up, H/L are Home/End with Mode_switch + Shift
+! xmodmap -e "keycode 43 = h H Left Home"
+! xmodmap -e "keycode 44 = j J Down Next"
+! xmodmap -e "keycode 45 = k K Up Prior"
+! xmodmap -e "keycode 46 = l L Right End"

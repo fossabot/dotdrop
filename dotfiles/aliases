@@ -1,7 +1,5 @@
 # vi:syntax=sh
 
-source "$HOME/code/dotfiles/dotfiles/config/pet.sh"
-
 # alias dotdrop="DOTDROP_CONFIG=~/code/dotdrop/config.yaml ~/code/dotdrop/dotdrop.sh"
 
 
@@ -200,7 +198,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   alias sce="systemctl list-units --type service --state active"
   alias scr="systemctl list-units --type service --state running"
 
-  alias y="yay -S --noconfirm --needed"
+  # alias y="yay -S --noconfirm --needed"
   alias yr="yay -Rns --noconfirm"
   alias ys="yay -Ss"
   alias yi="yay -Si --noconfirm"
@@ -212,6 +210,31 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   alias spu="sudo pacman -Syu --noconfirm"
   alias spr='sudo pacman -Rs --noconfirm'
 fi
+
+
+# ─── NPM ──────────────────────────────────────────────────────────────────────
+# https://github.com/dylang/npm-check#options
+alias ncu="npm-check --no-emoji -u"
+alias ncuy="npm-check --no-emoji -u -y"
+alias ncug="npm-check --no-emoji -u -g"
+
+alias ni="npm i"
+alias nig="npm i -g"
+alias nlg="npm ls -g"
+alias nir="npm rm"
+alias nirg="npm rm -g"
+
+# alias y="yarn"
+alias yi="yarn"
+alias ya="yarn add"
+alias yad="yarn add -D"
+alias yrm="yarn remove"
+alias yga="yarn global add"
+alias ygr="yarn global remove"
+alias ygl="yarn global list"
+alias you="yarn outdated"
+alias yui="yarn upgrade-interactive --latest"
+# ──────────────────────────────────────────────────────────────────────────────
 
 #
 # ─── MACOS ──────────────────────────────────────────────────────────────────────
@@ -265,32 +288,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
   alias gws='PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/gnu-sed/libexec/gnubin:$PATH gws'
 fi
-
-
-# ─── NPM ──────────────────────────────────────────────────────────────────────
-# https://github.com/dylang/npm-check#options
-alias ncu="npm-check --no-emoji -u"
-alias ncuy="npm-check --no-emoji -u -y"
-alias ncug="npm-check --no-emoji -u -g"
-
-alias ni="npm i"
-alias nig="npm i -g"
-alias nlg="npm ls -g"
-alias nir="npm rm"
-alias nirg="npm rm -g"
-
-# alias y="yarn"
-alias yi="yarn"
-alias ya="yarn add"
-alias yad="yarn add -D"
-alias yrm="yarn remove"
-alias yga="yarn global add"
-alias ygr="yarn global remove"
-alias ygl="yarn global list"
-alias you="yarn outdated"
-alias yui="yarn upgrade-interactive --latest"
-# ──────────────────────────────────────────────────────────────────────────────
-
 
 
 # if [ `command -v grc` ]; then
