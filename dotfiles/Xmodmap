@@ -1,6 +1,9 @@
 ! swap backtick --> tilde
 keycode 49 = asciitilde grave asciitilde grave
 
+! remove Lock = Caps_Lock
+! keycode 66 = BackSpace
+
 ! print screen --> use as another super key, print screen with Mode_switch
 ! Note: On GNOME, it appears Super_R doesn't work the same as Super_L
 ! xmodmap -e "keycode 107 = Super_L NoSymbol Print Sys_Req"

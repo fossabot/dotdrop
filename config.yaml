@@ -8,11 +8,11 @@ config:
   link_on_import: link
   longkey: false
   import_variables:
-    - tasks/variables/dynvariables.yaml
+  - tasks/variables/dynvariables.yaml
   import_actions:
-    - tasks/actions/base.yaml
+  - tasks/actions/base.yaml
   # import_configs:
-  # - configs/all.yaml  
+  # - configs/all.yaml
   minversion: 0.29.4
 dotfiles:
   d_bin:
@@ -177,12 +177,15 @@ dotfiles:
   f_xmodmap:
     src: Xmodmap
     dst: ~/.Xmodmap
+  f_xprofile:
+    src: xprofile
+    dst: ~/.xprofile
   f_xbindkeysrc:
     src: xbindkeysrc
     dst: ~/.xbindkeysrc
   d_firefox:
     src: firefox
-    dst: "{{@@ mozpath @@}}"
+    dst: '{{@@ mozpath @@}}'
     link: link_children
 profiles:
   all:
@@ -250,6 +253,7 @@ profiles:
     dotfiles:
     - f_xmodmap
     - f_xbindkeysrc
+    - f_xprofile
   kde-kate:
     dotfiles:
     - f_katerc
