@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 #
 # ─── PACMAN ───────────────────────────────────────────────────────────────────
 #
@@ -32,8 +31,8 @@ sudo pacman -Sy --noconfirm yay-bin pacui
 
 # dev
 yay -S --noconfirm --needed \
-  git bash bash-completion zsh micro vim tmux git-delta-bin \
-  wget curl aria2 net-tools \
+  git bash bash-completion zsh micro vim tmux tree git-delta-bin \
+  wget curl aria2 net-tools trash \
   nodejs npm python python-pip python-pipenv go \
   visual-studio-code-insiders tilix shfmt shellcheck \
   ripgrep the_silver_searcher
@@ -42,11 +41,6 @@ yay -S --noconfirm --needed \
 yay -S --noconfirm --needed \
   binutils libunity bind-tools \
   colorgcc grc mlocate neofetch
-
-# fonts
-yay -S --noconfirm --needed \
-  otf-nerd-fonts-fira-code nerd-fonts-cascadia-code ttf-cascadia-code \
-  nerd-fonts-hack ttf-hack otf-san-francisco-pro
 
 # ui
 yay -S --noconfirm --needed \
@@ -67,14 +61,13 @@ yay -S --noconfirm --needed \
 # vs code
 code-insiders --install-extension shan.code-settings-sync
 
-# virtualbox & host modules for your kernel
-yay -S --noconfirm --needed \
-  virtualbox virtualbox-ext-oracle \
-  "linux$(uname -r | cut -c 1,3)-virtualbox-host-modules"
-
 # keyboard
-yay -S --noconfirm --needed \
-  xclip wmctrl xdotool keynav xwininfo xorg-xev
+yay -S --noconfirm --needed --useask \
+  xclip wmctrl xdotool keynav jumpapp xsel xvkbd \
+  xorg-xev xorg-xrandr xorg-xwininfo xbindkeys_config-gtk2
 
-# load virtualbox module
-sudo /sbin/rcvboxdrv setup
+# fonts
+yay -S --noconfirm --needed \
+  otf-nerd-fonts-fira-code nerd-fonts-cascadia-code ttf-cascadia-code \
+  nerd-fonts-hack ttf-hack otf-san-francisco-pro \
+  ttf-ms-fonts ttf-opensans

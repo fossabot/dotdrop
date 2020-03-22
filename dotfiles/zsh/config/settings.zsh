@@ -1,5 +1,5 @@
 # ─── settings ───────────────────────────────────────────────────────────── {{{
-# zsh.sourceforge.net/Doc/Release/Options.html
+# https://zsh.sourceforge.net/Doc/Release/Options.html
 
 setopt auto_name_dirs       # Auto add variable-stored paths to ~ list.
 setopt autocd               # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
@@ -25,48 +25,47 @@ autoload -U colors && colors
 # }}}
 
 # export WORDCHARS="${WORDCHARS//[\/]}"
+# typeset -A abbreviations
+# abbreviations=(
+#   "dk"   "docker"
+#   "dkcm" "docker-compose"
+#   "g"    "git"
+#   "ga."  "git add ."
+#   "gb"   "git branch"
+#   "gca"  "git commit -m 'initial commit' --allow-empty"
+#   "gci"  "git commit -m"
+#   "gco"  "git checkout"
+#   "gcz"  "git cz"
+#   "gf"   "git fetch origin"
+#   "ggp"  "git grep --line-number --show-function --color --heading --break"
+#   "gn"   "git now --all --stat"
+#   "gpl"  "git pull origin"
+#   "gps"  "git push origin"
+#   "gr"   "git rebase"
+#   "grh"  "git reset --hard"
+#   "gri"  "git rebase -i HEAD~5"
+#   "grs"  "git reset --soft"
+#   "gst"  "git status --branch --short"
+#   "iconv" "iconv -f cp932 -t utf8"
+#   "rmansi" "sed 's/\x1b\[[0-9;]*m//g'"
 
-typeset -A abbreviations
-abbreviations=(
-  "dk"   "docker"
-  "dkcm" "docker-compose"
-  "g"    "git"
-  "ga."  "git add ."
-  "gb"   "git branch"
-  "gca"  "git commit -m 'initial commit' --allow-empty"
-  "gci"  "git commit -m"
-  "gco"  "git checkout"
-  "gcz"  "git cz"
-  "gf"   "git fetch origin"
-  "ggp"  "git grep --line-number --show-function --color --heading --break"
-  "gn"   "git now --all --stat"
-  "gpl"  "git pull origin"
-  "gps"  "git push origin"
-  "gr"   "git rebase"
-  "grh"  "git reset --hard"
-  "gri"  "git rebase -i HEAD~5"
-  "grs"  "git reset --soft"
-  "gst"  "git status --branch --short"
-  "iconv" "iconv -f cp932 -t utf8"
-  "rmansi" "sed 's/\x1b\[[0-9;]*m//g'"
-
-  "y"     "yay -S --noconfirm --needed"
-  "yls"   "yay -Qq | fzf --preview 'yay -Qil {}' --layout=reverse --bind 'enter:execute(yay -Qil {} | less)'"
-  "sp"    "sudo pacman -Syu --noconfirm"
-)
-magic-abbrev-expand() {
-  local MATCH
-  LBUFFER=${LBUFFER%%(#m)[.-_a-zA-Z0-9]#}
-  LBUFFER+=${abbreviations[$MATCH]:-$MATCH}
-  zle self-insert
-}
-no-magic-abbrev-expand() {
-  LBUFFER+=' '
-}
-zle -N magic-abbrev-expand
-zle -N no-magic-abbrev-expand
-bindkey " " magic-abbrev-expand
-bindkey "^x " no-magic-abbrev-expand
+#   "y"     "yay -S --noconfirm --needed"
+#   "yls"   "yay -Qq | fzf --preview 'yay -Qil {}' --layout=reverse --bind 'enter:execute(yay -Qil {} | less)'"
+#   "sp"    "sudo pacman -Syu --noconfirm"
+# )
+# magic-abbrev-expand() {
+#   local MATCH
+#   LBUFFER=${LBUFFER%%(#m)[.-_a-zA-Z0-9]#}
+#   LBUFFER+=${abbreviations[$MATCH]:-$MATCH}
+#   zle self-insert
+# }
+# no-magic-abbrev-expand() {
+#   LBUFFER+=' '
+# }
+# zle -N magic-abbrev-expand
+# zle -N no-magic-abbrev-expand
+# bindkey " " magic-abbrev-expand
+# bindkey "^x " no-magic-abbrev-expand
 
 #
 # Hooks

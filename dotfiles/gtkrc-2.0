@@ -12,3 +12,4 @@ gtk-fallback-icon-theme="Papirus-Dark"
 gtk-toolbar-style=GTK_TOOLBAR_BOTH_HORIZ
 gtk-menu-images=1
 gtk-button-images=1
+gtk-modules=appmenu-gtk-module

@@ -198,7 +198,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   alias sce="systemctl list-units --type service --state active"
   alias scr="systemctl list-units --type service --state running"
 
-  # alias y="yay -S --noconfirm --needed"
+  alias y="yay -S --noconfirm --needed"
   alias yr="yay -Rns --noconfirm"
   alias ys="yay -Ss"
   alias yi="yay -Si --noconfirm"

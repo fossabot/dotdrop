@@ -282,7 +282,7 @@ Mimetypes=application/x-shellscript;
 Priority=0
 Section=Scripts
 Variables=kate:\s
-Wildcards=*.sh;*.bash;*.ebuild;*.eclass;*.nix;.bashrc;.bash_profile;.bash_login;.profile;PKGBUILD;APKBUILD;.xbindkeysrc*;.zsh*;aliases;*bash*;
+Wildcards=*.sh;*.bash;*.ebuild;*.eclass;*.nix;.bashrc;.bash_profile;.bash_login;.profile;PKGBUILD;APKBUILD;.xbindkeysrc*;.zsh*;aliases;*bash*;exports;
 
 [BibTeX]
 Highlighting=BibTeX

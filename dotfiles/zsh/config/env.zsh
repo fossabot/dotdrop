@@ -112,6 +112,9 @@ export AUTO_LS_NEWLINE=1
 export FAST_ALIAS_TIPS_PREFIX="💡 Tip: $(tput bold)"
 export FAST_ALIAS_TIPS_SUFFIX="$(tput sgr0)"
 
+# zsh-expand-all
+# https://github.com/simnalamburt/zsh-expand-all
+export ZSH_EXPAND_ALL_DISABLE=word
 
 # multi-word, syntax highlighted history searching
 # https://github.com/zdharma/history-search-multi-word
@@ -144,6 +147,6 @@ export FZFZ_UNIQUIFIER="cat"
 
 # ─── fzf-marks ────────────────────────────────────────────────────────────────
 # https://github.com/urbainvaes/fzf-marks
-export FZF_MARKS_FILE="$XDG_CACHE_HOME/zsh/marks"
+# export FZF_MARKS_FILE="$XDG_CACHE_HOME/zsh/marks"
 
 # }}}

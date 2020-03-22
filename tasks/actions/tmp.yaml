@@ -1,0 +1,16 @@
+actions:
+  czdeps: yarn global add commitizen @metahub/cz-conventional-commit
+  fontcache: fc-cache -rv
+  install_fonts: sudo ./dotfiles/config/fontconfig/fonts/install.sh
+  install_vimplug: |
+    test -e ~/.vim/autoload/plug.vim || (
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    nvim +PlugInstall +qall )
+  exec_yay: yay -S --needed --noconfirm --useask {0}
+  exec_pipenv: pipenv install --dev && pipenv run {0}
+  pre:
+    install_pkgs: yay -S --needed --noconfirm --useask $(grep -v '^\s*$\|^\s*\#' packages.txt)
+  post:
+    loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
+    make_pkg: pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck && popd

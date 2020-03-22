@@ -53,7 +53,7 @@
 
 #Toggle Settings
 "jumpapp -m systemsettings5"
-   control+alt+comma
+   control+shift+comma
 
 #Toggle Tilix
 "jumpapp -m tilix --maximize"

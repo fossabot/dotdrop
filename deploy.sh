@@ -1,53 +1,39 @@
 #!/usr/bin/env bash
+#
+# This script is intended to be run with curl, i.e.
+#
+# bash <(curl -s https://raw.githubusercontent.com/eliasnorrby/dotfiles/develop/bootstrap.sh)
 
-# to run this, execute
-# bash <(curl -sL git.reekynet.com/ReekyMarko/dotfiles/raw/branch/master/deploy.sh)
+SECONDS=0
 
-# Run this to install my dotfiles on a fresh Arch Linux installation.
-# This should work on any Arch Linux install with an internet connection
-# and sudo rights
+set -exo pipefail
 
-# When asked a hostname, make sure it's already in the dotrop config,
-# otherwise dotdrop won't install anything
+export DOTREPO="https://github.com/dotiful/dotdrop"
+export DOTFILES="$HOME/code/dots"
 
-export DOTREPO="$HOME/code/dotfiles"
-export HOSTNAME="$(hostnamectl | head -n 1 | sed 's/ //g' | cut -d':' -f2-)"
-export DISTRO="$(lsb_release -ds | sed 's/"//g')"
+_msg() { printf "\r\033[2K\033[0;32m[ .. ] %s\033[0m\n" "$*"; }
 
-if [ "$DISTRO" -ne "Arch Linux" ]; then
-	print "Not running on Arch Linux"
-	print "Other distros not supported, exiting..."
-	exit 1
+_msg "Cloning dotfiles..."
+git clone --recurse-submodules $DOTREPO $DOTFILES && cd $DOTFILES
+
+if ! [ -x "$(command -v pip)" ]; then
+  _msg "Installing pip..."
+  sudo easy_install pip
 fi
 
-read -p "Hostname [$HOSTNAME]: " -i $HOSTNAME NEWHOSTNAME
-if [ "$HOSTNAME -ne $NEWHOSTNAME" ]; then
-	sudo hostnamectl set-hostname $NEWHOSTNAME
-fi
-HOSTNAME=$NEWHOSTNAME
+_msg "Installing dotdrop requirements..."
+pip install --user -r ./dotdrop/requirements.txt
 
-# install yay
-if ! [ -x "$(command -v yay)" ]; then
-	read -p "Install yay? [Y/n] " -i "y" IYAY
-	if [ "$(tr '[:upper:]' ':lower:' $IYAY)" -eq "y" ]; then
-		print "Installing yay"
-	fi
-	sudo pacman -Syu --needed --noconfirm git wget base-devel
-	cd
-	wget https://aur.archlinux.org/cgit/aur.git/snapshot/yay.tar.gz
-	tar xfv yay.tar.gz
-	cd yay
-	makepkg -si --noconfirm
-	cd ..
-	rm -r yay*
-fi
 
-mkdir ~/code
-git clone https://github.com/dotiful/dotdrop.git $DOTREPO
-cd ~/code/dotfiles
-git submodule init
-git submodule update
+# _msg "Running the playbook..."
+# ansible-playbook playbook.yml --tags 'all,do_homebrew,do_packages,do_defaults' -v
 
-$DOTREPO/dotdrop.sh --cfg=$DOTREPO/config-home.yaml install
-chsh -s /bin/zsh
-zsh -c "source ~/.zshrc; sdotdrop install"
+# _msg "Run post-install script..."
+# cd $DOTFILES
+# ./post-install.zsh
+
+_msg "Done!"
+
+ELAPSED="$(($SECONDS / 3600))hrs $((($SECONDS / 60) % 60))min $(($SECONDS % 60))sec"
+
+_msg "Setup completed in $ELAPSED"

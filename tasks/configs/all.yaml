@@ -8,11 +8,11 @@ config:
   link_on_import: link
   longkey: false
   import_variables:
-    - tasks/variables/dynvariables.yaml
+    - variables/dynvariables.yaml
   import_actions:
-    - tasks/actions/base.yaml
+    - actions/base.yaml
   # import_configs:
-  # - configs/all.yaml  
+  # - configs/root.yaml
   minversion: 0.29.4
 dotfiles:
   d_bin:
@@ -180,10 +180,6 @@ dotfiles:
   f_xbindkeysrc:
     src: xbindkeysrc
     dst: ~/.xbindkeysrc
-  d_firefox:
-    src: firefox
-    dst: "{{@@ mozpath @@}}"
-    link: link_children
 profiles:
   all:
     dotfiles:
@@ -274,6 +270,3 @@ profiles:
     - f_xsession
     actions:
     - gtkfilechooser
-  firefox:
-    dotfiles:
-    - d_firefox

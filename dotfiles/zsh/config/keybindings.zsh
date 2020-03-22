@@ -107,23 +107,21 @@ bindkey '^x^x' edit-command-line
 # Automatically expanding zsh global aliases
 # https://goo.gl/fJbtmJ
 
-globalias() {
-  if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
-    zle _expand_alias
-  fi
-  zle self-insert
-}
+# globalias() {
+#   if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
+#     zle _expand_alias
+#   fi
+#   zle self-insert
+# }
 
-zle -N globalias
+# zle -N globalias
 
-bindkey " " globalias
-bindkey "^ " magic-space           # control-space to bypass completion
-bindkey -M isearch " " magic-space # normal space during searches
+# bindkey " " globalias
+# bindkey "^ " magic-space           # control-space to bypass completion
+# bindkey -M isearch " " magic-space # normal space during searches
 
 
 # ────────────────────────────────────────────────────────────────────────────────
-
-bindkey '^n' _call_navi
 
 
 # #-----------------------------------------------------

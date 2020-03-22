@@ -1,0 +1,5 @@
+actions:
+  rebuildcache: |
+    echo "        -> Rebuild the KService desktop file system configuration cache"
+    /usr/bin/kbuildsycoca5
+  gtkfilechooser: gsettings set org.gtk.Settings.FileChooser startup-mode cwd

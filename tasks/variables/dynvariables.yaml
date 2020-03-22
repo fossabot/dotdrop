@@ -1,0 +1,5 @@
+dynvariables:
+  home: "echo $HOME"
+  os: "echo $OSTYPE"
+  mozpath: find ~/.mozilla/firefox -name '*.default-release'
+
