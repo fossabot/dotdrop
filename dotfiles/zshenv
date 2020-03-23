@@ -2,19 +2,16 @@
 # vim:syntax=zsh
 # vim:filetype=zsh
 
-echo "zshenv"
-
-if [ -f "$HOME/.exports" ]; then
-  echo "exists"
-fi
+# source "$HOME/.exports"
 
 
 # ─── xdg ──────────────────────────────────────────────────────────────────────
-# : ${XDG_CONFIG_HOME:="$HOME/.config"}
-# : ${XDG_CACHE_HOME:="$HOME/.cache"}
-# : ${XDG_DATA_HOME:="$HOME/.local/share"}
-# : ${XDG_RUNTIME_DIR:="/tmp/$USER"}
-# export XDG_CONFIG_HOME XDG_CACHE_HOME XDG_DATA_HOME XDG_RUNTIME_DIR
+: ${XDG_CONFIG_HOME:="$HOME/.config"}
+: ${XDG_CACHE_HOME:="$HOME/.cache"}
+: ${XDG_DATA_HOME:="$HOME/.local/share"}
+: ${XDG_RUNTIME_DIR:="/tmp/$USER"}
+export XDG_CONFIG_HOME XDG_CACHE_HOME XDG_DATA_HOME XDG_RUNTIME_DIR
+
 
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 

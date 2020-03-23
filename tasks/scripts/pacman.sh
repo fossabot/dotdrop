@@ -35,7 +35,8 @@ yay -S --noconfirm --needed \
   wget curl aria2 net-tools trash \
   nodejs npm python python-pip python-pipenv go \
   visual-studio-code-insiders tilix shfmt shellcheck \
-  ripgrep the_silver_searcher
+  ripgrep the_silver_searcher \
+  barrier-bin
 
 # system
 yay -S --noconfirm --needed \

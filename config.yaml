@@ -13,7 +13,7 @@ config:
   - tasks/actions/base.yaml
   # import_configs:
   # - configs/all.yaml
-  minversion: 0.29.4
+  minversion: 0.32.0
 dotfiles:
   d_bin:
     src: bin
@@ -106,6 +106,9 @@ dotfiles:
     src: config/micro
     dst: ~/.config/micro
     link: link_children
+  d_nano:
+    src: config/nano
+    dst: ~/.config/nano
   d_ripgrep:
     src: config/ripgrep
     dst: ~/.config/ripgrep
@@ -187,15 +190,15 @@ dotfiles:
     src: firefox
     dst: '{{@@ mozpath @@}}'
     link: link_children
+  d_neofetch:
+    src: config/neofetch
+    dst: ~/.config/neofetch
 profiles:
   all:
     dotfiles:
     - ALL
   base:
     dotfiles:
-    - f_exrc
-    - f_vimrc
-    - d_micro
     - d_htop
     - f_npmrc
     - f_yarnrc
@@ -205,9 +208,16 @@ profiles:
     - f_less
     - d_ripgrep
     - d_asciinema
+    - d_neofetch
     include:
     - shell
     - git
+  editors:
+    dotfiles:
+    - f_exrc
+    - f_vimrc
+    - d_nano
+    - d_micro
   git:
     dotfiles:
     - f_gitconfig

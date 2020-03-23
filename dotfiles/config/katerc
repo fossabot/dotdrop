@@ -110,7 +110,7 @@ Word Completion Minimal Word Length=3
 Word Completion Remove Tail=true
 
 [KTextEditor::Search]
-Search History=ua,bookmarks,server=,lib,sf
+Search History=custo,inimis,dark,ua,bookmarks,server=,lib,sf
 
 [Konsole]
 AutoSyncronize=true
@@ -121,9 +121,10 @@ SetEditor=false
 [MainWindow]
 Height 1024=1024
 MenuBar=Disabled
-State=AAAA/wAAAAD9AAAAAAAABVYAAALLAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgAAAAAA/////wAAAAAAAAAA
+State=AAAA/wAAAAD9AAAAAAAABQAAAAPMAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgAAAAAA/////wAAAAAAAAAA
 ToolBarsMovable=Disabled
 Width 1280=1280
+Window-Maximized 1024x1280=true
 Window-Maximized 768x1366=true
 
 [filebrowser]

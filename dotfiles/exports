@@ -1,4 +1,4 @@
-echo "~/.exports"
+# echo "~/.exports"
 
 
 # The XDG Base Directory Specification is based on the following concepts
@@ -17,7 +17,7 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:=$HOME/.cache}"
 
 # single base directory relative to which user-specific runtime files and other file objects should be placed. This directory is defined by the environment variable
-# export XDG_RUNTIME_DIR=""
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:=/tmp/$USER}"
 
 
 #
