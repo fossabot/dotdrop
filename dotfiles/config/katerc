@@ -110,7 +110,7 @@ Word Completion Minimal Word Length=3
 Word Completion Remove Tail=true
 
 [KTextEditor::Search]
-Search History=custo,inimis,dark,ua,bookmarks,server=,lib,sf
+Search History=volume,custo,inimis,dark,ua,bookmarks,server=,lib,sf
 
 [Konsole]
 AutoSyncronize=true

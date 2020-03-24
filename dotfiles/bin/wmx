@@ -1,0 +1,247 @@
+#!/usr/bin/env bash
+
+## window manager focus an already running software / iconify it / run it / pass it args
+USAGE="
+Usage: $(basename $0) -c WM_NAME [-e] [-a] [-i] [-f NAME_FOCUS] [-v NAME_PRUNE] [-b BIN_PATH] [BIN_ARGS]
+-e check only (returning window hex id if running)
+-a do not limit to user($(whoami)) when checking window hex id
+-u when already running, bypass any provided args (focus only)
+-f NAME_FOCUS : targeted title window name
+-v NAME_PRUNE : comma separated list of title window names to exclude
+-b BIN_PATH : path to binary, default is first found from: /bin/{WM_NAME} or /usr/bin/{WM_NAME}
+-s SUP_CMD : supplementary command to pass after focus (comma separated, ex: 'xdotool,key,alt+Down')
+BIN_ARGS : args to be passed either to {WM_NAME} if running or BIN_PATH
+With {WM_NAME} one of 'wmctrl -lx' output, currently:"
+
+THIS="$(basename $0) $*"
+
+## check dependencies
+if [ ! -x "$(which wmctrl)" ]; then echo "\
+ERROR: wmctrl binary not executable or missing, is wmctrl package installed ?"
+    exit 1
+fi
+
+# debug handling
+# DBG=1 wmx ... to force debug
+# DBG=0 wmx ... to disable debug
+[ -n "$DBG" ] && DBG=$DBG || DBG=0
+DBG_START='▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁'
+DBG_LEFT="▏"
+DBG_END='▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔'
+DBG_H1="==========="
+DBG_HX=":::::::::::"
+DBG_H2="-----------"
+dbg() { [ $DBG -lt 1 ] && return
+    [ "$*" = "$DBG_START" -o "$*" = "$DBG_END" ] && DBG_PRE= || DBG_PRE=$DBG_LEFT
+    echo "$DBG_PRE$@"
+    [ "$*" = "exit" ] && exit
+}
+
+show_help() {
+    if [ $# -gt 0 ]; then
+        echo "$@"
+    fi
+    echo $THIS
+    echo "$USAGE"
+    WM_NAME=$(wmctrl -lx |awk '{print $3}' |sort |uniq)
+    for name in $WM_NAME; do
+        echo "    {$name" |sed 's/\./}./g'
+    done
+    echo
+    }
+if [ ! $# -gt 0 ]; then show_help; exit 1; fi
+
+## parse args
+WM_NAME=; CHK_ONLY=0; CHK_USER=1; FOCUS_ONLY=0; NAME_FOCUS=; NAME_PRUNE=; BIN_PATH=; SUP_CMD=; BIN_ARGS=;
+while [ $# -gt 0 ]; do
+    case "$1" in
+        -h | -help | --help  ) show_help; exit;;
+        -c  ) WM_NAME="$2"; shift ;;
+        -e  ) CHK_ONLY=1 ;;
+        -a  ) CHK_USER=0 ;;
+        -u  ) FOCUS_ONLY=1 ;;
+        -f  ) NAME_FOCUS="$2"; shift ;;
+        -v  ) NAME_PRUNE="$2"; shift ;;
+        -b  ) BIN_PATH="$2"; shift ;;
+        -s  ) SUP_CMD="$2"; shift ;;
+        *   ) [ -n "$BIN_ARGS" ] && BIN_ARGS="$BIN_ARGS $*" || BIN_ARGS="$*"; break 2 ;;
+    esac
+    shift
+done
+#~ [ -n "$BIN_ARGS" ] && BIN_ARGS="\"$BIN_ARGS\""
+
+## check args
+if [ -z "$WM_NAME" ]; then
+    show_help "ERROR: Mandatory option: -c"; exit 1;
+fi
+if [ -z "$BIN_PATH" ]; then
+    BIN_NAME=$(echo "$WM_NAME" |awk -F . '{print $1}')
+    BIN_PATH="/bin/$BIN_NAME"
+    BIN_PATH_USR="/usr/bin/$BIN_NAME"
+    [ -x "$BIN_PATH_USR" ] && BIN_PATH=$BIN_PATH_USR
+fi
+if [ ! -x "$BIN_PATH" ]; then
+    show_help "ERROR: $BIN_PATH: not found (either in /bin or /usr/bin) or not executable"; exit 1;
+fi
+
+## dbg args
+dbg $DBG_START
+dbg $THIS
+dbg "\
+WM_NAME:$WM_NAME
+▏CHK_ONLY:$CHK_ONLY
+▏CHK_USER:$CHK_USER
+▏FOCUS_ONLY:$FOCUS_ONLY
+▏NAME_FOCUS:$NAME_FOCUS
+▏NAME_PRUNE:$NAME_PRUNE
+▏BIN_PATH:$BIN_PATH
+▏SUP_CMD:$SUP_CMD
+▏BIN_ARGS:$BIN_ARGS
+$DBG_END"
+#~ show_help; dbg exit
+
+## const
+STR_USER=$(whoami)
+PS_OPT='--sort pid -wweo'
+PS_OPT='--sort pid -eo'
+PS_OUT='pid,user'
+WM_FS="_#_"
+WMCTRL_HEX=
+
+## current active/focused window
+#~ WMCTRL_CURR=$(xprop -root -f _NET_ACTIVE_WINDOW 0x " \$0\\n" _NET_ACTIVE_WINDOW | awk "{print \$2}")
+WMCTRL_CURR=$(wmctrl -v -r :ACTIVE: -e dummy 2>&1 |grep ^Using |awk '{print $3}')
+WMCTRL_ACTIVE=0
+
+chk_wmctrl_hex() {
+    wmctrl_hex_list=
+    wmctrl_list=
+    wmctrl_hex_list=$(wmctrl -Slpx |awk '{print $1,$4}' |grep $WM_NAME |awk '{print $1}')
+    if [ -z "$wmctrl_hex_list" ]; then dbg $DBG_HX; return 1; fi
+
+    dbg "wmctrl_hex_list="; for elt in $wmctrl_hex_list; do dbg "$elt"; done; dbg
+    for hex in $wmctrl_hex_list; do
+        wmctrl_in=$(wmctrl -lpx |grep ^$hex)
+        #~ dbg "wmctrl_in=$wmctrl_in"
+        if [ -n "$wmctrl_in" ]; then
+            wmctrl_hex_pid=$(echo $wmctrl_in |awk '{print $1,$3}' |sed "s/ /$WM_FS/g")
+            wmctrl_host=$(echo $wmctrl_in |awk '{print $5}')
+            wmctrl_title=$(echo $wmctrl_in |awk -F " $wmctrl_host " '{print $2}' |sed 's/ /-___-/g')
+            wmctrl_list=${wmctrl_hex_pid}${WM_FS}${wmctrl_title}" $wmctrl_list"
+            name_list=${wmctrl_title}" $name_list"
+            if [ "$wmctrl_title" = "$NAME_FOCUS" ]; then
+                dbg "'$wmctrl_title' = NAME_FOCUS: ...FOUND"
+                WMCTRL_HEX=$hex; break
+            fi
+        fi
+    done
+    if [ -z "$wmctrl_list" ]; then dbg $DBG_H2; return 1; fi
+
+    dbg "wmctrl_list="; for elt in $wmctrl_list; do dbg "$elt"; done; dbg
+    if [ -z "$WMCTRL_HEX" ]; then
+        for chk in $wmctrl_list; do
+            wmctrl_name=$(echo $chk |awk -F $WM_FS '{print $3}' |sed 's/-___-/ /g')
+            wmctrl_pid=$(echo $chk |awk -F $WM_FS '{print $2}')
+            wmctrl_pid_user=$(ps $PS_OPT $PS_OUT |grep "$wmctrl_pid" |grep $STR_USER |awk '{print $1}')
+            [ $CHK_USER -gt 0 -a -z "$wmctrl_pid_user" ] && continue
+
+            dbg "wmctrl_name=$wmctrl_name"
+            dbg "wmctrl_pid=$wmctrl_pid"
+            dbg "wmctrl_pid_user=$wmctrl_pid_user"
+            skip=
+            if [ -n "$NAME_FOCUS" -a ! "$wmctrl_name" = "$NAME_FOCUS" ]; then
+                dbg "'$wmctrl_name' not NAME_FOCUS: ...NEXT"
+                skip=1; continue
+            else
+                for name in $(echo $NAME_PRUNE |tr "," " "); do
+                    if [ "$wmctrl_name" = "$name" ]; then
+                        dbg "'$name' in NAME_PRUNE: ...NEXT"
+                        skip=1; break
+                    fi
+                done
+            fi
+            dbg
+            [ -n "$skip" ] && continue
+            WMCTRL_HEX=$(echo $chk |awk -F $WM_FS '{print $1}')
+            break
+        done
+    fi
+    dbg $DBG_H2
+    [ -n "$WMCTRL_HEX" ] && return 0 || return 1
+    }
+
+exe_p() {
+    exec sh -c "$BIN_PATH ${BIN_ARGS}; kill -USR2 $$ 2>/dev/null" &
+    TMP_PID=$!
+    trap 'echo "$BIN_PATH exited"; exit 1' USR2
+    }
+
+## main
+## + handle forced new window
+chk_wmctrl_hex
+
+## handle check only
+if [ $CHK_ONLY -gt 0 ]; then
+    echo $WMCTRL_HEX
+    dbg "$DBG_END"
+    exit 0
+fi
+#~ dbg exit
+
+if [ -z "$WMCTRL_HEX" ]; then
+dbg "NOT RUNNING"
+dbg $DBG_H1
+## run it
+    P_START=0
+    while [ -z "$WMCTRL_HEX" ]; do
+        if [ ! $P_START -gt 0 ]; then
+            P_START=1
+            dbg "run: $BIN_PATH ${BIN_ARGS}"
+            dbg $DBG_H2
+            exe_p
+        else
+            chk_wmctrl_hex && break || sleep .1
+        fi
+    done
+    dbg "TMP_PID=$TMP_PID"
+    dbg $DBG_H2
+    kill -9 $TMP_PID
+
+else
+dbg "RUNNING...."
+dbg $DBG_H1
+## pass args or iconify it ?
+    if [ -n "$BIN_ARGS" -a ! $FOCUS_ONLY -gt 0 ]; then
+    ## pass args
+        dbg "passing args: $BIN_PATH ${BIN_ARGS}"
+        dbg $DBG_H2
+        exe_p
+    else
+    ## to be lowered ?
+        [ "$WMCTRL_HEX" = "$WMCTRL_CURR" ] && WMCTRL_ACTIVE=1
+    fi
+fi
+
+## print return value
+dbg $WMCTRL_HEX
+
+dbg $DBG_H2
+if [ ! $WMCTRL_ACTIVE -gt 0 ]; then
+## focus it
+    dbg "focus"
+    wmctrl -i -a $WMCTRL_HEX
+    ## pass supplementary command
+    if [ -n "$SUP_CMD" ]; then
+        CMD=$(echo $SUP_CMD |tr "," " ")
+        dbg "$CMD"
+        $CMD
+    fi
+else
+## iconify it
+    #~ xdotool key "super+alt+space"
+    dbg "iconify"
+    wmctrl -i -Y $WMCTRL_HEX
+fi
+
+dbg $DBG_END
+exit 0

@@ -6,7 +6,7 @@
 # https://github.com/deadc0de6/dotdrop/issues/6
 rl="readlink -f"
 
-if ! ${rl} "${0}" >/dev/null 2>&1; then
+if ! ${rl} "${0}" > /dev/null 2>&1; then
   rl="realpath"
 
   if ! hash ${rl}; then

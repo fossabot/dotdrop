@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 ###########################
 # xbindkeys configuration #
 ###########################
@@ -35,33 +37,54 @@
 
 
 
-#Toggle Firefox
+# Toggle Firefox
 "jumpapp -m firefox"
-   control+alt+c
+  control+alt+c
 
-#Toggle VS Code
-"jumpapp -m code-insiders"
-   control+alt+e
+# Toggle VS Code
+"jumpapp -f -m code-insiders"
+  control+alt+e
 
-#Toggle Telegram
+# Toggle Sublime Text
+"jumpapp -m subl3"
+  control+alt+w
+
+# Toggle Telegram
 "jumpapp -m telegram-desktop"
-   control+alt+q
+  control+alt+q
 
-#Toggle Dolphin
+# Toggle Dolphin
 "jumpapp -m dolphin"
-   control+alt+f
+  control+alt+f
 
-#Toggle Settings
+# Toggle Settings
 "jumpapp -m systemsettings5"
-   control+shift+comma
+  control+shift+comma
 
-#Toggle Tilix
+# Toggle Pamac Manager
+"jumpapp -m pamac-manager"
+  control+alt+p
+
+# Toggle Konsole
+"jumpapp -m konsole"
+  control+alt+1
+
+# Toggle Tilix
 "jumpapp -m tilix --maximize"
-   control+alt+1
+  control+alt+2
 
 # mouse button 8 sends Control + PageDown
 "xdotool key 'Alt_L+Left'"
   b:8
+
+# # mouse button 8 sends Control + PageDown
+# "amixer set Master 5%+"
+#   alt+F12
+
+# "amixer set Master 5%-"
+#   alt+F11
+
+
 
 
 # mouse button 9 sends Control + PageUp

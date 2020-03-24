@@ -39,10 +39,10 @@ zinit snippet OMZ::lib/clipboard.zsh
 # navi.plugin.zsh
 # zinit ice lucid as"program" from"gh-r" atload"source <(navi widget zsh)"
 # zinit ice lucid as"program" from"gh-r" atload"source <(navi widget zsh)"
-zinit ice as"program" from"gh-r" nocompile'!' \
-  trackbinds bindmap'^g -> ^n' \
-  pick"c.zsh" atpull"%atclone" atclone"navi widget zsh > c.zsh"
-zinit light denisidoro/navi
+# zinit ice as"program" from"gh-r" nocompile'!' \
+#   trackbinds bindmap'^g -> ^n' \
+#   pick"c.zsh" atpull"%atclone" atclone"navi widget zsh > c.zsh"
+# zinit light denisidoro/navi
 
 # zsh-expand-all
 # https://github.com/simnalamburt/zsh-expand-all
