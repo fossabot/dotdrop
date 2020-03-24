@@ -196,7 +196,7 @@ dotfiles:
   d_neofetch:
     src: config/neofetch
     dst: ~/.config/neofetch
-  f_package-control.sublime-settings:
+  f_package-control:
     src: config/sublime-text-3/Packages/User/Package Control.sublime-settings
     dst: ~/.config/sublime-text-3/Packages/User/Package Control.sublime-settings
 profiles:
@@ -300,6 +300,6 @@ profiles:
     - d_firefox
   sublime:
     dotfiles:
-    - f_package-control
+    - f_package-contro
     actions:
     - install-package-control
