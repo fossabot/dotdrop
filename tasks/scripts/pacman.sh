@@ -34,8 +34,8 @@ yay -S --noconfirm --needed \
   git bash bash-completion zsh micro vim tmux tree git-delta-bin \
   wget curl aria2 net-tools trash \
   nodejs npm python python-pip python-pipenv go \
-  visual-studio-code-insiders tilix shfmt shellcheck \
-  ripgrep the_silver_searcher \
+  shfmt shellcheck ripgrep the_silver_searcher \
+  visual-studio-code-insiders tilix sublime-text-dev \
   barrier-bin
 
 # system

@@ -1,0 +1,31 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"A File Icon",
+		"Agila Theme",
+		"All Autocomplete",
+		"ayu",
+		"ColorPicker",
+		"DistractionFreeWindow",
+		"Dotfiles Syntax Highlighting",
+		"dotsyntax",
+		"EditorConfig",
+		"Emmet",
+		"FileIcons",
+		"Generic Config",
+		"Git",
+		"GitGutter",
+		"INI",
+		"MarkdownPreview",
+		"Package Control",
+		"Pretty JSON",
+		"Pretty Shell",
+		"RememberCommandPaletteInput",
+		"Sync Settings",
+		"ZSH"
+	]
+}

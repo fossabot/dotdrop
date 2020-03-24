@@ -147,6 +147,8 @@ user_pref("browser.tabs.closeButtons", 1);
 // replicate chrome behaviour for clipped tabs
 user_pref("browser.tabs.tabClipWidth", 80);
 
+// backspace to go back
+user_pref("browser.backspace_action", 0);
 
 //
 // ─── HOME ────────────────────────────────────────────────────────────────────

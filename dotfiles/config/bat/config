@@ -36,8 +36,8 @@
 --terminal-width=80
 
 # Map a file extension or file name to an existing syntax
---map-syntax=".zshrc.local:bash"
---map-syntax=".ignore:.gitignore"
---map-syntax=".exrc:vim"
---map-syntax="conf:ini"
---map-syntax="imwheelrc:bash"
+--map-syntax "*.zsh*:bash"
+--map-syntax ".ignore:.gitignore"
+--map-syntax ".exrc:vim"
+--map-syntax "conf:ini"
+--map-syntax "imwheelrc:bash"

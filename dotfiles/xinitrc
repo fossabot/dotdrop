@@ -5,9 +5,11 @@
 #
 # Executed by startx (run your window manager from here)
 
+xbindkeys
+
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
-userxprofile="$HOME/.xprofile"
+# userxprofile="$HOME/.xprofile"
 userresources="$HOME/.Xresources"
 usermodmap="$HOME/.Xmodmap"
 
