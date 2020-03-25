@@ -16,4 +16,4 @@ zle -N pet-select
 stty -ixon
 bindkey '^s' pet-select
 
-alias pey="pet search --color"
+alias pet="pet search --color"

@@ -191,11 +191,11 @@ export GENCOMPL_FPATH="$ZINIT[COMPLETIONS_DIR]"
 zinit ice wait'1b' lucid
 zinit light RobSis/zsh-completion-generator
 
-zinit ice wait'2a' has'go' as"command" atclone'make .' atpull'%atclone' make
-zinit light dim-an/cod
-
-# zinit ice lucid as"program" from"gh-r" mv"starship* -> starship" \
-#   bpick"*unknown-linux-gnu.tar.gz" atload"eval \"\$(starship init zsh)\""
+# completion daemon
+# https://github.com/dim-an/cod
+# zinit ice wait'2a' has'go' as"command" atclone'make .' atpull'%atclone' make \
+#   atload"source <(cod init $$ zsh)"
+# zinit light dim-an/cod
 
 
 # : zt 0a blockf

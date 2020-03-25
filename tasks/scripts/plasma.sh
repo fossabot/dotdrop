@@ -58,4 +58,16 @@ knshandler kns://icons.knsrc/api.kde-look.org/1166289?linkId=3
 # https://store.kde.org/p/1304256
 knshandler kns://lookandfeel.knsrc/api.kde-look.org/1304256
 
+
+#
+# ─── WEATHER WIDGET──────────────────────────────────────────────────────────────
+#
+
+# Weather Widget
+# https://store.kde.org/p/998917
+# yay -S --noconfirm qt5-xmlpatterns qt5-graphicaleffects
+knshandler kns://lookandfeel.knsrc/api.kde-look.org/998917
+
 # ────────────────────────────────────────────────────────────────────────────────
+
+

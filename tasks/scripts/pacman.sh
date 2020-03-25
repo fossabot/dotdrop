@@ -41,7 +41,7 @@ yay -S --noconfirm --needed \
 # system
 yay -S --noconfirm --needed \
   binutils libunity bind-tools \
-  colorgcc grc mlocate neofetch
+  bat jq colorgcc grc mlocate neofetch
 
 # ui
 yay -S --noconfirm --needed \

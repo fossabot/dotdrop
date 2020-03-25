@@ -42,7 +42,8 @@
   control+alt+c
 
 # Toggle VS Code
-"jumpapp -f -m code-insiders"
+# "jumpapp -f -m code-insiders"
+"wmctrl -x -a 'Code - Insiders'"
   control+alt+e
 
 # Toggle Sublime Text
@@ -74,8 +75,8 @@
   control+alt+2
 
 # mouse button 8 sends Control + PageDown
-"xdotool key 'Alt_L+Left'"
-  b:8
+# "xdotool key 'Alt_L+Left'"
+#   b:8
 
 # # mouse button 8 sends Control + PageDown
 # "amixer set Master 5%+"
