@@ -12,10 +12,3 @@ export QT_LOGGING_RULES='*.debug=false;qt.qpa.*=false'
 # elif [[ "$OSTYPE" == "linux-gnu" ]]; then
 #   source ~/.bashrc.linux-gnu
 # fi
-
-#region
-# https://github.com/dotiful/maptz.vscode.extensions.customfolding
-# https://github.com/dotiful/maptz.vscode.extensions.customfolding
-# https://github.com/dotiful/maptz.vscode.extensions.customfolding
-
-#endregion

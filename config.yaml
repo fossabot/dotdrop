@@ -17,13 +17,14 @@ config:
 dotfiles:
   d_bin:
     src: bin
-    dst: ~/.bin
+    dst: ~/.local/bin
+    link: link_children
   f_profile:
-    src: bash/profile
+    src: profile
     dst: ~/.profile
   f_inputrc:
     src: bash/inputrc
-    dst: ~/.inputrc
+    dst: ~/.config/inputrc
   f_bashrc:
     src: bash/bashrc
     dst: ~/.bashrc
@@ -45,9 +46,6 @@ dotfiles:
   f_aliases:
     src: aliases
     dst: ~/.aliases
-  f_exports:
-    src: exports
-    dst: ~/.exports
   f_zshenv:
     src: zshenv
     dst: ~/.zshenv
@@ -79,17 +77,17 @@ dotfiles:
     src: dir_colors
     dst: ~/.dir_colors
   f_npmrc:
-    src: npmrc
-    dst: ~/.npmrc
+    src: config/npm/npmrc
+    dst: ~/.config/npm/npmrc
   f_curlrc:
     src: curlrc
     dst: ~/.curlrc
   f_gemrc:
     src: gemrc
     dst: ~/.gemrc
-  f_wgetrc:
-    src: wgetrc
-    dst: ~/.wgetrc
+  d_wget:
+    src: config/wget
+    dst: ~/.config/wget
   f_exrc:
     src: exrc
     dst: ~/.exrc
@@ -165,12 +163,9 @@ dotfiles:
     src: local/share/kservices5/ServiceMenus
     dst: ~/.local/share/kservices5/ServiceMenus
     link: nolink
-  f_gtk2rc:
-    src: gtkrc-2.0
-    dst: ~/.gtkrc-2.0
-  f_gtk2:
-    src: config/gtk-2.0/gtkfilechooser.ini
-    dst: ~/.config/gtk-2.0/gtkfilechooser.ini
+  d_gtk2:
+    src: config/gtk-2.0
+    dst: ~/.config/gtk-2.0
   d_gtk3:
     src: config/gtk-3.0
     dst: ~/.config/gtk-3.0
@@ -178,8 +173,8 @@ dotfiles:
     src: xbindkeysrc
     dst: ~/.xbindkeysrc
   f_xinitrc:
-    src: xinitrc
-    dst: ~/.xinitrc
+    src: config/X11/xinitrc
+    dst: ~/.config/X11/xinitrc
   f_xsession:
     src: xsession
     dst: ~/.xsession
@@ -211,10 +206,9 @@ profiles:
     - f_yarnrc
     - f_curlrc
     - f_gemrc
-    - f_wgetrc
+    - d_wget
     - f_less
     - d_ripgrep
-    - d_asciinema
     - d_neofetch
     include:
     - shell
@@ -252,7 +246,6 @@ profiles:
     - d_bin
     - d_fsh
     - f_aliases
-    - f_exports
     - f_dir_colors
     - d_bat
     include:
@@ -290,8 +283,7 @@ profiles:
     - rebuildcache
   gtk:
     dotfiles:
-    - f_gtk2rc
-    - f_gtk2
+    - d_gtk2
     - d_gtk3
     - f_xsession
     actions:
@@ -299,8 +291,8 @@ profiles:
   firefox:
     dotfiles:
     - d_firefox
-  sublime:
-    dotfiles:
-    - f_package-control
-    actions:
-    - install-package-control
+  # sublime:
+  #   dotfiles:
+  #   - f_package-control
+  #   actions:
+  #   - install-package-control

@@ -75,8 +75,8 @@
   control+alt+2
 
 # mouse button 8 sends Control + PageDown
-# "xdotool key 'Alt_L+Left'"
-#   b:8
+"xdotool key 'Alt_L+Left'"
+  b:8
 
 # # mouse button 8 sends Control + PageDown
 # "amixer set Master 5%+"

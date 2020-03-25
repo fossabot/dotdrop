@@ -3,36 +3,7 @@
 
 # export SYSTEM="$(uname -s)"
 
-#
-# ─── LANGUAGE ────────────────────────────────────────────────────────────────
-# https://wiki.archlinux.org/index.php/Locale
-
-
-# LC_ADDRESS
-# LC_COLLATE
-# LC_CTYPE
-# LC_IDENTIFICATION
-# LC_MEASUREMENT
-# LC_MESSAGES
-# LC_MONETARY
-# LC_NAME
-# LC_NUMERIC
-# LC_PAPER
-# LC_TELEPHONE
-# LC_TIME
-
-if [[ -z "$LANG" ]]; then
-  export LANG="en_US.UTF-8"
-  export LANGUAGE="en_US.UTF-8"
-fi
-
-export LC_ALL"=en_US.UTF-8"
-export LC_COLLATE="en_US.UTF-8"
-export LC_CTYPE"=en_US.UTF-8"
-export LC_MESSAGES"=en_US.UTF-8"
-export LC_MONETARY"=en_US.UTF-8"
-export LC_NUMERIC"=en_US.UTF-8"
-export LC_TIME"=en_US.UTF-8"
+[ -f "$HOME/.profile" ] && . "$HOME/.profile"
 
 
 # ─── path ───────────────────────────────────────────────────────────────── {{{
@@ -62,24 +33,6 @@ path=(
   /usr/libexec
   $path
 )
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  # coreutils
-  # path=(/usr/local/opt/coreutils/libexec/gnubin $path)
-
-  # manpath=(
-  #   /usr/local/opt/coreutils/libexec/gnuman
-  #   /usr/local/MacGPG2/share/man
-  #   $manpath
-  # )
-elif [[ "$OSTYPE" == "linux-gnu" ]]; then
-  # linuxbrew
-  if [ -d "/home/linuxbrew/.linuxbrew" ]; then
-    path=(/home/linuxbrew/.linuxbrew/bin $path)
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-  fi
-fi
-
 
 # manpath=(
 #   ${HOMEBREW_PREFIX}/opt/*/libexec/gnuman(N-/)
@@ -114,74 +67,6 @@ typeset -gU cdpath fpath manpath mailpath path
 # }}}
 
 
-# ─── editors ────────────────────────────────────────────────────────────── {{{
-
-# vim
-# if (( $+commands[nvim] )); then
-#   export EDITOR=nvim
-# else
-#   export EDITOR="vim"
-# fi
-export EDITOR="micro"
-export VISUAL="$EDITOR"
-export PAGER='less -R'
-export BAT_PAGER="$PAGER"
-
-# }}}
-
-# ─── less ───────────────────────────────────────────────────────────────── {{{
-
-# https://ss64.com/osx/less_options.html
-# i - case-insensitive searches, unless uppercase characters in search string
-# F - exit immediately if output fits on one screen
-# M - verbose prompt
-# R - ANSI color support
-# S - chop long lines (rather than wrap them onto next line)
-# g - highlight only the particular string which was found by the last search
-# w - temporarily highlights the first "new" line after a forward movement
-# z - changes the default scrolling size
-# X - suppress alternate screen
-export LESS='-i -F -M -R -S -g -w'
-
-# filename (if known), line number if known, falling back to percent if known,
-# falling back to byte offset, falling back to dash
-export LESSPROMPT='?f%f .?ltLine %lt:?pt%pt\%:?btByte %bt:-...'
-export LESSCHARSET"=utf-8"
-export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
-export LESSKEY="$XDG_CONFIG_HOME/less/compiled"
-
-# ─── MAN PAGES ────────────────────────────────────────────────────────────────
-
-# F = exit immediately if output fits on one screen
-# K = exit in response to Ctrl-C
-# M = verbose prompt
-# R = ANSI color support
-# X = suppress alternate screen (Don’t clear the screen after quitting)
-export MANPAGER="$PAGER"
-
-export LESS_TERMCAP_mb=$(tput setaf 4) # blue
-export LESS_TERMCAP_md=$(tput bold; tput setaf 2) # green
-export LESS_TERMCAP_me=$(tput sgr0)
-export LESS_TERMCAP_so=$(tput bold; tput setaf 18; tput setab 3) # black on blue
-export LESS_TERMCAP_se=$(tput rmso; tput sgr0)  # reset previous line
-export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 4) # yellow bold underlined
-export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
-export LESS_TERMCAP_mr=$(tput rev)
-export LESS_TERMCAP_mh=$(tput dim)
-export LESS_TERMCAP_ZN=$(tput ssubm)
-export LESS_TERMCAP_ZV=$(tput rsubm)
-export LESS_TERMCAP_ZO=$(tput ssupm)
-export LESS_TERMCAP_ZW=$(tput rsupm)
-
-# export LESS_TERMCAP_md=$(tput bold; tput setaf 4)  # start bold
-# export LESS_TERMCAP_me=$(tput sgr0)                # turn off bold, blink and underline
-# export LESS_TERMCAP_mb=$(tput blink)               # start blink
-# export LESS_TERMCAP_us=$(tput setaf 2)             # start underline
-# export LESS_TERMCAP_ue=$(tput sgr0)                # stop underline
-# export LESS_TERMCAP_so=$(tput smso)                # start standout (reverse video)
-# export LESS_TERMCAP_se=$(tput rmso)                # stop standout
-
-# }}}
 
 # ─── colors ───────────────────────────────────────────────────────────────────
 export CLICOLOR=1

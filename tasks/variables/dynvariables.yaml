@@ -1,4 +1,7 @@
 dynvariables:
   home: "echo $HOME"
   os: "echo $OSTYPE"
+  xdg_data: "echo $XDG_DATA_HOME"
+  xdg_cache: "echo $XDG_CACHE_HOME"
+  xdg_runtime: "echo $XDG_RUNTIME_DIR"
   mozpath: find ~/.mozilla/firefox -name '*.defaultw'

@@ -1,0 +1,169 @@
+# The XDG Base Directory Specification is based on the following concepts
+
+# ─── USER DIRECTORIES ───────────────────────────────────────────────────────────
+
+# single base directory relative to which user-specific data files should be written. This directory is defined by the environment variable
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+
+# single base directory relative to which user-specific configuration files should be written. This directory is defined by the environment variable
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+# single base directory relative to which user-specific non-essential (cached) data should be written. This directory is defined by the environment variable
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:=$HOME/.cache}"
+
+# single base directory relative to which user-specific runtime files and other file objects should be placed. This directory is defined by the environment variable
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:=/tmp/$USER}"
+
+# ─── SYSTEM DIRECTORIES ─────────────────────────────────────────────────────────
+# set of prefs ordered base directories relative to which data files should be
+# searched. This directories is defined by the environment variable
+# export XDG_DATA_DIRS=""
+
+# set of prefs ordered base directories relative to which configuration files
+# should be searched. This directories is defined by the environment variable
+# export XDG_CONFIG_DIRS=""
+
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
+
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+#export QT_QPA_PLATFORMTHEME=qt5ct
+#export QT_LOGGING_RULES='*.debug=false;qt.qpa.*=false'
+
+
+# SYSTEM_PATH="$PATH"
+# unset PATH
+
+
+# nodejs
+PATH="$PATH:$XDG_DATA_HOME/npm/bin"
+PATH="$PATH:$XDG_DATA_HOME/yarn/bin"
+# PATH="$PATH:$HOME/.yarn/bin"
+
+# use homebrew python version
+# PATH="$PATH:/usr/local/opt/python/libexec/bin"
+# use homebrew ruby version
+# PATH="$PATH:/usr/local/opt/ruby/bin"
+
+# go
+export GOPATH="$HOME/code/go"
+PATH="$PATH:$GOPATH/bin"
+# export GOROOT="/usr/local/opt/go/libexec"
+
+# PATH="$PATH:/usr/local/bin"
+# PATH="$PATH:/usr/local/sbin"
+# PATH="$PATH:$SYSTEM_PATH"
+# PATH="$PATH:$HOME/.local/bin"
+# export PATH
+
+#
+# ─── LANGUAGE ────────────────────────────────────────────────────────────────
+# https://wiki.archlinux.org/index.php/Locale
+
+if [[ -z "$LANG" ]]; then
+  export LANG="en_US.UTF-8"
+  export LANGUAGE="en_US.UTF-8"
+fi
+
+export LC_ALL"=en_US.UTF-8"
+export LC_COLLATE="en_US.UTF-8"
+export LC_CTYPE"=en_US.UTF-8"
+export LC_MESSAGES"=en_US.UTF-8"
+export LC_MONETARY"=en_US.UTF-8"
+export LC_NUMERIC"=en_US.UTF-8"
+export LC_TIME"=en_US.UTF-8"
+
+# ────────────────────────────────────────────────────────────────────────────────
+
+# ~/ Clean-up:
+# https://wiki.archlinux.org/index.php/XDG_Base_Directory#Supported
+# export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # This line will break some DMs.
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
+export INPUTRC="$XDG_CONFIG_HOME/inputrc"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
+export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
+export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
+
+export GEM_HOME="$XDG_DATA_HOME/gem"
+export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
+
+export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
+
+# ─── default programs ───────────────────────────────────────────────────── {{{
+
+# vim
+# if (( $+commands[nvim] )); then
+#   export EDITOR=nvim
+# else
+#   export EDITOR="vim"
+# fi
+export EDITOR="micro"
+export VISUAL="$EDITOR"
+export PAGER='less -R'
+export BAT_PAGER="$PAGER"
+export TERMINAL="konsole"
+export BROWSER="firefox"
+
+
+# }}}
+
+# ─── less ───────────────────────────────────────────────────────────────── {{{
+
+# https://ss64.com/osx/less_options.html
+# i - case-insensitive searches, unless uppercase characters in search string
+# F - exit immediately if output fits on one screen
+# M - verbose prompt
+# R - ANSI color support
+# S - chop long lines (rather than wrap them onto next line)
+# g - highlight only the particular string which was found by the last search
+# w - temporarily highlights the first "new" line after a forward movement
+# z - changes the default scrolling size
+# X - suppress alternate screen
+export LESS='-i -F -M -R -S -g -w'
+
+# filename (if known), line number if known, falling back to percent if known,
+# falling back to byte offset, falling back to dash
+export LESSPROMPT='?f%f .?ltLine %lt:?pt%pt\%:?btByte %bt:-...'
+export LESSCHARSET"=utf-8"
+export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
+export LESSKEY="$XDG_CONFIG_HOME/less/lesskey"
+
+# ─── MAN PAGES ────────────────────────────────────────────────────────────────
+
+# F = exit immediately if output fits on one screen
+# K = exit in response to Ctrl-C
+# M = verbose prompt
+# R = ANSI color support
+# X = suppress alternate screen (Don’t clear the screen after quitting)
+export MANPAGER="$PAGER"
+
+export LESS_TERMCAP_mb=$(tput setaf 4) # blue
+export LESS_TERMCAP_md=$(tput bold; tput setaf 2) # green
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_so=$(tput bold; tput setaf 18; tput setab 3) # black on blue
+export LESS_TERMCAP_se=$(tput rmso; tput sgr0)  # reset previous line
+export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 4) # yellow bold underlined
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)
+export LESS_TERMCAP_ZN=$(tput ssubm)
+export LESS_TERMCAP_ZV=$(tput rsubm)
+export LESS_TERMCAP_ZO=$(tput ssupm)
+export LESS_TERMCAP_ZW=$(tput rsupm)
+
+# export LESS_TERMCAP_md=$(tput bold; tput setaf 4)  # start bold
+# export LESS_TERMCAP_me=$(tput sgr0)                # turn off bold, blink and underline
+# export LESS_TERMCAP_mb=$(tput blink)               # start blink
+# export LESS_TERMCAP_us=$(tput setaf 2)             # start underline
+# export LESS_TERMCAP_ue=$(tput sgr0)                # stop underline
+# export LESS_TERMCAP_so=$(tput smso)                # start standout (reverse video)
+# export LESS_TERMCAP_se=$(tput rmso)                # stop standout
+
+# }}}

@@ -64,8 +64,8 @@ code-insiders --install-extension shan.code-settings-sync
 
 # keyboard
 yay -S --noconfirm --needed --useask \
-  xclip wmctrl xdotool keynav jumpapp xsel xvkbd \
-  xorg-xev xorg-xrandr xorg-xwininfo xbindkeys_config-gtk2
+  jumpapp keynav sxhkd wmctrl xclip xdotool xsel xvkbd \
+  xbindkeys_config-gtk2 xorg-xev xorg-xmodmap xorg-xrandr xorg-xwininfo
 
 # fonts
 yay -S --noconfirm --needed \
