@@ -1,1 +1,1 @@
-prefix="{{@@ xdg_data @@}}/yarn"
+prefix "{{@@ xdg_data @@}}/yarn"

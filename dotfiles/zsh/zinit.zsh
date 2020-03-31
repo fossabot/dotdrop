@@ -143,8 +143,8 @@ zinit light sharkdp/bat
 
 # ogham/exa
 # https://github.com/ogham/exa
-zinit ice as"program" from"gh-r" mv"exa* -> exa"
-zinit light ogham/exa
+# zinit ice as"program" from"gh-r" mv"exa* -> exa"
+# zinit light ogham/exa
 
 # # All of the above using the for-syntax and also z-a-bin-gem-node annex
 # zinit wait"1" lucid from"gh-r" as"null" for \

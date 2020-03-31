@@ -1,0 +1,17 @@
+---
+# print backtrace when RubyGems encounters an error
+:backtrace: false
+
+# measure the time it takes for the command to complete
+:benchmark: false
+
+# automatic updating of repository metadata
+:update_sources: true
+
+# verbosity of the gem command. false, true, and :really are the levels
+:verbose: false
+
+gem: "--no-document --suggestions"
+
+# install: --no-rdoc --no-ri
+# update:  --no-rdoc --no-ri

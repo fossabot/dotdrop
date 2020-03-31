@@ -56,6 +56,9 @@ export GOPATH="$HOME/code/go"
 PATH="$PATH:$GOPATH/bin"
 # export GOROOT="/usr/local/opt/go/libexec"
 
+# ruby
+PATH="$PATH:$GEM_HOME/bin"
+
 # PATH="$PATH:/usr/local/bin"
 # PATH="$PATH:/usr/local/sbin"
 # PATH="$PATH:$SYSTEM_PATH"
@@ -91,6 +94,7 @@ export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
 
+export GEMRC="$XDG_CONFIG_HOME/gem/gemrc"
 export GEM_HOME="$XDG_DATA_HOME/gem"
 export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
 

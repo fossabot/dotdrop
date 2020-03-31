@@ -34,14 +34,15 @@ yay -S --noconfirm --needed \
   git bash bash-completion zsh micro vim tmux tree git-delta-bin \
   wget curl aria2 net-tools trash \
   nodejs npm python python-pip python-pipenv go \
-  shfmt shellcheck ripgrep the_silver_searcher \
+  shfmt shellcheck ripgrep the_silver_searcher bash-language-server \
   visual-studio-code-insiders tilix sublime-text-dev \
   barrier-bin
 
 # system
 yay -S --noconfirm --needed \
+  bat colorgcc grc exa \
   binutils libunity bind-tools \
-  bat jq colorgcc grc mlocate neofetch
+  jq mlocate neofetch
 
 # ui
 yay -S --noconfirm --needed \
@@ -49,8 +50,7 @@ yay -S --noconfirm --needed \
   appmenu-gtk-module appmenu-qt4 libdbusmenu-glib libdbusmenu-gtk3 libdbusmenu-gtk2 \
   kvantum-qt5 ocs-url hardcode-fixer \
   materia-kde kvantum-theme-materia materia-gtk-theme papirus-icon-theme \
-  latte-dock \
-  bootsplash-systemd bootsplash-theme-manjaro
+  latte-dock bootsplash-systemd bootsplash-theme-manjaro
 
 # gui apps
 yay -Rs --noconfirm firefox
@@ -69,6 +69,6 @@ yay -S --noconfirm --needed --useask \
 
 # fonts
 yay -S --noconfirm --needed \
-  otf-nerd-fonts-fira-code nerd-fonts-cascadia-code ttf-cascadia-code \
-  nerd-fonts-hack ttf-hack otf-san-francisco-pro \
+  otf-nerd-fonts-fira-code ttf-cascadia-code \
+  nerd-fonts-hack nerd-fonts-source-code-pro nerd-fonts-cascadia-code ttf-hack otf-san-francisco-pro \
   ttf-ms-fonts ttf-opensans

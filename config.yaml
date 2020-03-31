@@ -76,15 +76,12 @@ dotfiles:
   f_dir_colors:
     src: dir_colors
     dst: ~/.dir_colors
-  f_npmrc:
-    src: config/npm/npmrc
-    dst: ~/.config/npm/npmrc
   f_curlrc:
     src: curlrc
     dst: ~/.curlrc
-  f_gemrc:
-    src: gemrc
-    dst: ~/.gemrc
+  d_gemrc:
+    src: config/gem
+    dst: ~/.config/gem
   d_wget:
     src: config/wget
     dst: ~/.config/wget
@@ -113,6 +110,9 @@ dotfiles:
   d_htop:
     src: config/htop
     dst: ~/.config/htop
+  f_npmrc:
+    src: config/npm/npmrc
+    dst: ~/.config/npm/npmrc
   f_yarnrc:
     src: yarnrc
     dst: ~/.yarnrc
@@ -132,9 +132,9 @@ dotfiles:
     src: gnupg
     dst: ~/.gnupg
     link: link_children
-  f_colorls:
-    src: config/colorls/dark_colors.yaml
-    dst: ~/.config/colorls/dark_colors.yaml
+  d_colorls:
+    src: config/colorls
+    dst: ~/.config/colorls
   d_svgo:
     src: config/svgo
     dst: ~/.config/svgo
@@ -163,9 +163,12 @@ dotfiles:
     src: local/share/kservices5/ServiceMenus
     dst: ~/.local/share/kservices5/ServiceMenus
     link: nolink
-  d_gtk2:
-    src: config/gtk-2.0
-    dst: ~/.config/gtk-2.0
+  f_gtkrc2:
+    src: config/gtk-2.0/gtkrc-2.0
+    dst: ~/.gtkrc-2.0
+  f_gtk2:
+    src: config/gtk-2.0/gtkfilechooser.ini
+    dst: ~/.config/gtk-2.0/gtkfilechooser.ini
   d_gtk3:
     src: config/gtk-3.0
     dst: ~/.config/gtk-3.0
@@ -199,13 +202,15 @@ profiles:
   all:
     dotfiles:
     - ALL
+  node:
+    dotfiles:
+    - f_npmrc
+    - f_yarnrc
+    - d_gemrc
   base:
     dotfiles:
     - d_htop
-    - f_npmrc
-    - f_yarnrc
     - f_curlrc
-    - f_gemrc
     - d_wget
     - f_less
     - d_ripgrep
@@ -257,7 +262,7 @@ profiles:
     - f_youtubedl
     - f_mpd
     - d_gnupg
-    - f_colorls
+    - d_colorls
     - d_svgo
   kde:
     dotfiles:
@@ -283,7 +288,8 @@ profiles:
     - rebuildcache
   gtk:
     dotfiles:
-    - d_gtk2
+    - f_gtkrc2
+    - f_gtk2
     - d_gtk3
     - f_xsession
     actions:

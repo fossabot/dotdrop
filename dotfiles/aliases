@@ -58,6 +58,56 @@ else
 fi
 
 
+# ─── COMMAND SHORTCUTS ────────────────────────────────────────────────────────
+alias r='exec $SHELL -l' # Reload the shell (i.e. invoke as a login shell)
+alias x='chmod +x'
+alias h='history'
+# alias j='jump'
+alias t='tmux'
+alias e='exit'
+alias cr="curl"
+alias cl='clear'
+alias ct='column -t'
+alias wi="which -a"
+alias info='info --vi-keys'
+alias mime="file --mime-type -b"
+
+# alias path='echo -e ${PATH//:/\\n}' # Print each PATH entry on a separate line
+alias trim="tr -d '\n' | clipcopy" # Trim new lines and copy to clipboard
+alias cpwd='pwd | xargs echo -n | clipcopy' # copy pwd to the clipboard
+
+if [ `command -v trash` ]; then
+  alias rm='trash'
+fi
+
+
+# ─── UTILITIES ────────────────────────────────────────────────────────────────
+alias unrar="unrar x"
+
+
+# ─── GIT ──────────────────────────────────────────────────────────────────────
+alias g="git"
+# alias ga="git add"
+alias gaa="git add ."
+alias gc="git commit -m"
+alias gst="git status"
+alias gcl="git clone --recurse-submodules"
+alias glg="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit"
+alias lg='lazygit'
+
+# Always enable colored `grep` output
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# bat
+if [ `command -v bat` ]; then
+  alias b="bat"
+  alias bn="bat -n"
+  alias bl="bat -l"
+  alias cat="bat"
+fi
+
 #
 # ─── GRC ────────────────────────────────────────────────────────────────────────
 #
@@ -100,59 +150,6 @@ if [ `command -v grc` ]; then
   alias who='grc who'
 fi
 
-
-# ─── GIT ──────────────────────────────────────────────────────────────────────
-alias g="git"
-# alias ga="git add"
-alias gaa="git add ."
-alias gc="git commit -m"
-alias gst="git status"
-alias gcl="git clone --recurse-submodules"
-alias glg="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit"
-alias lg='lazygit'
-
-# Always enable colored `grep` output
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-
-# bat
-if [ `command -v bat` ]; then
-  alias b="bat"
-  alias bn="bat -n"
-  alias bl="bat -l"
-  alias cat="bat"
-fi
-
-
-# ─── COMMAND SHORTCUTS ────────────────────────────────────────────────────────
-alias r='exec $SHELL -l' # Reload the shell (i.e. invoke as a login shell)
-alias x='chmod +x'
-alias h='history'
-# alias j='jump'
-alias t='tmux'
-alias e='exit'
-alias cr="curl"
-alias cl='clear'
-alias ct='column -t'
-alias wi="which -a"
-alias info='info --vi-keys'
-alias mime="file --mime-type -b"
-
-# alias path='echo -e ${PATH//:/\\n}' # Print each PATH entry on a separate line
-alias trim="tr -d '\n' | clipcopy" # Trim new lines and copy to clipboard
-alias cpwd='pwd | xargs echo -n | clipcopy' # copy pwd to the clipboard
-
-if [ `command -v trash` ]; then
-  alias rm='trash'
-fi
-
-
-
-# ─── UTILITIES ────────────────────────────────────────────────────────────────
-alias unrar="unrar x"
-
-
 # ─── EDITORS ──────────────────────────────────────────────────────────────────
 
 # if [ `command -v nvim` ]; then
@@ -190,28 +187,6 @@ alias ipe='curl ipinfo.io/ip'
 # determine if a port is in use
 alias fport="sudo lsof -i -P -n | grep"
 
-
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  # arch
-  alias sc="systemctl"
-  alias sct="systemctl status"
-  alias sce="systemctl list-units --type service --state active"
-  alias scr="systemctl list-units --type service --state running"
-
-  alias y="yay -S --noconfirm --needed"
-  alias yr="yay -Rns --noconfirm"
-  alias ys="yay -Ss"
-  alias yi="yay -Si --noconfirm"
-  alias yls="yay -Qq | fzf --preview 'yay -Qil {}' --layout=reverse --bind 'enter:execute(yay -Qil {} | less)'"
-
-
-  # alias p='pkgsearch'
-  alias sp="sudo pacman -Syu --noconfirm"
-  alias spu="sudo pacman -Syu --noconfirm"
-  alias spr='sudo pacman -Rs --noconfirm'
-fi
-
-
 # ─── NPM ──────────────────────────────────────────────────────────────────────
 # https://github.com/dylang/npm-check#options
 alias ncu="npm-check --no-emoji -u"
@@ -234,57 +209,84 @@ alias ygr="yarn global remove"
 alias ygl="yarn global list"
 alias you="yarn outdated"
 alias yui="yarn upgrade-interactive --latest"
+
+{%@@ if os == "linux-gnu" @@%}
+#
+# ─── ARCH──────────────────────────────────────────────────────────────────────
+#
+alias sc="systemctl"
+alias sct="systemctl status"
+alias sce="systemctl list-units --type service --state active"
+alias scr="systemctl list-units --type service --state running"
+
+alias y="yay -S --noconfirm --needed"
+alias yr="yay -Rns --noconfirm"
+alias ys="yay -Ss"
+alias yi="yay -Si --noconfirm"
+alias yls="yay -Qq | fzf --preview 'yay -Qil {}' --layout=reverse --bind 'enter:execute(yay -Qil {} | less)'"
+
+
+# alias p='pkgsearch'
+alias sp="sudo pacman -Syu --noconfirm"
+alias spu="sudo pacman -Syu --noconfirm"
+alias spr='sudo pacman -Rs --noconfirm'
+{%@@ endif @@%}
+
 # ──────────────────────────────────────────────────────────────────────────────
 
+
+{%@@ if os == "darwin" @@%}
 #
 # ─── MACOS ──────────────────────────────────────────────────────────────────────
 #
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  # alias bri="brew install"
-  # alias brx="brew uninstall"
-  alias brs="brew search"
-  alias bru="brew update && brew upgrade && brew cu -ay"
-  alias brh="brew home"
-  alias brf="brew info"
-  # alias brc="brew cat"
-  brc() {
-    brew cat "$@" | bat -l ruby
-  }
-  alias brl="brew ls"
-  alias brlv="brew leaves | column"
+# if [[ "$OSTYPE" == "darwin"* ]]; then
+# alias bri="brew install"
+# alias brx="brew uninstall"
+alias brs="brew search"
+alias bru="brew update && brew upgrade && brew cu -ay"
+alias brh="brew home"
+alias brf="brew info"
+# alias brc="brew cat"
+brc() {
+  brew cat "$@" | bat -l ruby
+}
+alias brl="brew ls"
+alias brlv="brew leaves | column"
 
-  alias cs="brew cask"
-  alias csl="brew cask ls"
-  # alias csi="brew cask install"
-  # alias csx="brew cask uninstall"
-  alias csz="brew cask zap"
-  alias csh="brew cask home"
-  alias csf="brew cask info"
-  # alias csc="brew cask cat"
-  csc() {
-    brew cask cat "$@" | bat -l ruby
-  }
+alias cs="brew cask"
+alias csl="brew cask ls"
+# alias csi="brew cask install"
+# alias csx="brew cask uninstall"
+alias csz="brew cask zap"
+alias csh="brew cask home"
+alias csf="brew cask info"
+# alias csc="brew cask cat"
+csc() {
+  brew cask cat "$@" | bat -l ruby
+}
 
-  alias dmount='diskutil mount'
-  alias dumount='diskutil unmount'
+alias dmount='diskutil mount'
+alias dumount='diskutil unmount'
 
-  # open in ForkLift
-  fl() {
-    if [ $# -eq 0 ]; then
-      open -a ForkLift .
-    else
-      open -a ForkLift "$@"
-    fi
-  }
+# open in ForkLift
+fl() {
+  if [ $# -eq 0 ]; then
+    open -a ForkLift .
+  else
+    open -a ForkLift "$@"
+  fi
+}
 
-  # QuickLook on macOS
-  ql() {
-    qlmanage -p "$@" 2> /dev/null
-  }
+# QuickLook on macOS
+ql() {
+  qlmanage -p "$@" 2> /dev/null
+}
 
 
-  alias ff="/Applications/Firefox.app/Contents/MacOS/firefox"
-  alias ffb="/Applications/Firefox.app/Contents/MacOS/firefox-bin"
+alias ff="/Applications/Firefox.app/Contents/MacOS/firefox"
+alias ffb="/Applications/Firefox.app/Contents/MacOS/firefox-bin"
 
-  alias gws='PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/gnu-sed/libexec/gnubin:$PATH gws'
-fi
+alias gws='PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/gnu-sed/libexec/gnubin:$PATH gws'
+# fi
+
+{%@@ endif @@%}
