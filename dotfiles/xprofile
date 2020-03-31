@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
+# vim: ft=sh
+
+# ~/.xprofile - X11-specific login script (after ~/.profile)
+
+if [ ! "$DESKTOP_SESSION" ]; then
+  xbindkeys &
+fi
 
 # swap Capslock with Backspace
-setxkbmap -option caps:backspace
-setxkbmap -option shift:both_capslock
+# setxkbmap -option caps:backspace
+# setxkbmap -option shift:both_capslock
+

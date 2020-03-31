@@ -38,12 +38,13 @@ export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:=/tmp/$USER}"
 
 
 # SYSTEM_PATH="$PATH"
+# echo $PATH | tr ":" "\n" | tr " " "\n"
 # unset PATH
 
 
 # nodejs
-PATH="$PATH:$XDG_DATA_HOME/npm/bin"
-PATH="$PATH:$XDG_DATA_HOME/yarn/bin"
+PATH="$XDG_DATA_HOME/npm/bin:$PATH"
+PATH="$XDG_DATA_HOME/yarn/bin:$PATH"
 # PATH="$PATH:$HOME/.yarn/bin"
 
 # use homebrew python version
@@ -52,12 +53,18 @@ PATH="$PATH:$XDG_DATA_HOME/yarn/bin"
 # PATH="$PATH:/usr/local/opt/ruby/bin"
 
 # go
-export GOPATH="$HOME/code/go"
-PATH="$PATH:$GOPATH/bin"
+export GOPATH="$XDG_DATA_HOME/go"
+# export GOBIN="$HOME/.local/bin"
 # export GOROOT="/usr/local/opt/go/libexec"
+PATH="$GOPATH/bin:$PATH"
+
+
+# rust
+# export CARGO_HOME="$XDG_DATA_HOME/cargo"
+# export CARGO_INSTALL_ROOT="$HOME/.local"
 
 # ruby
-PATH="$PATH:$GEM_HOME/bin"
+PATH="$GEM_HOME/bin:$PATH"
 
 # PATH="$PATH:/usr/local/bin"
 # PATH="$PATH:/usr/local/sbin"
@@ -86,19 +93,24 @@ export LC_TIME"=en_US.UTF-8"
 
 # ~/ Clean-up:
 # https://wiki.archlinux.org/index.php/XDG_Base_Directory#Supported
-# export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # This line will break some DMs.
-export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
+
 export INPUTRC="$XDG_CONFIG_HOME/inputrc"
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
-export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
-export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
 
 export GEMRC="$XDG_CONFIG_HOME/gem/gemrc"
 export GEM_HOME="$XDG_DATA_HOME/gem"
 export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
 
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+
+export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
+
 export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # This line will break some DMs.
+export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
+export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
+
 
 # ─── default programs ───────────────────────────────────────────────────── {{{
 
@@ -109,12 +121,13 @@ export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
 #   export EDITOR="vim"
 # fi
 export EDITOR="micro"
+# export EDITOR="$(if [[ -n $DISPLAY ]]; then echo 'gedit'; else echo 'nano'; fi)"
+
 export VISUAL="$EDITOR"
 export PAGER='less -R'
 export BAT_PAGER="$PAGER"
 export TERMINAL="konsole"
-export BROWSER="firefox"
-
+export BROWSER="$(if [[ -n $DISPLAY ]]; then echo 'firefox'; else echo 'links'; fi)"
 
 # }}}
 

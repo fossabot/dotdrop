@@ -1,0 +1,20 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/octet-stream;inode/directory
+Actions=open;new;
+X-KDE-Priority=TopLevel
+Icon=sublime
+X-KDE-Submenu=Open In Sublime Text
+X-KDE-Submenu[ru]=Открыть в Sublime Text
+
+[Desktop Action open]
+Name=Open in Sublime Text
+Exec=/usr/bin/subl3 -a %U
+Icon=sublime
+
+[Desktop Action new]
+Name=Open in New Sublime Text Window
+Exec=/usr/bin/subl3 -n %U
+Icon=sublime
+

@@ -19,6 +19,7 @@
   * [ZSH Keybindings](http://zshwiki.org/home/keybindings/)
   * [showthedocs](http://showthedocs.com/) documentation browser that finds the relevant docs for your code
   * [explainshell](https://explainshell.com/) see the help text that matches each argument
+  * [Hyperpolyglot](https://hyperpolyglot.org/unix-shells) Side-by-side comparison of shell syntaxes
 
 ## bash
   * [Bash Reference Manual](https://www.gnu.org/software/bash/manual/bash.html)

@@ -158,8 +158,7 @@ goclean() {
     return
   fi
   local pkg=$1; shift || return 1
-  local ost
-  local cnt
+  local ost cnt
 
   # Clean removes object files from package source directories (ignore error)
   go clean -i $pkg &>/dev/null

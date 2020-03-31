@@ -1,5 +1,5 @@
 # ─── settings ───────────────────────────────────────────────────────────── {{{
-# https://zsh.sourceforge.net/Doc/Release/Options.html
+# http://zsh.sourceforge.net/Doc/Release/Options.html
 
 setopt auto_name_dirs       # Auto add variable-stored paths to ~ list.
 setopt autocd               # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there

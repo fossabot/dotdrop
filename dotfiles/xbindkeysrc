@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 ###########################
 # xbindkeys configuration #
 ###########################
@@ -27,22 +25,15 @@
 # "command"
 # m:xxx + c:xxx
 # Shift+...
-
-
-
-
-#keystate_numlock = enable
-#keystate_scrolllock = enable
-#keystate_capslock = enable
-
-
+# keystate_numlock = enable
+# keystate_scrolllock = enable
+# keystate_capslock = enable
 
 # Toggle Firefox
 "jumpapp -m firefox"
   control+alt+c
 
 # Toggle VS Code
-# "jumpapp -f -m code-insiders"
 "wmctrl -x -a 'Code - Insiders'"
   control+alt+e
 
@@ -77,24 +68,6 @@
 # mouse button 8 sends Control + PageDown
 "xdotool key 'Alt_L+Left'"
   b:8
-
-# # mouse button 8 sends Control + PageDown
-# "amixer set Master 5%+"
-#   alt+F12
-
-# "amixer set Master 5%-"
-#   alt+F11
-
-
-
-
-# mouse button 9 sends Control + PageUp
-# "xvkbd -xsendevent -text '\A\[Right]'"
-#   b:9
-
-# mouse button 8 sends Control + PageDown
-# "xvkbd -xsendevent -text '\A\[Left]'"
-#   b:8
 
 #
 # End of xbindkeys configuration

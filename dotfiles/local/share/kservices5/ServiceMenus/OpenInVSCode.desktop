@@ -5,7 +5,8 @@ MimeType=application/octet-stream;inode/directory
 Actions=open;new;
 X-KDE-Priority=TopLevel
 Icon=visual-studio-code-insiders
-# X-KDE-Submenu=Open In VS Code
+X-KDE-Submenu=Open In VS Code
+X-KDE-Submenu[ru]=Открыть в VS Code
 
 [Desktop Action open]
 Name=Open in VS Code

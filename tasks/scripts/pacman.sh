@@ -15,7 +15,6 @@ sudo sed -i 's/#CheckAURUpdates/CheckAURUpdates/' /etc/pamac.conf
 
 # ──────────────────────────────────────────────────────────────────────────────
 
-
 #
 # ─── PACMAN ───────────────────────────────────────────────────────────────────
 
@@ -28,7 +27,6 @@ sudo pacman -Rs --noconfirm \
 # install yay
 sudo pacman -Sy --noconfirm yay-bin pacui
 
-
 # dev
 yay -S --noconfirm --needed \
   git bash bash-completion zsh micro vim tmux tree git-delta-bin \
@@ -40,7 +38,7 @@ yay -S --noconfirm --needed \
 
 # system
 yay -S --noconfirm --needed \
-  bat colorgcc grc exa \
+  bat colorgcc grc exa python-pywal \
   binutils libunity bind-tools \
   jq mlocate neofetch
 
@@ -64,8 +62,10 @@ code-insiders --install-extension shan.code-settings-sync
 
 # keyboard
 yay -S --noconfirm --needed --useask \
-  jumpapp keynav sxhkd wmctrl xclip xdotool xsel xvkbd \
-  xbindkeys_config-gtk2 xorg-xev xorg-xmodmap xorg-xrandr xorg-xwininfo
+  xclip xsel keynav \
+  wmctrl xdotool jumpapp sxhkd xvkbd xmacro xcape \
+  xorg-xev xorg-xmodmap xbindkeys_config-gtk2 tk \
+  xorg-xrandr xorg-xwininfo
 
 # fonts
 yay -S --noconfirm --needed \

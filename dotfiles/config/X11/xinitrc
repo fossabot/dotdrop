@@ -5,11 +5,10 @@
 #
 # Executed by startx (run your window manager from here)
 
-xbindkeys
+[ -f "$HOME/.xprofile" ] && . "$HOME/.xprofile"
 
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
-# userxprofile="$HOME/.xprofile"
 userresources="$HOME/.Xresources"
 usermodmap="$HOME/.Xmodmap"
 
@@ -24,16 +23,6 @@ fi
 if [ -f "$sysmodmap" ]; then
   xmodmap "$sysmodmap"
 fi
-
-# swap Capslock with Backspace
-setxkbmap -option caps:backspace
-setxkbmap -option shift:both_capslock
-
-
-# if [ -f "$userxprofile" ]; then
-#   # shellcheck disable=SC1090
-#   source "$userxprofile"
-# fi
 
 if [ -f "$userresources" ]; then
   xrdb -merge "$userresources"

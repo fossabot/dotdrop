@@ -61,9 +61,12 @@ dotfiles:
   f_zinit:
     src: zsh/zinit.zsh
     dst: ~/.config/zsh/zinit.zsh
-  f_zconfig:
+  d_zconfig:
     src: zsh/config
     dst: ~/.config/zsh/config
+  d_zshenv:
+    src: zsh/zshenv.d
+    dst: ~/.config/zsh/zshenv.d
   d_fsh:
     src: config/fsh
     dst: ~/.config/fsh
@@ -129,8 +132,8 @@ dotfiles:
     src: config/mpd/mpd.conf
     dst: ~/.config/mpd/mpd.conf
   d_gnupg:
-    src: gnupg
-    dst: ~/.gnupg
+    src: config/gnupg
+    dst: ~/.config/gnupg
     link: link_children
   d_colorls:
     src: config/colorls
@@ -202,6 +205,9 @@ profiles:
   all:
     dotfiles:
     - ALL
+  bin:
+    dotfiles:
+    - d_bin
   node:
     dotfiles:
     - f_npmrc
@@ -245,7 +251,8 @@ profiles:
     - f_zshrc
     - f_zlogin
     - f_zinit
-    - f_zconfig
+    - d_zconfig
+    - d_zshenv
   shell:
     dotfiles:
     - d_bin
