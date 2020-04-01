@@ -12,6 +12,7 @@
     * [Bind Mouse Buttons To Keyboard Keys](https://www.linuxuprising.com/2019/11/how-to-bind-mouse-buttons-to-keyboard.html)
     * [Xbindkeys - ArchWiki](https://wiki.archlinux.org/index.php/Xbindkeys)
     * [Xmodmap - ArchWiki](https://wiki.archlinux.org/index.php/Xmodmap)
+    * [Linux Tutorial](http://xahlee.info/linux/linux_keyboard_tools.html) - Keyboard Software Guide
 
 ## shell
   * [Readline File](https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html)

@@ -13,6 +13,9 @@ sudo sed -i 's/#EnableAUR/EnableAUR/' /etc/pamac.conf
 # check for AUR Updates
 sudo sed -i 's/#CheckAURUpdates/CheckAURUpdates/' /etc/pamac.conf
 
+# hide the tray icon when no updates available
+sudo sed -i 's/#NoUpdateHideIcon/NoUpdateHideIcon/' /etc/pamac.conf
+
 # ──────────────────────────────────────────────────────────────────────────────
 
 #
@@ -25,7 +28,7 @@ sudo pacman -Rs --noconfirm \
 # ──────────────────────────────────────────────────────────────────────────────
 
 # install yay
-sudo pacman -Sy --noconfirm yay-bin pacui
+sudo pacman -Sy --noconfirm yay-bin pacui bauerbillpython-xlib
 
 # dev
 yay -S --noconfirm --needed \
@@ -69,6 +72,8 @@ yay -S --noconfirm --needed --useask \
 
 # fonts
 yay -S --noconfirm --needed \
-  otf-nerd-fonts-fira-code ttf-cascadia-code \
-  nerd-fonts-hack nerd-fonts-source-code-pro nerd-fonts-cascadia-code ttf-hack otf-san-francisco-pro \
-  ttf-ms-fonts ttf-opensans
+  nerd-fonts-{cascadia-code,hack,inconsolata,source-code-pro} otf-nerd-fonts-fira-code \
+  otf-san-francisco otf-san-francisco-mono adobe-source-serif-pro-fonts \
+  ttf-ms-fonts ttf-linux-libertine \
+  noto-fonts-emoji ttf-joypixels \
+  font-manager

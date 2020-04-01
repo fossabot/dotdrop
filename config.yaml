@@ -227,6 +227,9 @@ dotfiles:
     src: config/sublime-text-3
     dst: ~/.config/sublime-text-3
     link: link_children
+  f_fontsconfig:
+    src: config/fontconfig/fonts.conf
+    dst: ~/.config/fontconfig/fonts.conf
 profiles:
   all:
     dotfiles:
@@ -289,6 +292,9 @@ profiles:
     include:
     - bash
     - zsh
+  fonts:
+    dotfiles:
+    - f_fontsconfig
   other:
     dotfiles:
     - f_tldrrc
@@ -320,15 +326,15 @@ profiles:
     - f_konsole_base16-default-dark
     - f_konsole_base16-tomorrow-night-256
     - f_konsole_base16-tomorrow-night
-  chromium:
-    dotfiles:
-    - f_chromium-flags
-    - f_chromium_preferences
-  dolphin:
+  kde-dolphin:
     dotfiles:
     - f_dolphin_servicemenus
     actions:
     - rebuildcache
+  chromium:
+    dotfiles:
+    - f_chromium-flags
+    - f_chromium_preferences
   gtk:
     dotfiles:
     - f_gtkrc2
