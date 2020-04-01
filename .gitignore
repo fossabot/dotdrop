@@ -1,4 +1,6 @@
-    ### https://gist.github.com/octocat/9257657 ###
+### https://gist.github.com/octocat/9257657 ###
+
+dotfiles/config/sublime-text-3/*
 
 # Compiled source
 *.com

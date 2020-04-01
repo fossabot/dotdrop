@@ -1,0 +1,27 @@
+[Desktop Entry]
+DefaultProfile=zsh.profile
+
+[DownloadDialog Settings]
+Height 1024=450
+Width 1280=700
+
+[Favorite Profiles]
+Favorites=bash.profile,zsh.profile
+
+[KFileDialog Settings]
+Recent Files[$e]=zsh.png,file:$HOME/Pictures/icons/dev/shell/zsh.png
+Recent URLs[$e]=file:$HOME/Pictures/icons/dev/shell/
+iconViewIconSize=43
+
+[KonsoleWindow]
+AllowMenuAccelerators=true
+UseSingleInstance=true
+
+[MainWindow]
+Height 1024=633
+State=AAAA/wAAAAD9AAAAAAAABQAAAAPJAAAABAAAAAQAAAAIAAAACPwAAAAA
+Width 1280=851
+Window-Maximized 1024x1280=true
+
+[Notification Messages]
+CloseAllTabs=true

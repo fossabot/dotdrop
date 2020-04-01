@@ -156,6 +156,27 @@ dotfiles:
   f_kateuirc:
     src: local/share/kxmlgui5/kate/kateui.rc
     dst: ~/.local/share/kxmlgui5/kate/kateui.rc
+  f_konsolerc:
+    src: config/konsolerc
+    dst: ~/.config/konsolerc
+  f_konsole_bash-profile:
+    src: local/share/konsole/bash.profile
+    dst: ~/.local/share/konsole/bash.profile
+  f_konsole_zsh-profile:
+    src: local/share/konsole/zsh.profile
+    dst: ~/.local/share/konsole/zsh.profile
+  f_konsole_base16-default-dark-256:
+    src: local/share/konsole/base16-default-dark-256.colorscheme
+    dst: ~/.local/share/konsole/base16-default-dark-256.colorscheme
+  f_konsole_base16-default-dark:
+    src: local/share/konsole/base16-default-dark.colorscheme
+    dst: ~/.local/share/konsole/base16-default-dark.colorscheme
+  f_konsole_base16-tomorrow-night-256:
+    src: local/share/konsole/base16-tomorrow-night-256.colorscheme
+    dst: ~/.local/share/konsole/base16-tomorrow-night-256.colorscheme
+  f_konsole_base16-tomorrow-night:
+    src: local/share/konsole/base16-tomorrow-night.colorscheme
+    dst: ~/.local/share/konsole/base16-tomorrow-night.colorscheme
   f_chromium-flags:
     src: config/chromium-flags.conf
     dst: ~/.config/chromium-flags.conf
@@ -169,12 +190,14 @@ dotfiles:
   f_gtkrc2:
     src: config/gtk-2.0/gtkrc-2.0
     dst: ~/.gtkrc-2.0
+    link: nolink
   f_gtk2:
     src: config/gtk-2.0/gtkfilechooser.ini
     dst: ~/.config/gtk-2.0/gtkfilechooser.ini
   d_gtk3:
     src: config/gtk-3.0
     dst: ~/.config/gtk-3.0
+    link: nolink
   f_xbindkeysrc:
     src: xbindkeysrc
     dst: ~/.xbindkeysrc
@@ -190,6 +213,9 @@ dotfiles:
   f_xprofile:
     src: xprofile
     dst: ~/.xprofile
+  f_xresourcese:
+    src: config/Xresources
+    dst: ~/.config/Xresources
   d_firefox:
     src: firefox
     dst: '{{@@ mozpath @@}}'
@@ -277,6 +303,7 @@ profiles:
     - f_xbindkeysrc
     - f_xmodmap
     - f_xprofile
+    - f_xresourcese
   kde-kate:
     dotfiles:
     - f_katerc
@@ -284,6 +311,15 @@ profiles:
     - f_kateschemarc
     - f_katesyntaxhighlightingrc
     - f_kateuirc
+  kde-konsole:
+    dotfiles:
+    - f_konsolerc
+    - f_konsole_bash-profile
+    - f_konsole_zsh-profile
+    - f_konsole_base16-default-dark-256
+    - f_konsole_base16-default-dark
+    - f_konsole_base16-tomorrow-night-256
+    - f_konsole_base16-tomorrow-night
   chromium:
     dotfiles:
     - f_chromium-flags
@@ -309,3 +345,4 @@ profiles:
   #   - f_package-control
   #   actions:
   #   - install-package-control
+
