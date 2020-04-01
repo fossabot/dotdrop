@@ -3,9 +3,11 @@
 
 # ~/.xprofile - X11-specific login script (after ~/.profile)
 
-if [ ! "$DESKTOP_SESSION" ]; then
-  xbindkeys &
-fi
+xbindkeys
+
+# if [ ! "$DESKTOP_SESSION" ]; then
+
+# fi
 
 # swap Capslock with Backspace
 # setxkbmap -option caps:backspace

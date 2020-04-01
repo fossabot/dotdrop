@@ -5,14 +5,14 @@
 #
 # Executed by startx (run your window manager from here)
 
-[ -f "$HOME/.xprofile" ] && . "$HOME/.xprofile"
-
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 userresources="$HOME/.config/Xresources"
 usermodmap="$HOME/.Xmodmap"
 
 DEFAULT_SESSION=startkde
+
+[ -f "$HOME/.xprofile" ] && . "$HOME/.xprofile"
 
 # merge in defaults and keymaps
 

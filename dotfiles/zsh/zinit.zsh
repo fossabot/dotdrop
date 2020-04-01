@@ -71,6 +71,9 @@ zinit light junegunn/fzf
 # zinit ice trackbinds bindmap'^g -> ^f' lucid
 # zinit light urbainvaes/fzf-marks
 
+# wfxr/formarks - quickly navigating your work path
+# https://github.com/wfxr/formarks
+
 # ─── fuzzy movement and directory choosing ────────────────────────────────────
 # autojump command
 # https://github.com/rupa/z

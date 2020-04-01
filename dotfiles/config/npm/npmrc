@@ -1,1 +1,9 @@
-/home/art/.config/dotdrop/.config/npm/npmrc
+depth=0
+prefix="{{@@ xdg_data @@}}/npm"
+cache="{{@@ xdg_cache @@}}/npm"
+tmp="{{@@ xdg_runtime @@}}/npm"
+
+# globalconfig=/Users/art/.config/npm/npmrc
+# globalignorefile=/Users/art/.config/npm/npmignore
+
+# init-module=${XDG_CONFIG_HOME}/npm/config/npm-init.js

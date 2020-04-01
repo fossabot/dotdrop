@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+code-insiders
+while true; do
+  WINDOW_ID=$(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5 | cut -c 1-9)
+  WINDOW_CLASS=$(xprop -id $WINDOW_ID WM_CLASS | sed 's/.*= "\([^"]*\)".*/\1/')
+  if [[ "${WINDOW_CLASS}" == "code - insiders" ]]; then
+    break
+  fi
+done
+wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz

@@ -6,7 +6,7 @@ Height 1024=450
 Width 1280=700
 
 [Favorite Profiles]
-Favorites=bash.profile,zsh.profile
+Favorites=zsh.profile,bash.profile
 
 [KFileDialog Settings]
 Recent Files[$e]=zsh.png,file:$HOME/Pictures/icons/dev/shell/zsh.png
