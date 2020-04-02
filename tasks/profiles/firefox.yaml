@@ -1,10 +1,12 @@
 dynvariables:
   mozpath: find ~/.mozilla/firefox -name '*.default'
+
 dotfiles:
   f_somefile:
-    dst: "{{@@ mozpath @@}}/somefile"
+    dst: '{{@@ mozpath @@}}/somefile'
     src: firefox/somefile
+
 profiles:
   home:
     dotfiles:
-    - f_somefile
+      - f_somefile

@@ -233,6 +233,9 @@ dotfiles:
   d_sxhkd:
     src: config/sxhkd
     dst: ~/.config/sxhkd
+  f_sxhkd_service:
+    src: config/systemd/user/sxhkd.service
+    dst: ~/.config/systemd/user/sxhkd.service
 profiles:
   all:
     dotfiles:
@@ -355,6 +358,7 @@ profiles:
   #   actions:
   #   - install-package-control
 
-  art:
+  sxhkd:
     dotfiles:
     - d_sxhkd
+    - f_sxhkd_service

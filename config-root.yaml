@@ -1,0 +1,39 @@
+config:
+  backup: false
+  banner: true
+  create: true
+  dotpath: system
+  keepdot: false
+  link_dotfile_default: nolink
+  link_on_import: nolink
+  longkey: false
+  # import_variables:
+  # - tasks/variables/dynvariables.yaml
+  # import_actions:
+  # - tasks/actions/base.yaml
+  # import_configs:
+  # - configs/all.yaml
+  minversion: 0.32.0
+
+dotfiles:
+  f_gtk2:
+    dst: /root/.gtkrc-2.0
+    src: dotfiles/gtkrc-2.0
+  d_gtk3:
+    dst: /root/.config/gtk-3.0
+    src: dotfiles/gtk-3.0
+  d_sudoers:
+    dst: /etc/sudoers.d
+    src: etc/sudoers.d
+
+profiles:
+  all:
+    dotfiles:
+    - ALL
+  gtk:
+    dotfiles:
+    - f_gtk2
+    - d_gtk3
+  sudoers:
+    dotfiles:
+    - d_sudoers

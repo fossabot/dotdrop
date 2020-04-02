@@ -29,6 +29,12 @@
 # keystate_scrolllock = enable
 # keystate_capslock = enable
 
+"qdbus org.kde.kglobalaccel /component/kwin invokeShortcut view_zoom_in"
+  alt + b:5
+
+"qdbus org.kde.kglobalaccel /component/kwin invokeShortcut view_zoom_out"
+  alt + b:4
+
 # Toggle Firefox
 "jumpapp -m firefox"
   control+alt+c

@@ -108,47 +108,6 @@ if [ `command -v bat` ]; then
   alias cat="bat"
 fi
 
-#
-# ─── GRC ────────────────────────────────────────────────────────────────────────
-#
-# if [ `command -v grc` ]; then
-#   alias df="grc df"
-#   alias diff="grc diff"
-#   alias du="grc du"
-#   alias env="grc env"
-#   alias fdisk="grc fdisk"
-#   alias free='grc free'
-#   alias gcc="grc gcc"
-#   alias grc="grc --colour=auto"
-#   alias id="grc id"
-#   alias ip="grc ip"
-#   alias journalctl='grc journalctl'
-#   alias last='grc last'
-#   alias link="grc ip link"
-#   alias logh="grc head"
-#   alias logt="grc tail"
-#   alias lsattr='grc lsattr'
-#   alias lsblk='grc lsblk'
-#   alias lsmod='grc lsmod'
-#   alias lsof="grc lsof"
-#   alias lspci='grc lspci'
-#   alias make="grc make"
-#   alias mount="grc mount"
-#   alias nmap='grc nmap'
-#   alias ping="grc ping -4"
-#   alias ps="grc ps"
-#   alias showmount="grc showmount"
-#   alias ss="grc ss"
-#   alias stat="grc stat"
-#   alias sysctl='grc sysctl'
-#   alias systemctl='grc systemctl'
-#   alias ulimit="grc ulimit"
-#   alias unlimit='grc unlimit'
-#   alias uptime='grc uptime'
-#   alias vmstat="grc vmstat"
-#   alias w='grc w'
-#   alias who='grc who'
-# fi
 
 # ─── EDITORS ──────────────────────────────────────────────────────────────────
 
@@ -297,3 +256,47 @@ alias gws='PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/gnu-sed/l
 # fi
 
 {%@@ endif @@%}
+
+
+
+#
+# ─── GRC ────────────────────────────────────────────────────────────────────────
+#
+# if [ `command -v grc` ]; then
+#   alias df="grc df"
+#   alias diff="grc diff"
+#   alias du="grc du"
+#   alias env="grc env"
+#   alias fdisk="grc fdisk"
+#   alias free='grc free'
+#   alias gcc="grc gcc"
+#   alias grc="grc --colour=auto"
+#   alias id="grc id"
+#   alias ip="grc ip"
+#   alias journalctl='grc journalctl'
+#   alias last='grc last'
+#   alias link="grc ip link"
+#   alias logh="grc head"
+#   alias logt="grc tail"
+#   alias lsattr='grc lsattr'
+#   alias lsblk='grc lsblk'
+#   alias lsmod='grc lsmod'
+#   alias lsof="grc lsof"
+#   alias lspci='grc lspci'
+#   alias make="grc make"
+#   alias mount="grc mount"
+#   alias nmap='grc nmap'
+#   alias ping="grc ping -4"
+#   alias ps="grc ps"
+#   alias showmount="grc showmount"
+#   alias ss="grc ss"
+#   alias stat="grc stat"
+#   alias sysctl='grc sysctl'
+#   alias systemctl='grc systemctl'
+#   alias ulimit="grc ulimit"
+#   alias unlimit='grc unlimit'
+#   alias uptime='grc uptime'
+#   alias vmstat="grc vmstat"
+#   alias w='grc w'
+#   alias who='grc who'
+# fi

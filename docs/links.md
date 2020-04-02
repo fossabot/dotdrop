@@ -16,6 +16,7 @@
     * [Xbindkeys - ArchWiki](https://wiki.archlinux.org/index.php/Xbindkeys)
     * [Xmodmap - ArchWiki](https://wiki.archlinux.org/index.php/Xmodmap)
     * [Linux Tutorial](http://xahlee.info/linux/linux_keyboard_tools.html) - Keyboard Software Guide
+    * [Zoom the screen with Alt+Scroll in KDE](https://pryp.in/blog/19/zoom-the-screen-with-alt-scroll-in-kde.html) 
 
 ## shell
   * [Readline File](https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html)

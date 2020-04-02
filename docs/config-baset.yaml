@@ -1,0 +1,59 @@
+config:
+
+# create a backup of the dotfile (default true)
+backup: true
+# display the banner (default true)
+banner: true
+# list of patterns to ignore when comparing, apply to all dotfiles
+# cmpignore:
+# create directory when installing if it doesn't exist (default true)
+create: true
+# list of action's keys to execute for all installed dotfile
+# default_actions:
+# the diff command to use for diffing files (default diff -r -u {0} {1})
+# diff_command:
+
+# path to the dotfiles directory to be managed (default dotfiles)
+dotpath: dotfiles
+
+# list of paths to load templating filters from (see Templating available filters)
+# filter_file:
+
+# list of paths to load templating functions from (see Templating available methods)
+# func_file:
+
+# do not deploy template if empty (default false)
+ignoreempty: false
+
+# paths to load actions from
+# import_actions:
+
+# paths to be imported in the current config
+# import_configs:
+
+# paths to load variables from
+# import_variables:
+
+# patterns to ignore when installing, apply to all dotfiles
+# instignore:
+
+# preserve leading dot when importing hidden file in the dotpath (default false)
+keepdot: false
+
+# set dotfile's link attribute to this value when undefined. Possible values: nolink, link, link_children (default: nolink, see Symlinking dotfiles)
+link_dotfile_default: nolink
+
+# set dotfile's link attribute to this value when importing. Possible values: nolink, link, link_children (default: nolink, see Symlinking dotfiles)
+link_on_import: false
+
+# use long keys for dotfiles when importing (default false, see Import dotfiles)
+longkey: false
+
+# on install show a diff before asking to overwrite (see --showdiff) (default false)
+showdiff: false
+
+# patterns to ignore when updating
+# upignore:
+
+# directory where templates are installed before being symlinked when using link:link or link:link_children (absolute path or relative to the config file location, defaults to ~/.config/dotdrop)
+# workdir:
