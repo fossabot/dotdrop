@@ -1,0 +1,65 @@
+#!/usr/bin/env sh
+#
+# Defines runtime environment
+#
+# export LOCAL_ETC="${HOME}/.local/etc"
+export LOCAL_BIN="${HOME}/.local/bin"
+export LOCAL_LIB="${HOME}/.local/lib"
+export LOCAL_SRC="${HOME}/.local/src"
+# export LOCAL_VAR="${HOME}/.local/var"
+
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_RUNTIME_DIR="${HOME}/.local/run"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_CONFIG_HOME="${HOME}/.config"
+
+# export BSPWMRC="${LOCAL_ETC}/bspwm/bspwmrc"
+# export BSPWM_STATE="${XDG_CACHE_HOME}/bspwm/state.json"
+# export BSPWM_FIFO="${XDG_CACHE_HOME}/bspwm/wm_state"
+
+export SXHKD_SHELL="/usr/bin/dash"
+
+export LANG="en_US.UTF-8"
+
+# export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc"
+
+export WINEPREFIX="${XDG_DATA_HOME}/wine"
+
+
+export QT_STYLE_OVERRIDE="GTK+"
+
+export LPASS_AGENT_TIMEOUT=0
+export LPASS_DISABLE_PINENTRY=1
+
+[ -r "${LOCAL_ETC}/xorg/xenvironment" ] && . "${LOCAL_ETC}/xorg/xenvironment"
+
+[ "$TERM" = "xterm" ] && {
+  export TERM="xterm-256color"
+}
+
+# Update PATH
+path_prepend() {
+  case ":$PATH:" in
+    *":$1:"*) return ;; # already added
+    *) PATH="$1:$PATH";;
+  esac
+}
+
+[ -d "$LOCAL_LIB" ] && {
+  for dir in "$LOCAL_LIB"/* "$LOCAL_LIB"; do
+    [ -d "$dir" ] && path_prepend "$dir"
+    [ -d "$dir/contrib" ] && path_prepend "$dir/contrib"
+  done
+}
+
+[ -d "$LOCAL_BIN" ] && {
+  for dir in "$LOCAL_BIN"/* "$LOCAL_BIN"; do
+    [ -d "$dir" ] && path_prepend "$dir"
+  done
+}
+
+unset dir
+unset -f path_prepend
+
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin"
+export MANPATH="$MANPATH:/usr/local/share/man:/usr/share/man"

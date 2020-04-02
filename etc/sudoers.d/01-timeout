@@ -1,0 +1,5 @@
+# disable password prompt timeout
+Defaults passwd_timeout=0
+
+# disable per-terminal sudo
+Defaults !tty_tickets

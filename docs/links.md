@@ -1,7 +1,9 @@
 # Links
 
 ## linux
-  - [visudo](https://deadc0de.re/articles/sudo-for-non-admin.html) - Allow non-admin to execute sudo commands
+  * [visudo](https://deadc0de.re/articles/sudo-for-non-admin.html) - Allow non-admin to execute sudo commands
+  * [jaytaala.com](https://confluence.jaytaala.com/display/TKB/My%2BManjaro%2Bi3%2Bsetup) - Manjaro i3 setup
+  * [samba share writeable by all, group, or only a user](https://confluence.jaytaala.com/display/TKB/Create%2Bsamba%2Bshare%2Bwriteable%2Bby%2Ball%252C%2Bgroup%252C%2Bor%2Bonly%2Ba%2Buser)
 
   - Dolphin:
     * [adding an entry to the context menu](https://userbase.kde.org/Adding_an_entry_to_the_Create_New_menu)
@@ -10,6 +12,7 @@
 
   - keybindings
     * [Bind Mouse Buttons To Keyboard Keys](https://www.linuxuprising.com/2019/11/how-to-bind-mouse-buttons-to-keyboard.html)
+    * [Map mouse buttons to keyboard keys](https://confluence.jaytaala.com/display/TKB/Map%2Bmouse%2Bbuttons%2Bto%2Bkeyboard%2Bkeys%2Bin%2BLinux)
     * [Xbindkeys - ArchWiki](https://wiki.archlinux.org/index.php/Xbindkeys)
     * [Xmodmap - ArchWiki](https://wiki.archlinux.org/index.php/Xmodmap)
     * [Linux Tutorial](http://xahlee.info/linux/linux_keyboard_tools.html) - Keyboard Software Guide

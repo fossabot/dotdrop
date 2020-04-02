@@ -2,6 +2,8 @@
 # openwrt extroot /dev/sda1 ext4  /dev/sda2 swap
 # latest version https://downloads.openwrt.org/releases/19.07-SNAPSHOT/targets/ar71xx/generic/
 
+# https://forums.torguard.net/index.php?/topic/499-dd-wrttomatoopenwrtpadavan-route-specific-traffic-around-the-vpn/
+
 opkg update && opkg install kmod-usb-storage kmod-scsi-core block-mount kmod-fs-ext4 kmod-usb-uhci e2fsprogs fdisk
 
 modprobe sd_mod

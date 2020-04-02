@@ -77,3 +77,7 @@ yay -S --noconfirm --needed \
   ttf-ms-fonts ttf-linux-libertine \
   noto-fonts-emoji ttf-joypixels \
   font-manager
+
+# misc
+yay -S --noconfirm --needed \
+  html-xml-utils watchexec

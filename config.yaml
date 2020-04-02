@@ -230,6 +230,9 @@ dotfiles:
   f_fontsconfig:
     src: config/fontconfig/fonts.conf
     dst: ~/.config/fontconfig/fonts.conf
+  d_sxhkd:
+    src: config/sxhkd
+    dst: ~/.config/sxhkd
 profiles:
   all:
     dotfiles:
@@ -352,3 +355,6 @@ profiles:
   #   actions:
   #   - install-package-control
 
+  art:
+    dotfiles:
+    - d_sxhkd

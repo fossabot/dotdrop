@@ -26,17 +26,4 @@
 # export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:=/tmp/$USER}"
 
 
-echo "XDG_CONFIG_HOME - $XDG_CONFIG_HOME"
 export ZDOTDIR="$HOME/.config/zsh"
-
-# https://github.com/sorin-ionescu/prezto/blob/master/runcoms/zshenv
-# Ensure that a non-login, non-interactive shell has a defined environment.
-if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprofile"
-fi
-
-if [ -d "$ZDOTDIR/zshenv.d" ]; then
-  for EXTENSION_FILE in $(find $ZDOTDIR/zshenv.d/ -name '*.zsh'); do
-    source "$EXTENSION_FILE"
-  done
-fi

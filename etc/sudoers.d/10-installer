@@ -1,0 +1,19 @@
+##
+## Runas alias specification
+##
+
+##
+## User privilege specification
+##
+
+# allow members of group wheel to execute any command without a password
+%wheel ALL=(ALL) NOPASSWD: ALL
+
+# Cmnd_Alias FDISKLIST = /usr/bin/fdisk -l
+# Cmnd_Alias MOUNT = /usr/bin/mount,/usr/bin/umount
+# Cmnd_Alias PACMAN = /usr/bin/pacman -Syu  --noconfirm,/usr/bin/pacman -S --noconfirm
+# Cmnd_Alias YAY = /usr/bin/yay -S --noconfirm --needed
+# Cmnd_Alias RELOADNETWORKMANAGER = /usr/bin/systemctl restart NetworkManager
+# Cmnd_Alias VISUDO = /usr/bin/visudo,/usr/bin/visudo -c
+
+# # %wheel ALL=(ALL) NOPASSWD: FDISKLIST,MOUNT,UMOUNT,PACMANUPDATE,PACMANINSTALL,YAYINSTALL,RELOADNETWORKMANAGER,VISUDO

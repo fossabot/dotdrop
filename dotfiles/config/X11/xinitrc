@@ -12,7 +12,7 @@ usermodmap="$HOME/.Xmodmap"
 
 DEFAULT_SESSION=startkde
 
-[ -f "$HOME/.xprofile" ] && . "$HOME/.xprofile"
+# [ -f "$HOME/.xprofile" ] && . "$HOME/.xprofile"
 
 # merge in defaults and keymaps
 

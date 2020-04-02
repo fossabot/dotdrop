@@ -34,7 +34,8 @@
   control+alt+c
 
 # Toggle VS Code
-"wmctrl -x -a 'Code - Insiders'"
+# "wmctrl -x -a 'Code - Insiders'"
+"jumpapp -m -C -c code code-insiders"
   control+alt+e
 
 # Toggle Sublime Text

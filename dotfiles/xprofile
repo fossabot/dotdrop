@@ -3,7 +3,16 @@
 
 # ~/.xprofile - X11-specific login script (after ~/.profile)
 
-xbindkeys
+[ -f "$HOME/.profile" ] && . "$HOME/.profile"
+
+
+
+# export GTK_CSD=0
+export LD_PRELOAD="/usr/lib/libgtk3-nocsd.so.0"
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_LOGGING_RULES=’*.debug=false’
+
+# xbindkeys
 
 # if [ ! "$DESKTOP_SESSION" ]; then
 
@@ -12,4 +21,3 @@ xbindkeys
 # swap Capslock with Backspace
 # setxkbmap -option caps:backspace
 # setxkbmap -option shift:both_capslock
-

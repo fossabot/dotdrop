@@ -1,5 +1,3 @@
-echo "grc"
-
 if [[ "$TERM" != dumb ]] && (( $+commands[grc] )) ; then
 
   # Supported commands

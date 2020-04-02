@@ -219,7 +219,14 @@ alias sct="systemctl status"
 alias sce="systemctl list-units --type service --state active"
 alias scr="systemctl list-units --type service --state running"
 
-alias y="yay -S --noconfirm --needed"
+y() {
+  if [ $# -eq 0 ]; then
+    yay -Syu --noconfirm
+  else
+    yay -S --noconfirm --needed $@
+  fi
+}
+
 alias yr="yay -Rns --noconfirm"
 alias ys="yay -Ss"
 alias yi="yay -Si --noconfirm"
