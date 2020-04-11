@@ -1,4 +1,6 @@
 ## Usage
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdotiful%2Fdotdrop.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdotiful%2Fdotdrop?ref=badge_shield)
+
 
 Opinionated configurations for this relatively new and under-educated power user
 
@@ -87,3 +89,7 @@ ln -s ~/dotfiles/dotdrop.sh /usr/local/bin/dotdrop
 
  * [Links](./docs/links.md)
  * [VS Code extensions](./docs/vscode.md)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdotiful%2Fdotdrop.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdotiful%2Fdotdrop?ref=badge_large)
